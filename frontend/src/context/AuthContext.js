@@ -1,17 +1,10 @@
-// ============================================
-// context/AuthContext.js
-// Global authentication state manager
-// ============================================
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
+const API = axios.create({ baseURL: 'https://socialai-backend-1ptw.onrender.com/api' });
 
-// Base API URL — change this if your backend runs on a different port
-const API = axios.create({ baseURL: 'http://localhost:5000/api' });
-
-// Attach JWT token to every request automatically
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) config.headers.Authorization = `Bearer ${token}`;
@@ -67,6 +60,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
-// Custom hook for easy access
 export const useAuth = () => useContext(AuthContext);
 export { API };
