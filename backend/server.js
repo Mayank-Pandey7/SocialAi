@@ -1,7 +1,3 @@
-// ============================================
-// server.js - Main entry point for the backend
-// AI Social Media Content Generator & Analyzer
-// ============================================
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -13,23 +9,26 @@ dotenv.config();
 
 const app = express();
 
-// ── Middleware ──────────────────────────────
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+//Middleware
+app.use(cors({ 
+  origin: ['http://localhost:3000', 'https://social-ai-dusky.vercel.app'], 
+  credentials: true 
+}));
 app.use(express.json()); // Parse incoming JSON requests
 
-// ── Routes ──────────────────────────────────
+// Routes
 app.use('/api/auth',      require('./routes/auth'));
 app.use('/api/content',   require('./routes/content'));
 app.use('/api/trending',  require('./routes/trending'));
 app.use('/api/analytics', require('./routes/analytics'));
 app.use('/api/scheduler', require('./routes/scheduler'));
 
-// ── Health Check ────────────────────────────
+// Health Check 
 app.get('/', (req, res) => {
   res.json({ message: '🚀 SocialAI Backend is running!', status: 'OK' });
 });
 
-// ── Global Error Handler ─────────────────────
+// Global Error Handler
 app.use((err, req, res, next) => {
   console.error('Server Error:', err.message);
   res.status(err.status || 500).json({
@@ -38,7 +37,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-// ── MongoDB Connection + Server Start ────────
+// MongoDB Connection + Server Start 
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/socialai';
 
