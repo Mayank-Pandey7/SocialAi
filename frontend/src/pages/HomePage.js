@@ -23,11 +23,11 @@ const STATS = [
 const TONES = ['professional', 'funny', 'motivational', 'casual', 'inspirational'];
 
 const DEMO_POSTS = {
-  Professional: '🚀 AI is not replacing your job — someone who understands AI is. The question isn\'t whether to adapt, it\'s how fast. #TechStrategy #FutureReady #Innovation',
-  Funny: 'Sometimes I use AI to feel productive Like yeah, I’m doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
-  Motivational: 'Every expert was once a complete beginner. Every viral post was once someone\'s first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset',
-  Casual: 'honestly AI tools are lowkey changing everything and nobody\'s talking about it enough 👀 the next 2 years are going to be wild #JustSaying',
-  Inspirational: 'The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst',
+  professional: '🚀 AI is not replacing your job — someone who understands AI is. The question isn\'t whether to adapt, it\'s how fast. #TechStrategy #FutureReady #Innovation',
+  funny: 'Sometimes I use AI to feel productive Like yeah, I’m doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
+  motivational: 'Every expert was once a complete beginner. Every viral post was once someone\'s first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset',
+  casual: 'honestly AI tools are lowkey changing everything and nobody\'s talking about it enough 👀 the next 2 years are going to be wild #JustSaying',
+  inspirational: 'The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst',
 };
 
 export default function HomePage() {
