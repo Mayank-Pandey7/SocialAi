@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -39,7 +38,7 @@ export default function HomePage() {
   const [demoVisible, setDemoVisible] = useState(false);
   const demoRef = useRef(null);
 
-  // Typewriter effect
+
   useEffect(() => {
     const word = TYPED_WORDS[typedIndex];
     let timeout;
@@ -56,7 +55,7 @@ export default function HomePage() {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, typedIndex]);
 
-  // Intersection observer for demo section
+ 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setDemoVisible(true); }, { threshold: 0.2 });
     if (demoRef.current) obs.observe(demoRef.current);
@@ -84,23 +83,27 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* ── HERO ── */}
+     
+
       <section style={s.hero}>
-        {/* Grid background */}
+      
+
         <div style={s.gridBg} aria-hidden />
-        {/* Glow orbs */}
+        
+
         <div style={{ ...s.orb, top: '10%', left: '15%', background: 'radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, top: '30%', right: '10%', background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, bottom: '5%', left: '40%', background: 'radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)' }} />
 
         <div style={s.heroContent}>
-          {/* Badge */}
+       
+
           <div style={s.badge}>
             <span style={s.badgeDot} />
             AI-Powered · Free to Use · No Setup Required
           </div>
 
-          {/* Headline */}
+        
           <h1 style={s.heroH1}>
             Generate viral<br />
             <span style={s.heroAccent}>{displayText}</span>
@@ -112,7 +115,7 @@ export default function HomePage() {
             Pick your tone, pick your topic — let AI do the rest.
           </p>
 
-          {/* CTA Row */}
+        
           <div style={s.ctaRow}>
             <Link to="/register" style={s.heroCta}>
               Start generating free
@@ -121,7 +124,7 @@ export default function HomePage() {
             <a href="#demo" style={s.heroCtaGhost}>See live demo ↓</a>
           </div>
 
-          {/* Trust row */}
+        
           <div style={s.trustRow}>
             {['React.js', 'Node.js', 'MongoDB', 'Chart.js', 'Hugging Face AI'].map(t => (
               <span key={t} style={s.techPill}>{t}</span>
@@ -129,14 +132,14 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero visual — floating post card */}
+
         <div style={s.heroVisual}>
           <div style={s.floatCard}>
             <div style={s.floatCardTop}>
-              <div style={s.avatar}>M</div>
+              <div style={s.avatar}>R</div>
               <div>
-                <div style={s.floatName}>Mayank Pandey</div>
-                <div style={s.floatHandle}>@mayank_pandey · just now</div>
+                <div style={s.floatName}>Rahul Sharma</div>
+                <div style={s.floatHandle}>@rahul · just now</div>
               </div>
               <div style={s.aiTag}>✦ AI</div>
             </div>
@@ -149,7 +152,8 @@ export default function HomePage() {
               <span style={s.floatStat}>👁 18.2K</span>
             </div>
           </div>
-          {/* Floating badges */}
+       
+
           <div style={{ ...s.floatBadge, top: '-16px', right: '20px', animationDelay: '0.5s' }}>
             ⚡ Generated in 1.2s
           </div>
@@ -159,7 +163,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── STATS BAND ── */}
+
       <section id="stats" style={s.statsBand}>
         <div style={s.statsInner}>
           {STATS.map(st => (
@@ -171,7 +175,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FEATURES ── */}
+    
       <section id="features" style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Everything you need</div>
@@ -190,7 +194,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── INTERACTIVE DEMO ── */}
+
       <section id="demo" ref={demoRef} style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Live preview</div>
@@ -201,7 +205,7 @@ export default function HomePage() {
         </div>
 
         <div style={s.demoWrap}>
-          {/* Tone Selector */}
+     
           <div style={s.toneRow}>
             {TONES.map(t => (
               <button key={t} onClick={() => setActiveTone(t)}
@@ -211,7 +215,7 @@ export default function HomePage() {
             ))}
           </div>
 
-          {/* Post Preview */}
+   
           <div style={{ ...s.demoCard, opacity: demoVisible ? 1 : 0, transform: demoVisible ? 'none' : 'translateY(20px)', transition: 'all 0.6s ease' }}>
             <div style={s.demoHeader}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -239,13 +243,12 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA SECTION ── */}
       <section style={s.ctaSection}>
         <div style={s.ctaBox}>
           <div style={s.ctaOrb} />
-          <div style={s.eyebrow}>Final year project · B.Tech CSE</div>
+          <div style={s.eyebrow}>Struggling to create engaging content?</div>
           <h2 style={{ ...s.sectionH2, fontSize: '2.5rem', marginTop: '0.75rem' }}>
-            Ready to create better content?
+            Ready to create better content....
           </h2>
           <p style={{ color: '#9ca3af', fontSize: '1rem', marginBottom: '2rem', maxWidth: 480, margin: '1rem auto 2rem' }}>
             Join now and start generating AI-powered social media posts in under 60 seconds.
@@ -257,7 +260,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
       <footer style={s.footer}>
         <div style={s.footerInner}>
           <div style={s.logo}>
@@ -265,7 +267,7 @@ export default function HomePage() {
             <span style={s.logoWord}>SocialAI</span>
           </div>
           <p style={{ color: '#4b5563', fontSize: '0.82rem' }}>
-            B.Tech CSE Final Year Project · Built with React, Node.js & MongoDB
+            © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
           </p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
             <Link to="/login" style={s.footerLink}>Login</Link>
@@ -286,11 +288,10 @@ export default function HomePage() {
   );
 }
 
-/* ── Styles ── */
 const s = {
   page: { background: '#060912', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#e5e7eb', overflowX: 'hidden' },
 
-  /* Nav */
+
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
   navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 2rem', height: 64, display: 'flex', alignItems: 'center', gap: '2rem' },
   logo: { display: 'flex', alignItems: 'center', gap: '0.4rem' },
@@ -301,7 +302,7 @@ const s = {
   btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', transition: 'all 0.2s' },
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
 
-  /* Hero */
+
   hero: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1200, margin: '0 auto', padding: '8rem 2rem 4rem', gap: '4rem', position: 'relative' },
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
@@ -318,7 +319,7 @@ const s = {
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '2.5rem' },
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
 
-  /* Hero visual */
+
   heroVisual: { flex: '0 0 380px', position: 'relative', zIndex: 1, animation: 'float 5s ease-in-out infinite' },
   floatCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '1.25rem', backdropFilter: 'blur(12px)' },
   floatCardTop: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' },
@@ -331,27 +332,26 @@ const s = {
   floatStat: { fontSize: '0.78rem', color: '#6b7280' },
   floatBadge: { position: 'absolute', padding: '0.4rem 0.9rem', background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.25)', borderRadius: 20, fontSize: '0.75rem', color: '#a78bfa', fontWeight: 500, backdropFilter: 'blur(8px)', animation: 'float 4s ease-in-out infinite' },
 
-  /* Stats band */
+
   statsBand: { background: 'rgba(255,255,255,0.025)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
   statsInner: { maxWidth: 1200, margin: '0 auto', padding: '2.5rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' },
   statItem: { textAlign: 'center' },
   statVal: { fontFamily: "'Syne', sans-serif", fontSize: '2.5rem', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
   statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem', fontWeight: 400 },
 
-  /* Section */
+
   section: { maxWidth: 1200, margin: '0 auto', padding: '6rem 2rem' },
   sectionHead: { textAlign: 'center', marginBottom: '4rem' },
   eyebrow: { fontSize: '0.78rem', fontWeight: 600, color: '#a78bfa', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' },
   sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
 
-  /* Features grid */
   featGrid: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' },
   featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s, background 0.2s', animation: 'fadeUp 0.6s ease both' },
   featIcon: { width: 42, height: 42, borderRadius: 10, border: '1px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', marginBottom: '1rem' },
   featTitle: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#f3f4f6', marginBottom: '0.6rem' },
   featDesc: { fontSize: '0.875rem', color: '#6b7280', lineHeight: 1.7, fontWeight: 300 },
 
-  /* Demo section */
+ 
   demoWrap: { maxWidth: 640, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' },
   toneRow: { display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' },
   tonePill: { padding: '0.45rem 1rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#6b7280', fontSize: '0.82rem', cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, transition: 'all 0.2s' },
@@ -360,12 +360,11 @@ const s = {
   demoHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' },
   demoAvatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #059669, #0891b2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#fff' },
 
-  /* CTA section */
+
   ctaSection: { padding: '6rem 2rem', position: 'relative' },
   ctaBox: { maxWidth: 800, margin: '0 auto', textAlign: 'center', background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: 20, padding: '4rem 3rem', position: 'relative', overflow: 'hidden' },
   ctaOrb: { position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none' },
 
-  /* Footer */
   footer: { borderTop: '1px solid rgba(255,255,255,0.06)', padding: '2rem' },
   footerInner: { maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' },
   footerLink: { color: '#4b5563', textDecoration: 'none', fontSize: '0.82rem' },
