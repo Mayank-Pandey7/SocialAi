@@ -1,7 +1,4 @@
-// ============================================
-// pages/HomePage.js - Pro Marketing Home Page
-// Shown to logged-out visitors
-// ============================================
+
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -136,10 +133,10 @@ export default function HomePage() {
         <div style={s.heroVisual}>
           <div style={s.floatCard}>
             <div style={s.floatCardTop}>
-              <div style={s.avatar}>R</div>
+              <div style={s.avatar}>M</div>
               <div>
-                <div style={s.floatName}>Rahul Sharma</div>
-                <div style={s.floatHandle}>@rahul · just now</div>
+                <div style={s.floatName}>Mayank Pandey</div>
+                <div style={s.floatHandle}>@mayank_pandey · just now</div>
               </div>
               <div style={s.aiTag}>✦ AI</div>
             </div>
