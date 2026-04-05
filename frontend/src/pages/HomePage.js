@@ -343,12 +343,11 @@ const s = {
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
 
 
- hero: { 
+hero: { 
   minHeight: '100vh',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
-  flexWrap: 'wrap', 
   maxWidth: 1200,
   margin: '0 auto',
   padding: '8rem 2rem 4rem',
