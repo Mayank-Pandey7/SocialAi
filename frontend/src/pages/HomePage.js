@@ -299,47 +299,27 @@ export default function HomePage() {
     0%,100% { opacity: 1; }
     50% { opacity: 0.5; }
   }
-  @media (max-width: 768px) {
 
-    .hero-section {
-      flex-direction: column !important;
-      padding: 6rem 1rem 3rem !important;
-      text-align: center;
-    }
+@media (max-width: 768px) {
 
-    .hero-visual {
-      width: 100% !important;
-      max-width: 300px !important;
-      margin: 0 auto;
-    }
-
-    .nav-links {
-      display: none !important;
-    }
-
-    .stats-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-    }
-
-    .features-grid {
-      grid-template-columns: 1fr !important;
-    }
-
-    .cta-row {
-      flex-direction: column !important;
-      width: 100%;
-    }
-
-    .cta-row a {
-      width: 100%;
-      justify-content: center;
-    }
-
+  .hero-section {
+    flex-direction: column;
+    padding: 6rem 1rem 3rem;
+    text-align: center;
   }
-    @media (min-width: 768px) {
-  .hero-btn {
-    width: auto;
+
+  .hero-visual {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
   }
+
+  .nav-links {
+    display: none;
+  }
+
+}
+
 }
 `}</style>
     </div>
