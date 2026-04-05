@@ -85,7 +85,7 @@ export default function HomePage() {
 
      
 
-      <section style={s.hero}>
+     <section style={s.hero} className="hero-section">
       
 
         <div style={s.gridBg} aria-hidden />
@@ -133,7 +133,7 @@ export default function HomePage() {
         </div>
 
 
-        <div style={s.heroVisual}>
+        <div style={s.heroVisual} className="hero-visual">
           <div style={s.floatCard}>
             <div style={s.floatCardTop}>
               <div style={s.avatar}>M</div>
@@ -299,27 +299,29 @@ export default function HomePage() {
     0%,100% { opacity: 1; }
     50% { opacity: 0.5; }
   }
-
-@media (max-width: 768px) {
-
+  @media (max-width: 768px) {
   .hero-section {
-    flex-direction: column;
-    padding: 6rem 1rem 3rem;
+    flex-direction: column !important;
     text-align: center;
   }
 
   .hero-visual {
+    margin-top: 2rem;
     width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+    max-width: 320px;
   }
 
   .nav-links {
-    display: none;
+    display: none !important;
   }
 
-}
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 
+  .features-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 `}</style>
     </div>
@@ -341,10 +343,25 @@ const s = {
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
 
 
-  hero: { minHeight: '100vh',  display: 'flex',  flexDirection: 'column',  alignItems: 'center',  justifyContent: 'space-between',  maxWidth: 1200,  margin: '0 auto',  padding: '6rem 1rem 3rem',  gap: '2rem',  position: 'relative'},
+ hero: { 
+  minHeight: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  flexWrap: 'wrap', 
+  maxWidth: 1200,
+  margin: '0 auto',
+  padding: '8rem 2rem 4rem',
+  gap: '4rem',
+  position: 'relative'
+},
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
-  heroContent: { flex: 1, maxWidth: 600, position: 'relative', zIndex: 1, animation: 'fadeUp 0.8s ease forwards' },
+  heroContent: {
+  flex: 1,
+  minWidth: '300px',
+  maxWidth: 600,
+}
   badge: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.9rem', border: '1px solid rgba(167,139,250,0.3)', borderRadius: 20, fontSize: '0.78rem', color: '#a78bfa', background: 'rgba(167,139,250,0.08)', marginBottom: '1.5rem', fontWeight: 500 },
   badgeDot: { width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', animation: 'pulse 2s ease infinite' },
   heroH1: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.08, marginBottom: '1.25rem', color: '#f9fafb' },
@@ -358,7 +375,14 @@ const s = {
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
 
 
-  heroVisual: {  width: '100%',  maxWidth: 380,  position: 'relative' },
+heroVisual: {
+  flex: 1,
+  minWidth: '320px',
+  maxWidth: '400px',
+  position: 'relative',
+  zIndex: 1,
+  animation: 'float 5s ease-in-out infinite'
+},
   floatCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '1.25rem', backdropFilter: 'blur(12px)' },
   floatCardTop: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' },
   avatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#fff', flexShrink: 0 },
