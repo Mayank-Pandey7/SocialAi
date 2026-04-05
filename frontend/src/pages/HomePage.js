@@ -299,7 +299,7 @@ export default function HomePage() {
     0%,100% { opacity: 1; }
     50% { opacity: 0.5; }
   }
-  @media (max-width: 768px) {
+ @media (max-width: 768px) {
   .hero-section {
     flex-direction: column !important;
     text-align: center;
@@ -311,16 +311,13 @@ export default function HomePage() {
     max-width: 320px;
   }
 
+  .cta-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
   .nav-links {
     display: none !important;
-  }
-
-  .stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-  .features-grid {
-    grid-template-columns: 1fr !important;
   }
 }
 `}</style>
@@ -356,11 +353,10 @@ hero: {
 },
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
+
   heroContent: {
-  flex: 1,
-  minWidth: '300px',
-  maxWidth: 600,
-}
+  flex: '0 0 55%',
+},
   badge: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.9rem', border: '1px solid rgba(167,139,250,0.3)', borderRadius: 20, fontSize: '0.78rem', color: '#a78bfa', background: 'rgba(167,139,250,0.08)', marginBottom: '1.5rem', fontWeight: 500 },
   badgeDot: { width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', animation: 'pulse 2s ease infinite' },
   heroH1: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.08, marginBottom: '1.25rem', color: '#f9fafb' },
@@ -373,14 +369,9 @@ hero: {
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '2.5rem' },
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
 
-
-heroVisual: {
-  flex: 1,
-  minWidth: '320px',
-  maxWidth: '400px',
-  position: 'relative',
-  zIndex: 1,
-  animation: 'float 5s ease-in-out infinite'
+  heroVisual: {
+  flex: '0 0 40%',
+  maxWidth: '420px',
 },
   floatCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '1.25rem', backdropFilter: 'blur(12px)' },
   floatCardTop: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' },
