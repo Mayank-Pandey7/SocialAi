@@ -341,7 +341,7 @@ const s = {
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
 
 
-  hero: { minHeight: '100vh',  display: 'flex',  flexDirection: 'column',  alignItems: 'center',  justifyContent: 'center',  maxWidth: 1200,  margin: '0 auto',  padding: '6rem 1rem 3rem',  gap: '2rem',  position: 'relative'},
+  hero: { minHeight: '100vh',  display: 'flex',  flexDirection: 'column',  alignItems: 'center',  justifyContent: 'space-between',  maxWidth: 1200,  margin: '0 auto',  padding: '6rem 1rem 3rem',  gap: '2rem',  position: 'relative'},
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
   heroContent: { flex: 1, maxWidth: 600, position: 'relative', zIndex: 1, animation: 'fadeUp 0.8s ease forwards' },
