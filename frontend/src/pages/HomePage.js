@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -24,7 +23,7 @@ const TONES = ['professional', 'funny', 'motivational', 'casual', 'inspirational
 
 const DEMO_POSTS = {
   professional: '🚀 AI is not replacing your job — someone who understands AI is. The question isn\'t whether to adapt, it\'s how fast. #TechStrategy #FutureReady #Innovation',
-  funny: 'Sometimes I use AI to feel productive Like yeah, I’m doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
+  funny: 'Sometimes I use AI to feel productive Like yeah, I'm doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
   motivational: 'Every expert was once a complete beginner. Every viral post was once someone\'s first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset',
   casual: 'honestly AI tools are lowkey changing everything and nobody\'s talking about it enough 👀 the next 2 years are going to be wild #JustSaying',
   inspirational: 'The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst',
@@ -37,7 +36,6 @@ export default function HomePage() {
   const [activeTone, setActiveTone] = useState('professional');
   const [demoVisible, setDemoVisible] = useState(false);
   const demoRef = useRef(null);
-
 
   useEffect(() => {
     const word = TYPED_WORDS[typedIndex];
@@ -55,7 +53,6 @@ export default function HomePage() {
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, typedIndex]);
 
- 
   useEffect(() => {
     const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setDemoVisible(true); }, { threshold: 0.2 });
     if (demoRef.current) obs.observe(demoRef.current);
@@ -71,7 +68,7 @@ export default function HomePage() {
             <span style={s.logoGlyph}>⚡</span>
             <span style={s.logoWord}>SocialAI</span>
           </div>
-          <div style={s.navLinks}>
+          <div className="nav-links" style={s.navLinks}>
             <a href="#features" style={s.navLink}>Features</a>
             <a href="#demo" style={s.navLink}>Demo</a>
             <a href="#stats" style={s.navLink}>Stats</a>
@@ -83,27 +80,19 @@ export default function HomePage() {
         </div>
       </nav>
 
-     
-
-     <section style={s.hero} className="hero-section">
-      
-
+      {/* ── HERO ── */}
+      <section className="hero-section" style={s.hero}>
         <div style={s.gridBg} aria-hidden />
-        
-
         <div style={{ ...s.orb, top: '10%', left: '15%', background: 'radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, top: '30%', right: '10%', background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, bottom: '5%', left: '40%', background: 'radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)' }} />
 
-        <div style={s.heroContent}>
-       
-
+        <div className="hero-content" style={s.heroContent}>
           <div style={s.badge}>
             <span style={s.badgeDot} />
             AI-Powered · Free to Use · No Setup Required
           </div>
 
-        
           <h1 style={s.heroH1}>
             Generate viral<br />
             <span style={s.heroAccent}>{displayText}</span>
@@ -115,16 +104,14 @@ export default function HomePage() {
             Pick your tone, pick your topic — let AI do the rest.
           </p>
 
-        
-          <div style={s.ctaRow}>
-            <Link to="/register" style={s.heroCta} className="hero-btn">
+          <div className="cta-row" style={s.ctaRow}>
+            <Link to="/register" style={s.heroCta}>
               Start generating free
               <span style={{ marginLeft: '0.5rem', fontSize: '1.1rem' }}>→</span>
             </Link>
             <a href="#demo" style={s.heroCtaGhost}>See live demo ↓</a>
           </div>
 
-        
           <div style={s.trustRow}>
             {['React.js', 'Node.js', 'MongoDB', 'Chart.js', 'Hugging Face AI'].map(t => (
               <span key={t} style={s.techPill}>{t}</span>
@@ -132,38 +119,39 @@ export default function HomePage() {
           </div>
         </div>
 
-
-        <div style={s.heroVisual} className="hero-visual">
-          <div style={s.floatCard}>
-            <div style={s.floatCardTop}>
-              <div style={s.avatar}>M</div>
-              <div>
-                <div style={s.floatName}>Mayank Pandey</div>
-                <div style={s.floatHandle}>@mayank_pandey · just now</div>
+        {/* Tweet card */}
+        <div className="hero-visual" style={s.heroVisual}>
+          <div style={{ position: 'relative' }}>
+            <div style={s.floatCard}>
+              <div style={s.floatCardTop}>
+                <div style={s.avatar}>M</div>
+                <div>
+                  <div style={s.floatName}>Mayank Pandey</div>
+                  <div style={s.floatHandle}>@mayank_pandey · just now</div>
+                </div>
+                <div style={s.aiTag}>✦ AI</div>
               </div>
-              <div style={s.aiTag}>✦ AI</div>
+              <p style={s.floatText}>
+                🚀 The future belongs to those who learn, adapt, and build. Every great product started as someone's crazy idea. What's yours? #Innovation #Tech
+              </p>
+              <div style={s.floatActions}>
+                <span style={s.floatStat}>❤ 2.4K</span>
+                <span style={s.floatStat}>🔁 847</span>
+                <span style={s.floatStat}>👁 18.2K</span>
+              </div>
             </div>
-            <p style={s.floatText}>
-              🚀 The future belongs to those who learn, adapt, and build. Every great product started as someone's crazy idea. What's yours? #Innovation #Tech
-            </p>
-            <div style={s.floatActions}>
-              <span style={s.floatStat}>❤ 2.4K</span>
-              <span style={s.floatStat}>🔁 847</span>
-              <span style={s.floatStat}>👁 18.2K</span>
-            </div>
-          </div>
-       
 
-          <div style={{ ...s.floatBadge, top: '-16px', right: '20px', animationDelay: '0.5s' }}>
-            ⚡ Generated in 1.2s
-          </div>
-          <div style={{ ...s.floatBadge, bottom: '40px', left: '-20px', animationDelay: '1s', background: 'rgba(52,211,153,0.15)', borderColor: 'rgba(52,211,153,0.3)', color: '#34d399' }}>
-            📈 +340% engagement
+            <div style={{ ...s.floatBadge, top: '-16px', right: '20px', animationDelay: '0.5s' }}>
+              ⚡ Generated in 1.2s
+            </div>
+            <div style={{ ...s.floatBadge, bottom: '-16px', left: '20px', animationDelay: '1s', background: 'rgba(52,211,153,0.15)', borderColor: 'rgba(52,211,153,0.3)', color: '#34d399' }}>
+              📈 +340% engagement
+            </div>
           </div>
         </div>
       </section>
 
-
+      {/* ── STATS ── */}
       <section id="stats" style={s.statsBand}>
         <div style={s.statsInner}>
           {STATS.map(st => (
@@ -175,13 +163,13 @@ export default function HomePage() {
         </div>
       </section>
 
-    
+      {/* ── FEATURES ── */}
       <section id="features" style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Everything you need</div>
           <h2 style={s.sectionH2}>Built for content creators<br />who move fast</h2>
         </div>
-        <div style={s.featGrid}>
+        <div className="feat-grid" style={s.featGrid}>
           {FEATURES.map((f, i) => (
             <div key={f.title} style={{ ...s.featCard, animationDelay: `${i * 0.08}s` }}>
               <div style={{ ...s.featIcon, color: f.color, borderColor: f.color + '30', background: f.color + '10' }}>
@@ -194,7 +182,7 @@ export default function HomePage() {
         </div>
       </section>
 
-
+      {/* ── DEMO ── */}
       <section id="demo" ref={demoRef} style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Live preview</div>
@@ -205,7 +193,6 @@ export default function HomePage() {
         </div>
 
         <div style={s.demoWrap}>
-     
           <div style={s.toneRow}>
             {TONES.map(t => (
               <button key={t} onClick={() => setActiveTone(t)}
@@ -215,7 +202,6 @@ export default function HomePage() {
             ))}
           </div>
 
-   
           <div style={{ ...s.demoCard, opacity: demoVisible ? 1 : 0, transform: demoVisible ? 'none' : 'translateY(20px)', transition: 'all 0.6s ease' }}>
             <div style={s.demoHeader}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -231,9 +217,9 @@ export default function HomePage() {
               {DEMO_POSTS[activeTone]}
             </p>
             <div style={{ ...s.floatActions, borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '0.75rem', marginTop: 0 }}>
-              <span style={s.floatStat}>❤ {Math.floor(Math.random() * 3000 + 500).toLocaleString()}</span>
-              <span style={s.floatStat}>🔁 {Math.floor(Math.random() * 900 + 100)}</span>
-              <span style={s.floatStat}>👁 {Math.floor(Math.random() * 20000 + 5000).toLocaleString()}</span>
+              <span style={s.floatStat}>❤ 1.2K</span>
+              <span style={s.floatStat}>🔁 340</span>
+              <span style={s.floatStat}>👁 9.8K</span>
             </div>
           </div>
 
@@ -243,23 +229,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── CTA ── */}
       <section style={s.ctaSection}>
-        <div style={s.ctaBox}>
+        <div className="cta-box" style={s.ctaBox}>
           <div style={s.ctaOrb} />
           <div style={s.eyebrow}>Struggling to create engaging content?</div>
-          <h2 style={{ ...s.sectionH2, fontSize: '2.5rem', marginTop: '0.75rem' }}>
-            Ready to create better content....
+          <h2 className="cta-h2" style={{ ...s.sectionH2, fontSize: '2.5rem', marginTop: '0.75rem' }}>
+            Ready to create better content
           </h2>
-          <p style={{ color: '#9ca3af', fontSize: '1rem', marginBottom: '2rem', maxWidth: 480, margin: '1rem auto 2rem' }}>
-            Sign in now and start generating AI-powered social media caption in under 60 seconds.
+          <p style={{ color: '#9ca3af', fontSize: '1rem', maxWidth: 480, margin: '1rem auto 2rem' }}>
+            Sign in now and start generating AI-powered social media captions in under 60 seconds.
           </p>
-          <div style={s.ctaRow}>
+          <div className="cta-row" style={s.ctaRow}>
             <Link to="/register" style={s.heroCta}>Create free account →</Link>
             <Link to="/login" style={s.heroCtaGhost}>Sign in</Link>
           </div>
         </div>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer style={s.footer}>
         <div style={s.footerInner}>
           <div style={s.logo}>
@@ -276,57 +264,87 @@ export default function HomePage() {
         </div>
       </footer>
 
-      <style>{` @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
 
-  html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; }
 
-  @keyframes float {
-    0%,100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
+        @keyframes float {
+          0%,100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        @keyframes blink {
+          0%,100% { opacity: 1; }
+          50% { opacity: 0; }
+        }
+        @keyframes fadeUp {
+          from { opacity: 0; transform: translateY(24px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulse {
+          0%,100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
 
-  @keyframes blink {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
+        /* ── DESKTOP: show nav links ── */
+        @media (min-width: 769px) {
+          .nav-links { display: flex !important; }
+        }
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+        /* ── MOBILE ── */
+        @media (max-width: 768px) {
 
-  @keyframes pulse {
-    0%,100% { opacity: 1; }
-    50% { opacity: 0.5; }
-  }
- @media (max-width: 768px) {
+          /* Nav */
+          .nav-links { display: none !important; }
 
-  .hero-section {
-    flex-direction: column !important;
-    text-align: center;
-    padding: 6rem 1.5rem 3rem !important;
-  }
+          /* Hero: stack vertically, centred */
+          .hero-section {
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            padding: 7rem 1.25rem 4rem !important;
+            gap: 3rem !important;
+          }
 
-  .hero-visual {
-    margin-top: 2rem;
-    width: 100%;
-    max-width: 320px;
-  }
+          .hero-content {
+            flex: unset !important;
+            width: 100% !important;
+          }
 
-  .hero-btn {
-    width: auto !important;
-  }
+          /* Tweet card: full width, no overflow */
+          .hero-visual {
+            flex: unset !important;
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+          }
 
-  .nav-links {
-    display: none !important;
-  }
+          /* CTA buttons: stack & full width */
+          .cta-row {
+            flex-direction: column !important;
+            align-items: stretch !important;
+            width: 100% !important;
+          }
+          .cta-row a {
+            text-align: center !important;
+            justify-content: center !important;
+          }
 
-  .cta-row {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-`}</style>
+          /* Features grid: single column */
+          .feat-grid {
+            grid-template-columns: 1fr !important;
+          }
+
+          /* CTA section font */
+          .cta-h2 {
+            font-size: 1.75rem !important;
+          }
+
+          .cta-box {
+            padding: 2.5rem 1.25rem !important;
+          }
+        }
+      `}</style>
     </div>
   );
 }
@@ -334,70 +352,42 @@ export default function HomePage() {
 const s = {
   page: { background: '#060912', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#e5e7eb', overflowX: 'hidden' },
 
-
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' },
+  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   logo: { display: 'flex', alignItems: 'center', gap: '0.4rem' },
   logoGlyph: { fontSize: '1.25rem' },
   logoWord: { fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.15rem', background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
-  navLinks: { display: 'none', gap: '2rem', flex: 1, marginLeft: '1rem' },
+  navLinks: { display: 'flex', gap: '2rem', flex: 1, marginLeft: '2rem' },
   navLink: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 400, transition: 'color 0.2s' },
-  btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', transition: 'all 0.2s' },
-  btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
+  btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', transition: 'all 0.2s', whiteSpace: 'nowrap' },
+  btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap' },
 
-
-hero: { 
-  minHeight: '100vh',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  maxWidth: 1200,
-  margin: '0 auto',
-  padding: '8rem 2rem 4rem',
-  gap: '4rem',
-  position: 'relative',
-  flexWrap: 'wrap'   
-},
+  hero: {
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxWidth: 1200,
+    margin: '0 auto',
+    padding: '8rem 2rem 4rem',
+    gap: '4rem',
+    position: 'relative',
+  },
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
 
-   heroContent: {
-  flex: '1 1 500px', 
-},
-
-heroVisual: {
-  flex: '1 1 400px',  
-  maxWidth: '420px',
-  margin: '0 auto'   
-},
+  heroContent: { flex: '1 1 480px', zIndex: 1 },
+  heroVisual: { flex: '0 0 400px', maxWidth: 420, zIndex: 1 },
 
   badge: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.9rem', border: '1px solid rgba(167,139,250,0.3)', borderRadius: 20, fontSize: '0.78rem', color: '#a78bfa', background: 'rgba(167,139,250,0.08)', marginBottom: '1.5rem', fontWeight: 500 },
   badgeDot: { width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', animation: 'pulse 2s ease infinite' },
   heroH1: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.08, marginBottom: '1.25rem', color: '#f9fafb' },
   heroAccent: { background: 'linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
   cursor: { display: 'inline-block', color: '#a78bfa', animation: 'blink 1s step-end infinite', marginLeft: 2 },
-  heroSub: {  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' },
+  heroSub: { fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)', color: '#9ca3af', lineHeight: 1.7, marginBottom: '2rem' },
 
-  ctaRow: { 
-  display: 'flex', 
-  gap: '1rem', 
-  flexWrap: 'wrap', 
-  alignItems: 'center',
-  justifyContent: 'flex-start'
-},
-
-  heroCta: { 
-  padding: '0.85rem 1.4rem',
-  borderRadius: 10,
-  background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
-  color: '#fff',
-  textDecoration: 'none',
-  fontSize: '0.9rem',
-  fontWeight: 500,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center'
-},
+  ctaRow: { display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' },
+  heroCta: { padding: '0.85rem 1.4rem', borderRadius: 10, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.9rem', fontWeight: 500, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' },
   heroCtaGhost: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.9rem', padding: '0.85rem 1rem', fontWeight: 400 },
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '2.5rem' },
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
@@ -407,42 +397,29 @@ heroVisual: {
   avatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#fff', flexShrink: 0 },
   floatName: { fontSize: '0.875rem', fontWeight: 600, color: '#e5e7eb' },
   floatHandle: { fontSize: '0.75rem', color: '#6b7280' },
-  aiTag: { marginLeft: 'auto', padding: '0.2rem 0.6rem', border: '1px solid rgba(167,139,250,0.35)', borderRadius: 20, fontSize: '0.72rem', color: '#a78bfa', background: 'rgba(167,139,250,0.1)', fontWeight: 600 },
+  aiTag: { marginLeft: 'auto', padding: '0.2rem 0.6rem', border: '1px solid rgba(167,139,250,0.35)', borderRadius: 20, fontSize: '0.72rem', color: '#a78bfa', background: 'rgba(167,139,250,0.1)', fontWeight: 600, flexShrink: 0 },
   floatText: { fontSize: '0.88rem', color: '#d1d5db', lineHeight: 1.65, margin: 0, marginBottom: '0.875rem' },
   floatActions: { display: 'flex', gap: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: '0.75rem' },
   floatStat: { fontSize: '0.78rem', color: '#6b7280' },
-  floatBadge: { position: 'absolute', padding: '0.4rem 0.9rem', background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.25)', borderRadius: 20, fontSize: '0.75rem', color: '#a78bfa', fontWeight: 500, backdropFilter: 'blur(8px)', animation: 'float 4s ease-in-out infinite' },
-
+  floatBadge: { position: 'absolute', padding: '0.4rem 0.9rem', background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.25)', borderRadius: 20, fontSize: '0.75rem', color: '#a78bfa', fontWeight: 500, backdropFilter: 'blur(8px)', animation: 'float 4s ease-in-out infinite', whiteSpace: 'nowrap' },
 
   statsBand: { background: 'rgba(255,255,255,0.025)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
- statsInner: {  
-  maxWidth: 1200,  
-  margin: '0 auto',  
-  padding: '2rem 1rem',  
-  display: 'grid',  
-  gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' // ✅ improved
-},
-  statItem: { textAlign: 'center' },
-  statVal: { fontFamily: "'Syne', sans-serif", fontSize: '2.5rem', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
+  statsInner: { maxWidth: 1200, margin: '0 auto', padding: '2.5rem 1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem' },
+  statItem: { textAlign: 'center', padding: '0.5rem' },
+  statVal: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
   statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem', fontWeight: 400 },
 
-
-  section: { maxWidth: 1200, margin: '0 auto', padding: '6rem 2rem' },
-  sectionHead: { textAlign: 'center', marginBottom: '4rem' },
+  section: { maxWidth: 1200, margin: '0 auto', padding: '5rem 1.5rem' },
+  sectionHead: { textAlign: 'center', marginBottom: '3rem' },
   eyebrow: { fontSize: '0.78rem', fontWeight: 600, color: '#a78bfa', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' },
-  sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
+  sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.6rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
 
- featGrid: {  
-  display: 'grid',  
-  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
-  gap: '1.25rem'
-},
+  featGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' },
   featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s, background 0.2s', animation: 'fadeUp 0.6s ease both' },
   featIcon: { width: 42, height: 42, borderRadius: 10, border: '1px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', marginBottom: '1rem' },
   featTitle: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#f3f4f6', marginBottom: '0.6rem' },
   featDesc: { fontSize: '0.875rem', color: '#6b7280', lineHeight: 1.7, fontWeight: 300 },
 
- 
   demoWrap: { maxWidth: 640, margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1.25rem' },
   toneRow: { display: 'flex', gap: '0.5rem', flexWrap: 'wrap', justifyContent: 'center' },
   tonePill: { padding: '0.45rem 1rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', background: 'transparent', color: '#6b7280', fontSize: '0.82rem', cursor: 'pointer', fontFamily: "'DM Sans', sans-serif", fontWeight: 500, transition: 'all 0.2s' },
@@ -451,12 +428,11 @@ heroVisual: {
   demoHeader: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' },
   demoAvatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #059669, #0891b2)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, color: '#fff' },
 
-
-  ctaSection: { padding: '6rem 2rem', position: 'relative' },
+  ctaSection: { padding: '5rem 1.5rem', position: 'relative' },
   ctaBox: { maxWidth: 800, margin: '0 auto', textAlign: 'center', background: 'rgba(124,58,237,0.07)', border: '1px solid rgba(124,58,237,0.2)', borderRadius: 20, padding: '4rem 3rem', position: 'relative', overflow: 'hidden' },
   ctaOrb: { position: 'absolute', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)', top: '50%', left: '50%', transform: 'translate(-50%,-50%)', pointerEvents: 'none' },
 
-  footer: { borderTop: '1px solid rgba(255,255,255,0.06)', padding: '2rem' },
+  footer: { borderTop: '1px solid rgba(255,255,255,0.06)', padding: '2rem 1.5rem' },
   footerInner: { maxWidth: 1200, margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', flexWrap: 'wrap' },
   footerLink: { color: '#4b5563', textDecoration: 'none', fontSize: '0.82rem' },
 };
