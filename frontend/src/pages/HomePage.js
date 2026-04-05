@@ -117,7 +117,7 @@ export default function HomePage() {
 
         
           <div style={s.ctaRow}>
-            <Link to="/register" style={s.heroCta}>
+            <Link to="/register" style={s.heroCta} className="hero-btn">
               Start generating free
               <span style={{ marginLeft: '0.5rem', fontSize: '1.1rem' }}>→</span>
             </Link>
@@ -276,14 +276,72 @@ export default function HomePage() {
         </div>
       </footer>
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
-        html { scroll-behavior: smooth; }
-        @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
-      `}</style>
+      <style>{` @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+  html { scroll-behavior: smooth; }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  @media (max-width: 768px) {
+
+    .hero-section {
+      flex-direction: column !important;
+      padding: 6rem 1rem 3rem !important;
+      text-align: center;
+    }
+
+    .hero-visual {
+      width: 100% !important;
+      max-width: 300px !important;
+      margin: 0 auto;
+    }
+
+    .nav-links {
+      display: none !important;
+    }
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .features-grid {
+      grid-template-columns: 1fr !important;
+    }
+
+    .cta-row {
+      flex-direction: column !important;
+      width: 100%;
+    }
+
+    .cta-row a {
+      width: 100%;
+      justify-content: center;
+    }
+
+  }
+    @media (min-width: 768px) {
+  .hero-btn {
+    width: auto;
+  }
+}
+`}</style>
     </div>
   );
 }
@@ -293,17 +351,17 @@ const s = {
 
 
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 2rem', height: 64, display: 'flex', alignItems: 'center', gap: '2rem' },
+  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap' },
   logo: { display: 'flex', alignItems: 'center', gap: '0.4rem' },
   logoGlyph: { fontSize: '1.25rem' },
   logoWord: { fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.15rem', background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
-  navLinks: { display: 'flex', gap: '2rem', flex: 1, marginLeft: '1rem' },
+  navLinks: { display: 'none', gap: '2rem', flex: 1, marginLeft: '1rem' },
   navLink: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 400, transition: 'color 0.2s' },
   btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', transition: 'all 0.2s' },
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500 },
 
 
-  hero: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1200, margin: '0 auto', padding: '8rem 2rem 4rem', gap: '4rem', position: 'relative' },
+  hero: { minHeight: '100vh',  display: 'flex',  flexDirection: 'column',  alignItems: 'center',  justifyContent: 'center',  maxWidth: 1200,  margin: '0 auto',  padding: '6rem 1rem 3rem',  gap: '2rem',  position: 'relative'},
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
   heroContent: { flex: 1, maxWidth: 600, position: 'relative', zIndex: 1, animation: 'fadeUp 0.8s ease forwards' },
@@ -312,15 +370,15 @@ const s = {
   heroH1: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.08, marginBottom: '1.25rem', color: '#f9fafb' },
   heroAccent: { background: 'linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
   cursor: { display: 'inline-block', color: '#a78bfa', animation: 'blink 1s step-end infinite', marginLeft: 2 },
-  heroSub: { fontSize: '1.05rem', color: '#9ca3af', lineHeight: 1.75, marginBottom: '2.5rem', fontWeight: 300 },
+  heroSub: {  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' },
   ctaRow: { display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' },
-  heroCta: { display: 'inline-flex', alignItems: 'center', padding: '0.85rem 2rem', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', borderRadius: 10, color: '#fff', textDecoration: 'none', fontSize: '0.95rem', fontWeight: 600, letterSpacing: '-0.01em', boxShadow: '0 0 32px rgba(124,58,237,0.35)' },
+  heroCta: { width: '100%', justifyContent: 'center' },
   heroCtaGhost: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.9rem', padding: '0.85rem 1rem', fontWeight: 400 },
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '2.5rem' },
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
 
 
-  heroVisual: { flex: '0 0 380px', position: 'relative', zIndex: 1, animation: 'float 5s ease-in-out infinite' },
+  heroVisual: {  width: '100%',  maxWidth: 380,  position: 'relative' },
   floatCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '1.25rem', backdropFilter: 'blur(12px)' },
   floatCardTop: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' },
   avatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#fff', flexShrink: 0 },
@@ -334,7 +392,7 @@ const s = {
 
 
   statsBand: { background: 'rgba(255,255,255,0.025)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  statsInner: { maxWidth: 1200, margin: '0 auto', padding: '2.5rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' },
+  statsInner: {  maxWidth: 1200,  margin: '0 auto',  padding: '2rem 1rem',  display: 'grid',  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))' },
   statItem: { textAlign: 'center' },
   statVal: { fontFamily: "'Syne', sans-serif", fontSize: '2.5rem', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
   statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem', fontWeight: 400 },
@@ -345,7 +403,7 @@ const s = {
   eyebrow: { fontSize: '0.78rem', fontWeight: 600, color: '#a78bfa', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' },
   sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
 
-  featGrid: { display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' },
+  featGrid: {  display: 'grid',  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.25rem'},
   featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s, background 0.2s', animation: 'fadeUp 0.6s ease both' },
   featIcon: { width: 42, height: 42, borderRadius: 10, border: '1px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', marginBottom: '1rem' },
   featTitle: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#f3f4f6', marginBottom: '0.6rem' },
