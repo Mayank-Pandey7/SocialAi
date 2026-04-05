@@ -1,6 +1,4 @@
-// ============================================
-// pages/RegisterPage.js
-// ============================================
+
 
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -47,7 +45,7 @@ export default function RegisterPage() {
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom:'1rem' }}>
             <label className="label">Full Name</label>
-            <input className="input" placeholder="Rahul Sharma" value={form.name}
+            <input className="input" placeholder="eg. Mayank Pandey" value={form.name}
               onChange={e => setForm({...form, name:e.target.value})} required />
           </div>
           <div style={{ marginBottom:'1rem' }}>
