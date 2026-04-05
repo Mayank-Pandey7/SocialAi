@@ -23,7 +23,7 @@ const TONES = ['professional', 'funny', 'motivational', 'casual', 'inspirational
 
 const DEMO_POSTS = {
   professional: '🚀 AI is not replacing your job — someone who understands AI is. The question isn\'t whether to adapt, it\'s how fast. #TechStrategy #FutureReady #Innovation',
-  funny: 'Sometimes I use AI to feel productive Like yeah, I'm doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
+  funny: 'Sometimes I use AI to feel productive Like yeah, I\'m doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor',
   motivational: 'Every expert was once a complete beginner. Every viral post was once someone\'s first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset',
   casual: 'honestly AI tools are lowkey changing everything and nobody\'s talking about it enough 👀 the next 2 years are going to be wild #JustSaying',
   inspirational: 'The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst',
@@ -61,6 +61,7 @@ export default function HomePage() {
 
   return (
     <div style={s.page}>
+
       {/* ── NAV ── */}
       <nav style={s.nav}>
         <div style={s.navInner}>
@@ -68,7 +69,7 @@ export default function HomePage() {
             <span style={s.logoGlyph}>⚡</span>
             <span style={s.logoWord}>SocialAI</span>
           </div>
-          <div className="nav-links" style={s.navLinks}>
+          <div className="hp-nav-links" style={s.navLinks}>
             <a href="#features" style={s.navLink}>Features</a>
             <a href="#demo" style={s.navLink}>Demo</a>
             <a href="#stats" style={s.navLink}>Stats</a>
@@ -81,46 +82,41 @@ export default function HomePage() {
       </nav>
 
       {/* ── HERO ── */}
-      <section className="hero-section" style={s.hero}>
+      <section className="hp-hero" style={s.hero}>
         <div style={s.gridBg} aria-hidden />
         <div style={{ ...s.orb, top: '10%', left: '15%', background: 'radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, top: '30%', right: '10%', background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, bottom: '5%', left: '40%', background: 'radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)' }} />
 
-        <div className="hero-content" style={s.heroContent}>
+        <div className="hp-hero-content" style={s.heroContent}>
           <div style={s.badge}>
             <span style={s.badgeDot} />
             AI-Powered · Free to Use · No Setup Required
           </div>
-
           <h1 style={s.heroH1}>
             Generate viral<br />
             <span style={s.heroAccent}>{displayText}</span>
             <span style={s.cursor}>|</span>
           </h1>
-
           <p style={s.heroSub}>
             SocialAI writes platform-perfect social media content in seconds.<br />
             Pick your tone, pick your topic — let AI do the rest.
           </p>
-
-          <div className="cta-row" style={s.ctaRow}>
+          <div className="hp-cta-row" style={s.ctaRow}>
             <Link to="/register" style={s.heroCta}>
-              Start generating free
-              <span style={{ marginLeft: '0.5rem', fontSize: '1.1rem' }}>→</span>
+              Start generating free <span style={{ marginLeft: '0.5rem' }}>→</span>
             </Link>
             <a href="#demo" style={s.heroCtaGhost}>See live demo ↓</a>
           </div>
-
-          <div style={s.trustRow}>
+          <div className="hp-trust-row" style={s.trustRow}>
             {['React.js', 'Node.js', 'MongoDB', 'Chart.js', 'Hugging Face AI'].map(t => (
               <span key={t} style={s.techPill}>{t}</span>
             ))}
           </div>
         </div>
 
-        {/* Tweet card */}
-        <div className="hero-visual" style={s.heroVisual}>
+        <div className="hp-hero-visual" style={s.heroVisual}>
+          {/* position:relative here so the absolute badges anchor to this wrapper */}
           <div style={{ position: 'relative' }}>
             <div style={s.floatCard}>
               <div style={s.floatCardTop}>
@@ -140,11 +136,10 @@ export default function HomePage() {
                 <span style={s.floatStat}>👁 18.2K</span>
               </div>
             </div>
-
-            <div style={{ ...s.floatBadge, top: '-16px', right: '20px', animationDelay: '0.5s' }}>
+            <div style={{ ...s.floatBadge, top: '-14px', right: '16px', animationDelay: '0.5s' }}>
               ⚡ Generated in 1.2s
             </div>
-            <div style={{ ...s.floatBadge, bottom: '-16px', left: '20px', animationDelay: '1s', background: 'rgba(52,211,153,0.15)', borderColor: 'rgba(52,211,153,0.3)', color: '#34d399' }}>
+            <div style={{ ...s.floatBadge, bottom: '-14px', left: '16px', animationDelay: '1s', background: 'rgba(52,211,153,0.15)', borderColor: 'rgba(52,211,153,0.3)', color: '#34d399' }}>
               📈 +340% engagement
             </div>
           </div>
@@ -153,7 +148,7 @@ export default function HomePage() {
 
       {/* ── STATS ── */}
       <section id="stats" style={s.statsBand}>
-        <div style={s.statsInner}>
+        <div className="hp-stats-inner" style={s.statsInner}>
           {STATS.map(st => (
             <div key={st.label} style={s.statItem}>
               <div style={s.statVal}>{st.value}</div>
@@ -164,12 +159,12 @@ export default function HomePage() {
       </section>
 
       {/* ── FEATURES ── */}
-      <section id="features" style={s.section}>
+      <section id="features" className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Everything you need</div>
           <h2 style={s.sectionH2}>Built for content creators<br />who move fast</h2>
         </div>
-        <div className="feat-grid" style={s.featGrid}>
+        <div className="hp-feat-grid" style={s.featGrid}>
           {FEATURES.map((f, i) => (
             <div key={f.title} style={{ ...s.featCard, animationDelay: `${i * 0.08}s` }}>
               <div style={{ ...s.featIcon, color: f.color, borderColor: f.color + '30', background: f.color + '10' }}>
@@ -183,7 +178,7 @@ export default function HomePage() {
       </section>
 
       {/* ── DEMO ── */}
-      <section id="demo" ref={demoRef} style={s.section}>
+      <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Live preview</div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
@@ -191,7 +186,6 @@ export default function HomePage() {
             Switch tones below — watch the same topic transform instantly
           </p>
         </div>
-
         <div style={s.demoWrap}>
           <div style={s.toneRow}>
             {TONES.map(t => (
@@ -201,7 +195,6 @@ export default function HomePage() {
               </button>
             ))}
           </div>
-
           <div style={{ ...s.demoCard, opacity: demoVisible ? 1 : 0, transform: demoVisible ? 'none' : 'translateY(20px)', transition: 'all 0.6s ease' }}>
             <div style={s.demoHeader}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
@@ -222,7 +215,6 @@ export default function HomePage() {
               <span style={s.floatStat}>👁 9.8K</span>
             </div>
           </div>
-
           <Link to="/register" style={{ ...s.heroCta, margin: '0 auto', display: 'inline-flex', marginTop: '1.5rem' }}>
             Try it yourself — it's free →
           </Link>
@@ -231,16 +223,16 @@ export default function HomePage() {
 
       {/* ── CTA ── */}
       <section style={s.ctaSection}>
-        <div className="cta-box" style={s.ctaBox}>
+        <div className="hp-cta-box" style={s.ctaBox}>
           <div style={s.ctaOrb} />
           <div style={s.eyebrow}>Struggling to create engaging content?</div>
-          <h2 className="cta-h2" style={{ ...s.sectionH2, fontSize: '2.5rem', marginTop: '0.75rem' }}>
+          <h2 className="hp-cta-h2" style={{ ...s.sectionH2, fontSize: '2.5rem', marginTop: '0.75rem' }}>
             Ready to create better content
           </h2>
           <p style={{ color: '#9ca3af', fontSize: '1rem', maxWidth: 480, margin: '1rem auto 2rem' }}>
             Sign in now and start generating AI-powered social media captions in under 60 seconds.
           </p>
-          <div className="cta-row" style={s.ctaRow}>
+          <div className="hp-cta-row" style={s.ctaRow}>
             <Link to="/register" style={s.heroCta}>Create free account →</Link>
             <Link to="/login" style={s.heroCtaGhost}>Sign in</Link>
           </div>
@@ -266,84 +258,11 @@ export default function HomePage() {
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
-
         html { scroll-behavior: smooth; }
-
-        @keyframes float {
-          0%,100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes blink {
-          0%,100% { opacity: 1; }
-          50% { opacity: 0; }
-        }
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(24px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes pulse {
-          0%,100% { opacity: 1; }
-          50% { opacity: 0.5; }
-        }
-
-        /* ── DESKTOP: show nav links ── */
-        @media (min-width: 769px) {
-          .nav-links { display: flex !important; }
-        }
-
-        /* ── MOBILE ── */
-        @media (max-width: 768px) {
-
-          /* Nav */
-          .nav-links { display: none !important; }
-
-          /* Hero: stack vertically, centred */
-          .hero-section {
-            flex-direction: column !important;
-            align-items: center !important;
-            text-align: center !important;
-            padding: 7rem 1.25rem 4rem !important;
-            gap: 3rem !important;
-          }
-
-          .hero-content {
-            flex: unset !important;
-            width: 100% !important;
-          }
-
-          /* Tweet card: full width, no overflow */
-          .hero-visual {
-            flex: unset !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            margin: 0 !important;
-          }
-
-          /* CTA buttons: stack & full width */
-          .cta-row {
-            flex-direction: column !important;
-            align-items: stretch !important;
-            width: 100% !important;
-          }
-          .cta-row a {
-            text-align: center !important;
-            justify-content: center !important;
-          }
-
-          /* Features grid: single column */
-          .feat-grid {
-            grid-template-columns: 1fr !important;
-          }
-
-          /* CTA section font */
-          .cta-h2 {
-            font-size: 1.75rem !important;
-          }
-
-          .cta-box {
-            padding: 2.5rem 1.25rem !important;
-          }
-        }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
       `}</style>
     </div>
   );
@@ -353,26 +272,16 @@ const s = {
   page: { background: '#060912', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#e5e7eb', overflowX: 'hidden' },
 
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
+  navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1.25rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
   logo: { display: 'flex', alignItems: 'center', gap: '0.4rem' },
   logoGlyph: { fontSize: '1.25rem' },
   logoWord: { fontFamily: "'Syne', sans-serif", fontWeight: 800, fontSize: '1.15rem', background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
   navLinks: { display: 'flex', gap: '2rem', flex: 1, marginLeft: '2rem' },
-  navLink: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 400, transition: 'color 0.2s' },
-  btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', transition: 'all 0.2s', whiteSpace: 'nowrap' },
+  navLink: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.875rem', fontWeight: 400 },
+  btnOutline: { padding: '0.5rem 1.1rem', borderRadius: 8, border: '1px solid rgba(255,255,255,0.15)', color: '#e5e7eb', textDecoration: 'none', fontSize: '0.85rem', whiteSpace: 'nowrap' },
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap' },
 
-  hero: {
-    minHeight: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    maxWidth: 1200,
-    margin: '0 auto',
-    padding: '8rem 2rem 4rem',
-    gap: '4rem',
-    position: 'relative',
-  },
+  hero: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1200, margin: '0 auto', padding: '8rem 2rem 4rem', gap: '4rem', position: 'relative' },
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
 
@@ -404,18 +313,18 @@ const s = {
   floatBadge: { position: 'absolute', padding: '0.4rem 0.9rem', background: 'rgba(167,139,250,0.12)', border: '1px solid rgba(167,139,250,0.25)', borderRadius: 20, fontSize: '0.75rem', color: '#a78bfa', fontWeight: 500, backdropFilter: 'blur(8px)', animation: 'float 4s ease-in-out infinite', whiteSpace: 'nowrap' },
 
   statsBand: { background: 'rgba(255,255,255,0.025)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  statsInner: { maxWidth: 1200, margin: '0 auto', padding: '2.5rem 1.5rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '1rem' },
+  statsInner: { maxWidth: 1200, margin: '0 auto', padding: '2.5rem 2rem', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' },
   statItem: { textAlign: 'center', padding: '0.5rem' },
   statVal: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 4vw, 2.5rem)', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
-  statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem', fontWeight: 400 },
+  statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem' },
 
-  section: { maxWidth: 1200, margin: '0 auto', padding: '5rem 1.5rem' },
-  sectionHead: { textAlign: 'center', marginBottom: '3rem' },
+  section: { maxWidth: 1200, margin: '0 auto', padding: '6rem 2rem' },
+  sectionHead: { textAlign: 'center', marginBottom: '3.5rem' },
   eyebrow: { fontSize: '0.78rem', fontWeight: 600, color: '#a78bfa', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' },
   sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.6rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
 
   featGrid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.25rem' },
-  featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s, background 0.2s', animation: 'fadeUp 0.6s ease both' },
+  featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s', animation: 'fadeUp 0.6s ease both' },
   featIcon: { width: 42, height: 42, borderRadius: 10, border: '1px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', marginBottom: '1rem' },
   featTitle: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#f3f4f6', marginBottom: '0.6rem' },
   featDesc: { fontSize: '0.875rem', color: '#6b7280', lineHeight: 1.7, fontWeight: 300 },
