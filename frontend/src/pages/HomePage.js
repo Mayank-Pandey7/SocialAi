@@ -75,8 +75,8 @@ export default function HomePage() {
             <a href="#stats" style={s.navLink}>Stats</a>
           </div>
           <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <Link to="/login" style={s.btnOutline}>Sign in</Link>
-            <Link to="/register" style={s.btnFill}>Get started →</Link>
+            <Link to="/login" className="hp-nav-btn-outline" style={s.btnOutline}>Sign in</Link>
+            <Link to="/register" className="hp-nav-btn-fill" style={s.btnFill}>Get started →</Link>
           </div>
         </div>
       </nav>
