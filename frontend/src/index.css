@@ -131,6 +131,60 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 .fade-in { animation: fadeInUp 0.4s ease forwards; }
 
 /* ============================================
+   LAYOUT — SIDEBAR + BOTTOM NAV
+   ============================================ */
+
+/* Desktop: show sidebar, hide topbar + bottom nav */
+@media (min-width: 769px) {
+  .mobile-topbar { display: none !important; }
+  .bottom-nav    { display: none !important; }
+  .collapse-btn  { display: flex !important; }
+  .layout-main   { padding: 2rem !important; }
+}
+
+/* Mobile: hide sidebar, show topbar + bottom nav */
+@media (max-width: 768px) {
+  /* Push sidebar off-screen */
+  .desktop-sidebar {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    height: 100vh !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease !important;
+    z-index: 200 !important;
+    width: 220px !important;
+  }
+
+  /* Slide in when open */
+  .desktop-sidebar.mobile-open {
+    transform: translateX(0) !important;
+  }
+
+  /* Hide collapse arrow on mobile */
+  .collapse-btn {
+    display: none !important;
+  }
+
+  /* Show top bar */
+  .mobile-topbar {
+    display: flex !important;
+  }
+
+  /* Show bottom nav */
+  .bottom-nav {
+    display: flex !important;
+  }
+
+  /* Main content: account for topbar + bottom nav */
+  .layout-main {
+    padding: 1.25rem 1rem 80px !important;
+    margin-top: 56px !important;
+    width: 100% !important;
+  }
+}
+
+/* ============================================
    HOMEPAGE — MOBILE RESPONSIVE
    ============================================ */
 
