@@ -300,9 +300,11 @@ export default function HomePage() {
     50% { opacity: 0.5; }
   }
  @media (max-width: 768px) {
+
   .hero-section {
     flex-direction: column !important;
     text-align: center;
+    padding: 6rem 1.5rem 3rem !important;
   }
 
   .hero-visual {
@@ -311,13 +313,17 @@ export default function HomePage() {
     max-width: 320px;
   }
 
-  .cta-row {
-    flex-direction: column;
-    align-items: center;
+  .hero-btn {
+    width: auto !important;
   }
 
   .nav-links {
     display: none !important;
+  }
+
+  .cta-row {
+    flex-direction: column;
+    align-items: center;
   }
 }
 `}</style>
@@ -349,30 +355,53 @@ hero: {
   margin: '0 auto',
   padding: '8rem 2rem 4rem',
   gap: '4rem',
-  position: 'relative'
+  position: 'relative',
+  flexWrap: 'wrap'   
 },
   gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px)', backgroundSize: '48px 48px', pointerEvents: 'none', zIndex: 0 },
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
 
-  heroContent: {
-  flex: '0 0 55%',
+   heroContent: {
+  flex: '1 1 500px', 
 },
+
+heroVisual: {
+  flex: '1 1 400px',  
+  maxWidth: '420px',
+  margin: '0 auto'   
+},
+
   badge: { display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.9rem', border: '1px solid rgba(167,139,250,0.3)', borderRadius: 20, fontSize: '0.78rem', color: '#a78bfa', background: 'rgba(167,139,250,0.08)', marginBottom: '1.5rem', fontWeight: 500 },
   badgeDot: { width: 6, height: 6, borderRadius: '50%', background: '#a78bfa', animation: 'pulse 2s ease infinite' },
   heroH1: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', fontWeight: 800, lineHeight: 1.08, marginBottom: '1.25rem', color: '#f9fafb' },
   heroAccent: { background: 'linear-gradient(135deg, #a78bfa 0%, #60a5fa 50%, #34d399 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' },
   cursor: { display: 'inline-block', color: '#a78bfa', animation: 'blink 1s step-end infinite', marginLeft: 2 },
   heroSub: {  fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)' },
-  ctaRow: { display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' },
-  heroCta: { width: '100%', justifyContent: 'center' },
+
+  ctaRow: { 
+  display: 'flex', 
+  gap: '1rem', 
+  flexWrap: 'wrap', 
+  alignItems: 'center',
+  justifyContent: 'flex-start'
+},
+
+  heroCta: { 
+  padding: '0.85rem 1.4rem',
+  borderRadius: 10,
+  background: 'linear-gradient(135deg, #7c3aed, #4f46e5)',
+  color: '#fff',
+  textDecoration: 'none',
+  fontSize: '0.9rem',
+  fontWeight: 500,
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+},
   heroCtaGhost: { color: '#9ca3af', textDecoration: 'none', fontSize: '0.9rem', padding: '0.85rem 1rem', fontWeight: 400 },
   trustRow: { display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '2.5rem' },
   techPill: { padding: '0.25rem 0.75rem', borderRadius: 20, border: '1px solid rgba(255,255,255,0.1)', color: '#6b7280', fontSize: '0.72rem', fontWeight: 500 },
 
-  heroVisual: {
-  flex: '0 0 40%',
-  maxWidth: '420px',
-},
   floatCard: { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 16, padding: '1.25rem', backdropFilter: 'blur(12px)' },
   floatCardTop: { display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' },
   avatar: { width: 38, height: 38, borderRadius: '50%', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700, fontSize: '0.95rem', color: '#fff', flexShrink: 0 },
@@ -386,7 +415,13 @@ hero: {
 
 
   statsBand: { background: 'rgba(255,255,255,0.025)', borderTop: '1px solid rgba(255,255,255,0.06)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
-  statsInner: {  maxWidth: 1200,  margin: '0 auto',  padding: '2rem 1rem',  display: 'grid',  gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))' },
+ statsInner: {  
+  maxWidth: 1200,  
+  margin: '0 auto',  
+  padding: '2rem 1rem',  
+  display: 'grid',  
+  gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))' // ✅ improved
+},
   statItem: { textAlign: 'center' },
   statVal: { fontFamily: "'Syne', sans-serif", fontSize: '2.5rem', fontWeight: 800, background: 'linear-gradient(135deg, #a78bfa, #60a5fa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', lineHeight: 1 },
   statLabel: { fontSize: '0.82rem', color: '#6b7280', marginTop: '0.35rem', fontWeight: 400 },
@@ -397,7 +432,11 @@ hero: {
   eyebrow: { fontSize: '0.78rem', fontWeight: 600, color: '#a78bfa', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: '0.75rem' },
   sectionH2: { fontFamily: "'Syne', sans-serif", fontSize: 'clamp(1.75rem, 3.5vw, 2.75rem)', fontWeight: 800, color: '#f9fafb', lineHeight: 1.15 },
 
-  featGrid: {  display: 'grid',  gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '1.25rem'},
+ featGrid: {  
+  display: 'grid',  
+  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', 
+  gap: '1.25rem'
+},
   featCard: { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14, padding: '1.75rem', transition: 'border-color 0.2s, background 0.2s', animation: 'fadeUp 0.6s ease both' },
   featIcon: { width: 42, height: 42, borderRadius: 10, border: '1px solid', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.15rem', marginBottom: '1rem' },
   featTitle: { fontFamily: "'Syne', sans-serif", fontWeight: 700, fontSize: '1rem', color: '#f3f4f6', marginBottom: '0.6rem' },
