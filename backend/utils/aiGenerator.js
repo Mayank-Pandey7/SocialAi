@@ -78,8 +78,29 @@ const generateWithGroq = async (interest, tone, platform, customPrompt) => {
   const kw         = topicKeywords[interest] || topicKeywords.technology;
   const keyword    = kw[Math.floor(Math.random() * kw.length)];
 
-  const prompt = customPrompt ||
-    `Write a single ${toneDesc} social media post about ${keyword} in the ${interest} niche for ${platform}. ${constraint} Include relevant emojis naturally. Make it feel authentic and human, not robotic. Only return the post itself, nothing else.`;
+  const userTopic = customPrompt || keyword;
+
+  const prompt = `You are a viral social media content writer specializing in ${interest}.
+
+Write ONE ${platform} post about: "${userTopic}"
+
+Tone: ${toneDesc}
+Rules: ${constraint}
+
+STRICT REQUIREMENTS:
+- ONLY write about "${userTopic}" — nothing else
+- Use real facts, statistics, or specific details about "${userTopic}"
+- If it's a person — mention their real achievements
+- If it's a product — mention real features
+- If it's an event — mention real details
+- If it's a concept — give a specific practical tip
+- Add 2-3 relevant emojis that match the topic
+- Add relevant hashtags at the end
+- Sound like a real human wrote it, not a bot
+- NO generic quotes like "success comes to those who work hard"
+- NO off-topic content
+
+Return ONLY the post. No explanation. No quotes around it.`;
 
   const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
     method: 'POST',
@@ -88,13 +109,13 @@ const generateWithGroq = async (interest, tone, platform, customPrompt) => {
       'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
     },
     body: JSON.stringify({
-      model: 'llama-3.1-8b-instant',
+      model:       'llama-3.1-8b-instant',
       max_tokens:  300,
-      temperature: 0.85,
+      temperature: 0.75,
       messages: [
         {
           role:    'system',
-          content: 'You are a social media expert who writes viral, engaging posts. Always return only the post content itself — no explanations, no quotes around it, no preamble.',
+          content: `You are an expert social media content creator. You write highly specific, engaging posts about exactly what the user asks. You never go off-topic. You always include real, specific information about the topic. You write in a ${toneDesc} style.`,
         },
         {
           role:    'user',
