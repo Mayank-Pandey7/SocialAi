@@ -36,10 +36,12 @@ export default function Generator() {
     setSaved(false);
     try {
       const res = await API.post('/content/generate', {
-        interest, tone, platform,
-        customPrompt: prompt || undefined,
-        save: saveNow,
-      });
+  interest, tone, platform,
+  customPrompt: prompt ? 
+    `Write a ${tone} ${platform} post specifically about "${prompt}". Topic: ${prompt}. Interest category: ${interest}. Make it 100% about "${prompt}" only.`
+    : undefined,
+  save: saveNow,
+});
       setResult(res.data.data);
       if (saveNow) setSaved(true);
       // Add to local history
