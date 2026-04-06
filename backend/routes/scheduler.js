@@ -1,16 +1,9 @@
-// ============================================
-// routes/scheduler.js - Post Scheduler
-// POST /api/scheduler/schedule
-// GET  /api/scheduler/scheduled
-// PUT  /api/scheduler/:id/cancel
-// ============================================
 
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/auth');
 const Post = require('../models/Post');
 
-// ── POST /api/scheduler/schedule ─────────────
 // Save a post and optionally schedule it
 router.post('/schedule', protect, async (req, res) => {
   try {
@@ -44,7 +37,7 @@ router.post('/schedule', protect, async (req, res) => {
   }
 });
 
-// ── GET /api/scheduler/scheduled ─────────────
+// ── GET /api/scheduler/scheduled 
 router.get('/scheduled', protect, async (req, res) => {
   try {
     const posts = await Post.find({
@@ -58,7 +51,7 @@ router.get('/scheduled', protect, async (req, res) => {
   }
 });
 
-// ── PUT /api/scheduler/:id/cancel ────────────
+// ── PUT /api/scheduler/:id/cancel
 router.put('/:id/cancel', protect, async (req, res) => {
   try {
     const post = await Post.findOneAndUpdate(

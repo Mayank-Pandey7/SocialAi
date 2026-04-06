@@ -1,6 +1,3 @@
-// ============================================
-// models/User.js - MongoDB User Schema
-// ============================================
 
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

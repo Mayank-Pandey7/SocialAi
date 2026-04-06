@@ -1,7 +1,3 @@
-// ============================================
-// middleware/auth.js - JWT Authentication Guard
-// Protects routes that require login
-// ============================================
 
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');

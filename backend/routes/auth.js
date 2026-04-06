@@ -1,10 +1,4 @@
-// ============================================
-// routes/auth.js - Authentication Routes
-// POST /api/auth/register
-// POST /api/auth/login
-// GET  /api/auth/me
-// PUT  /api/auth/update
-// ============================================
+
 
 const express = require('express');
 const router = express.Router();
@@ -13,11 +7,9 @@ const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
 const { protect } = require('../middleware/auth');
 
-// ── Helper: Generate JWT Token ───────────────
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || '7d' });
 
-// ── POST /api/auth/register ──────────────────
 router.post(
   '/register',
   [

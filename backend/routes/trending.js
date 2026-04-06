@@ -55,7 +55,6 @@ const trendingData = {
   ],
 };
 
-// ── GET /api/trending ────────────────────────
 router.get('/', protect, (req, res) => {
   try {
     const { interest } = req.query;

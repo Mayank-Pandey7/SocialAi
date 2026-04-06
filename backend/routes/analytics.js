@@ -1,8 +1,3 @@
-// ============================================
-// routes/analytics.js - Engagement Analytics
-// GET /api/analytics/overview
-// GET /api/analytics/posts
-// ============================================
 
 const express = require('express');
 const router = express.Router();
@@ -10,7 +5,6 @@ const { protect } = require('../middleware/auth');
 const Post = require('../models/Post');
 const User = require('../models/User');
 
-// ── GET /api/analytics/overview ──────────────
 router.get('/overview', protect, async (req, res) => {
   try {
     const userId = req.user._id;

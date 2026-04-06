@@ -1,6 +1,3 @@
-// ============================================
-// pages/Scheduler.js - Post Scheduler
-// ============================================
 
 import React, { useEffect, useState } from 'react';
 import { API } from '../context/AuthContext';
@@ -63,7 +60,7 @@ export default function Scheduler() {
     } catch (err) { toast.error('Failed to delete'); }
   };
 
-  // Get min datetime for scheduler (now)
+  // Get min datetime for scheduler
   const minDateTime = new Date(Date.now() + 5 * 60000).toISOString().slice(0, 16);
 
   const scheduled = posts.filter(p => p.status === 'scheduled');

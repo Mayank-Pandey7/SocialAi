@@ -11,8 +11,8 @@ const app = express();
 
 
 app.use(cors({ 
-  origin: ['http://localhost:3000', 'https://social-ai-dusky.vercel.app'], 
-  credentials: true 
+  origin: '*',
+  credentials: false
 }));
 app.use(express.json()); 
 
