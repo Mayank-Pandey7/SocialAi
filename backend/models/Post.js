@@ -1,6 +1,3 @@
-// ============================================
-// models/Post.js - MongoDB Post/Content Schema
-// ============================================
 
 const mongoose = require('mongoose');
 

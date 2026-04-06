@@ -1,9 +1,3 @@
-// ============================================
-// routes/content.js - AI Content Generation
-// POST /api/content/generate
-// GET  /api/content/my-posts
-// DELETE /api/content/:id
-// ============================================
 
 const express = require('express');
 const router = express.Router();
@@ -12,7 +6,6 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const { generateContent, extractHashtags } = require('../utils/aiGenerator');
 
-// ── POST /api/content/generate ───────────────
 // Generate AI content based on interest + tone
 router.post('/generate', protect, async (req, res) => {
   try {
@@ -73,7 +66,7 @@ router.post('/generate', protect, async (req, res) => {
   }
 });
 
-// ── GET /api/content/my-posts ────────────────
+
 router.get('/my-posts', protect, async (req, res) => {
   try {
     const { status, page = 1, limit = 10 } = req.query;
@@ -93,7 +86,7 @@ router.get('/my-posts', protect, async (req, res) => {
   }
 });
 
-// ── DELETE /api/content/:id ──────────────────
+// ── DELETE /api/content/:id
 router.delete('/:id', protect, async (req, res) => {
   try {
     const post = await Post.findOne({ _id: req.params.id, user: req.user._id });

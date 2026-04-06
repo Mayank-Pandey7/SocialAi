@@ -1,6 +1,4 @@
-// ============================================
-// pages/Generator.js - AI Content Generator
-// ============================================
+
 
 import React, { useState } from 'react';
 import { API } from '../context/AuthContext';

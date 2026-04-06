@@ -1,6 +1,4 @@
-// ============================================
-// pages/Trending.js - Trending Topics
-// ============================================
+
 
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
