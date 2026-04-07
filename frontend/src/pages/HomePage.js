@@ -269,7 +269,17 @@ export default function HomePage() {
 }
 
 const s = {
-  page: { background: '#060912', minHeight: '100vh', fontFamily: "'DM Sans', sans-serif", color: '#e5e7eb', overflowX: 'hidden' },
+  page: {
+  background: `
+    radial-gradient(circle at 20% 30%, rgba(124,58,237,0.15), transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(59,130,246,0.12), transparent 40%),
+    #060912
+  `,
+  minHeight: '100vh',
+  fontFamily: "'DM Sans', sans-serif",
+  color: '#e5e7eb',
+  overflowX: 'hidden'
+},
 
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
   navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1.25rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
@@ -282,7 +292,14 @@ const s = {
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap' },
 
   hero: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1200, margin: '0 auto', padding: '8rem 2rem 4rem', gap: '4rem', position: 'relative' },
-  gridBg: { position: 'fixed', inset: 0, backgroundImage: 'linear-gradient(...)', backgroundSize: '48px 48px', },
+  gridBg: {
+  position: 'fixed',
+  inset: 0,
+  backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
+  backgroundSize: '22px 22px',
+  pointerEvents: 'none',
+  zIndex: 0
+},
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
 
   heroContent: { flex: '1 1 480px', zIndex: 1 },
