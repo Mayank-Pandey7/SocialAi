@@ -271,8 +271,8 @@ export default function HomePage() {
 const s = {
 page: {
   background: `
-    radial-gradient(circle at 25% 30%, rgba(124,58,237,0.25), transparent 40%),
-    radial-gradient(circle at 75% 20%, rgba(59,130,246,0.20), transparent 40%),
+    radial-gradient(circle at 25% 30%, rgba(72, 39, 129, 0.25), transparent 40%),
+    radial-gradient(circle at 75% 20%, rgba(42, 85, 155, 0.2), transparent 40%),
     radial-gradient(circle at 50% 80%, rgba(16,185,129,0.15), transparent 50%),
     #04070f
   `,
