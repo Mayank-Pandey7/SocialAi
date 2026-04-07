@@ -52,7 +52,14 @@ export default function Dashboard() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div>
+    <div style={{
+  minHeight: '100vh',
+  background: `
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.04), transparent 40%),
+    radial-gradient(circle at 80% 60%, rgba(255,255,255,0.03), transparent 40%),
+    #05070d
+  `
+}}>
       {/* Header */}
       <div style={{ marginBottom:'2rem' }}>
         <h1 style={{ fontSize:'1.75rem', fontWeight:700 }}>{greeting}, {user?.name?.split(' ')[0]} 👋</h1>
