@@ -83,7 +83,6 @@ export default function HomePage() {
 
       {/* ── HERO ── */}
       <section className="hp-hero" style={s.hero}>
-        <div style={s.gridBg} aria-hidden />
         <div style={{ ...s.orb, top: '10%', left: '15%', background: 'radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, top: '30%', right: '10%', background: 'radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)' }} />
         <div style={{ ...s.orb, bottom: '5%', left: '40%', background: 'radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)' }} />
