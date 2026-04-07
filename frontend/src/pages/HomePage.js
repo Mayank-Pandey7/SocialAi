@@ -269,17 +269,18 @@ export default function HomePage() {
 }
 
 const s = {
-  page: {
+page: {
   background: `
-    radial-gradient(circle at 20% 30%, rgba(124,58,237,0.15), transparent 40%),
-    radial-gradient(circle at 80% 20%, rgba(59,130,246,0.12), transparent 40%),
-    #060912
+    radial-gradient(circle at 25% 30%, rgba(124,58,237,0.25), transparent 40%),
+    radial-gradient(circle at 75% 20%, rgba(59,130,246,0.20), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(16,185,129,0.15), transparent 50%),
+    #04070f
   `,
   minHeight: '100vh',
   fontFamily: "'DM Sans', sans-serif",
   color: '#e5e7eb',
   overflowX: 'hidden'
-},
+}
 
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
   navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1.25rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
