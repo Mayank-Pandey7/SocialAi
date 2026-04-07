@@ -280,7 +280,7 @@ page: {
   fontFamily: "'DM Sans', sans-serif",
   color: '#e5e7eb',
   overflowX: 'hidden'
-}
+},
 
   nav: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100, background: 'rgba(6,9,18,0.85)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' },
   navInner: { maxWidth: 1200, margin: '0 auto', padding: '0 1.25rem', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
