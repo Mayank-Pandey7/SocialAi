@@ -271,10 +271,10 @@ export default function HomePage() {
 const s = {
 page: {
   background: `
-    radial-gradient(circle at 25% 30%, rgba(72, 39, 129, 0.25), transparent 40%),
-    radial-gradient(circle at 75% 20%, rgba(42, 85, 155, 0.2), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(16,185,129,0.15), transparent 50%),
-    #04070f
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 40%),
+    radial-gradient(circle at 70% 20%, rgba(255,255,255,0.04), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.03), transparent 50%),
+    #02050a
   `,
   minHeight: '100vh',
   fontFamily: "'DM Sans', sans-serif",
