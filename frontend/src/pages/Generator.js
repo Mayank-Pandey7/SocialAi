@@ -131,9 +131,9 @@ export default function Generator() {
 
           {/* Custom Prompt (optional) */}
           <div className="card">
-            <label className="label">Custom Prompt (optional)</label>
+            <label className="label">Custom keywords (optional)</label>
             <textarea className="textarea" style={{ marginTop:'0.5rem' }}
-              placeholder="e.g. Write something about the impact of AI on education..."
+              placeholder="e.g. MS Dhoni, Football, IPL, Japan ..."
               value={prompt} onChange={e => setPrompt(e.target.value)} rows={3} />
           </div>
 
