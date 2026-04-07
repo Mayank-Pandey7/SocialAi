@@ -271,7 +271,7 @@ export default function HomePage() {
 const s = {
 page: {
   background: `
-    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.06), transparent 40%),
+    radial-gradient(circle at 30% 30%, rgba(180, 34, 34, 0.06), transparent 40%),
     radial-gradient(circle at 70% 20%, rgba(255,255,255,0.04), transparent 40%),
     radial-gradient(circle at 50% 80%, rgba(255,255,255,0.03), transparent 50%),
     #02050a
@@ -293,14 +293,7 @@ page: {
   btnFill: { padding: '0.5rem 1.1rem', borderRadius: 8, background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', textDecoration: 'none', fontSize: '0.85rem', fontWeight: 500, whiteSpace: 'nowrap' },
 
   hero: { minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'space-between', maxWidth: 1200, margin: '0 auto', padding: '8rem 2rem 4rem', gap: '4rem', position: 'relative' },
-  gridBg: {
-  position: 'fixed',
-  inset: 0,
-  backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',
-  backgroundSize: '22px 22px',
-  pointerEvents: 'none',
-  zIndex: 0
-},
+  gridBg: { position: 'fixed',  inset: 0,  backgroundImage: 'radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)',  backgroundSize: '22px 22px',  pointerEvents: 'none',  zIndex: 0},
   orb: { position: 'absolute', width: 600, height: 600, borderRadius: '50%', pointerEvents: 'none' },
 
   heroContent: { flex: '1 1 480px', zIndex: 1 },
