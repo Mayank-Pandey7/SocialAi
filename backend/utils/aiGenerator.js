@@ -1,15 +1,22 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-let model;
+let model = null;
 
-if (process.env.GEMINI_API_KEY) {
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+try {
+  if (process.env.GEMINI_API_KEY) {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-  model = genAI.getGenerativeModel({
-    model: "gemini-2.5-flash",
-  });
+    model = genAI.getGenerativeModel({
+      model: "gemini-1.5-flash", // safe working model
+    });
+
+    console.log("✅ Gemini initialized");
+  } else {
+    console.warn("⚠️ No GEMINI_API_KEY found");
+  }
+} catch (err) {
+  console.error("❌ Gemini init failed:", err.message);
 }
-
 const templates = {
   technology: {
     professional: ["🚀 The future of {topic} is here. Businesses that adapt will lead the next decade. #Tech #Innovation"],
@@ -95,25 +102,9 @@ const generateContent = async (interest, tone, platform = 'twitter', customPromp
 
 
 const generateWithGemini = async (interest, tone, platform, customPrompt) => {
-  const toneDesc   = toneDescriptions[tone] || toneDescriptions.professional;
-  const constraint = platformConstraints[platform] || platformConstraints.twitter;
-  const kw         = topicKeywords[interest] || topicKeywords.technology;
-  const keyword    = kw[Math.floor(Math.random() * kw.length)];
+  if (!model) throw new Error("Gemini not initialized");
 
-  const userTopic = customPrompt || keyword;
-
-  const prompt = `You are a viral social media content writer specializing in ${interest}.
-
-Write ONE ${platform} post about: "${userTopic}"
-
-Tone: ${toneDesc}
-Rules: ${constraint}
-
-- Be specific and real
-- Add emojis
-- Add hashtags
-- No generic lines
-- Only output the post`;
+  const prompt = `Write a short ${platform} post about "${customPrompt || interest}" in ${tone} tone with hashtags.`;
 
   const result = await model.generateContent(prompt);
   const response = await result.response;
