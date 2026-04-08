@@ -19,7 +19,7 @@ router.post('/generate', protect, async (req, res) => {
     const selectedTone = validTones.includes(tone) ? tone : 'professional';
 
     // Generate content
-    const { content, source } = await generateContent(selectedInterest, selectedTone, customPrompt);
+    const { content, source } = await generateContent( selectedInterest,  selectedTone,  platform,  customPrompt);
     const hashtags = extractHashtags(content);
 
     // Generate simulated engagement prediction
