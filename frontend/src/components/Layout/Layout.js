@@ -128,7 +128,7 @@ const styles = {
   main:         { flex: 1, overflowY: 'auto', display: 'flex', justifyContent: 'center'},
   bottomNav:    { display:'none', position:'fixed', bottom:0, left:0, right:0, height:60, background:'var(--bg-secondary)', borderTop:'1px solid var(--border)', zIndex:100 },
   bottomNavItem:{ display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', flex:1, textDecoration:'none', transition:'color 0.15s', padding:'0.25rem 0' },
-  container:    {  width: '100%', maxWidth: '1200px', padding: '1.5rem'},
+ // container:    {  width: '100%', maxWidth: '1200px', padding: '1.5rem'},
 
   logo:         { display:'flex', alignItems:'center', gap:'0.4rem' },
 };
