@@ -75,6 +75,8 @@ export default function Dashboard() {
       padding: '1.5rem',
       overflowX: 'hidden',
       boxSizing: 'border-box',
+      minWidth: 0,     
+      width: '100%',
     }}>
 
       {/* Header */}
@@ -88,9 +90,10 @@ export default function Dashboard() {
       </div>
 
       {/* Stats Grid — responsive 4 cols → 2 cols → 1 col */}
+     {/* Stats Grid */}
       <div style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+        gridTemplateColumns: 'repeat(4, 1fr)',  // force 4 cols always
         gap: '1rem',
         marginBottom: '2rem',
       }}>
