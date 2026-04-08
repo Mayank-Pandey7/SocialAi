@@ -109,7 +109,7 @@ export default function HomePage() {
             <a href="#demo" style={s.heroCtaGhost}>See live demo ↓</a>
           </div>
           <div className="hp-trust-row" style={s.trustRow}>
-            {['React.js', 'Node.js', 'MongoDB', 'Chart.js', 'Hugging Face AI'].map(t => (
+            {['JavaScript', 'React.js', 'Node.js', 'Express.Js', 'MongoDB'].map(t => (
               <span key={t} style={s.techPill}>{t}</span>
             ))}
           </div>
