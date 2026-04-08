@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+
 
 const templates = {
   technology: {
@@ -72,81 +72,10 @@ const generateFromTemplate = (interest, tone) => {
   return template.replace(/{topic}/g, kw[Math.floor(Math.random() * kw.length)]);
 };
 
-const generateWithGroq = async (interest, tone, platform, customPrompt) => {
-  const toneDesc   = toneDescriptions[tone] || toneDescriptions.professional;
-  const constraint = platformConstraints[platform] || platformConstraints.twitter;
-  const kw         = topicKeywords[interest] || topicKeywords.technology;
-  const keyword    = kw[Math.floor(Math.random() * kw.length)];
 
-  const userTopic = customPrompt || keyword;
-
-  const prompt = `You are a viral social media content writer specializing in ${interest}.
-
-Write ONE ${platform} post about: "${userTopic}"
-
-Tone: ${toneDesc}
-Rules: ${constraint}
-
-STRICT REQUIREMENTS:
-- ONLY write about "${userTopic}" — nothing else
-- Use real facts, statistics, or specific details about "${userTopic}"
-- If it's a person — mention their real achievements
-- If it's a product — mention real features
-- If it's an event — mention real details
-- If it's a concept — give a specific practical tip
-- Add 2-3 relevant emojis that match the topic
-- Add relevant hashtags at the end
-- Sound like a real human wrote it, not a bot
-- NO generic quotes like "success comes to those who work hard"
-- NO off-topic content
-
-Return ONLY the post. No explanation. No quotes around it.`;
-
-  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-    method: 'POST',
-    headers: {
-      'Content-Type':  'application/json',
-      'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-    },
-    body: JSON.stringify({
-      model:       'llama-3.1-8b-instant',
-      max_tokens:  300,
-      temperature: 0.75,
-      messages: [
-        {
-          role:    'system',
-          content: `You are an expert social media content creator. You write highly specific, engaging posts about exactly what the user asks. You never go off-topic. You always include real, specific information about the topic. You write in a ${toneDesc} style.`,
-        },
-        {
-          role:    'user',
-          content: prompt,
-        },
-      ],
-    }),
-  });
-
-  if (!response.ok) {
-    const err = await response.text();
-    throw new Error(`Groq API error: ${response.status} - ${err}`);
-  }
-
-  const data    = await response.json();
-  const content = data.choices?.[0]?.message?.content?.trim();
-  if (!content || content.length < 10) throw new Error('Empty Groq response');
-  return content;
-};
 
 const generateContent = async (interest, tone, platform = 'twitter', customPrompt = '') => {
-  // Try Groq first (free + fast)
-  if (process.env.GROQ_API_KEY && !process.env.GROQ_API_KEY.includes('xxxxxxxx')) {
-    try {
-      const content = await generateWithGroq(interest, tone, platform, customPrompt);
-      console.log('✅ Generated with Groq AI');
-      return { content, source: 'ai' };
-    } catch (err) {
-      console.warn('⚠️  Groq failed:', err.message);
-    }
-  }
+  
   // Fallback to templates
   console.log('📝 Using template fallback');
   return { content: generateFromTemplate(interest, tone), source: 'template' };
