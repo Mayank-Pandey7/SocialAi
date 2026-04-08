@@ -4,23 +4,15 @@ import { useAuth, API } from '../context/AuthContext';
 
 const StatCard = ({ icon, label, value, change, color }) => (
   <div className="card fade-in">
-    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-      <div style={{
-        width: 48, height: 48, borderRadius: 12,
-        background: color + '20',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '1.4rem', flexShrink: 0
-      }}>
-        {icon}
+    <div className="stat-card">
+      <div className="stat-icon" style={{ background: color + '20' }}>
+        <span style={{ fontSize: '1.4rem' }}>{icon}</span>
       </div>
       <div>
-        <div style={{ fontSize: '1.5rem', fontWeight: 700, lineHeight: 1.2 }}>{value}</div>
-        <div style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.1rem' }}>{label}</div>
+        <div className="stat-value">{value}</div>
+        <div className="stat-label">{label}</div>
         {change && (
-          <div style={{
-            fontSize: '0.75rem', marginTop: '0.2rem',
-            color: change.startsWith('+') ? '#22c55e' : '#ef4444'
-          }}>
+          <div className={`stat-change ${change.startsWith('+') ? 'up' : 'down'}`}>
             {change} this week
           </div>
         )}
@@ -36,7 +28,7 @@ const QuickAction = ({ to, icon, title, desc, color }) => (
         width: 44, height: 44, borderRadius: 10,
         background: color + '20',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: '1.3rem', flexShrink: 0
+        fontSize: '1.3rem', flexShrink: 0,
       }}>
         {icon}
       </div>
@@ -69,16 +61,7 @@ export default function Dashboard() {
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
-    <div style={{
-      minHeight: '100vh',
-      background: '#05070d',
-      padding: '1.5rem',
-      overflowX: 'hidden',
-      boxSizing: 'border-box',
-      minWidth: 0,     
-      width: '100%',
-    }}>
-
+    <div>
       {/* Header */}
       <div style={{ marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '1.75rem', fontWeight: 700, margin: 0 }}>
@@ -89,34 +72,20 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* Stats Grid — responsive 4 cols → 2 cols → 1 col */}
-     {/* Stats Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(4, 1fr)',  // force 4 cols always
-        gap: '1rem',
-        marginBottom: '2rem',
-      }}>
-        <StatCard icon="📝" label="Total Posts"     value={loading ? '–' : stats?.totalPosts ?? 0}                           change="+3"   color="#6c63ff" />
-        <StatCard icon="👁️" label="Total Reach"     value={loading ? '–' : (stats?.totalReach ?? 0).toLocaleString()}        change="+12%" color="#22c55e" />
-        <StatCard icon="❤️" label="Total Likes"     value={loading ? '–' : (stats?.totalLikes ?? 0).toLocaleString()}        change="+8%"  color="#f59e0b" />
-        <StatCard icon="📈" label="Avg Engagement"  value={loading ? '–' : `${stats?.avgEngagement ?? 0}%`}                  change="+2%"  color="#a855f7" />
+      {/* Stats Grid */}
+      <div className="grid-4" style={{ marginBottom: '2rem' }}>
+        <StatCard icon="📝" label="Total Posts"    value={loading ? '–' : stats?.totalPosts ?? 0}                          change="+3"   color="#6c63ff" />
+        <StatCard icon="👁️" label="Total Reach"    value={loading ? '–' : (stats?.totalReach ?? 0).toLocaleString()}       change="+12%" color="#22c55e" />
+        <StatCard icon="❤️" label="Total Likes"    value={loading ? '–' : (stats?.totalLikes ?? 0).toLocaleString()}       change="+8%"  color="#f59e0b" />
+        <StatCard icon="📈" label="Avg Engagement" value={loading ? '–' : `${stats?.avgEngagement ?? 0}%`}                 change="+2%"  color="#a855f7" />
       </div>
 
-      {/* Quick Actions + Recent Posts — 2 col → 1 col */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '1.5rem',
-        marginBottom: '2rem',
-      }}>
+      {/* Quick Actions + Recent Posts */}
+      <div className="grid-2" style={{ marginBottom: '2rem' }}>
 
         {/* Quick Actions */}
         <div>
-          <h2 style={{
-            fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem',
-            color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em',
-          }}>
+          <h2 style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Quick Actions
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
@@ -129,10 +98,7 @@ export default function Dashboard() {
 
         {/* Recent Posts */}
         <div>
-          <h2 style={{
-            fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem',
-            color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em',
-          }}>
+          <h2 style={{ fontSize: '0.8rem', fontWeight: 600, marginBottom: '1rem', color: 'var(--text-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Recent Posts
           </h2>
 
@@ -152,7 +118,7 @@ export default function Dashboard() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
               {posts.map(post => (
                 <div key={post._id} className="card" style={{ padding: '1rem' }}>
-                  <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', marginBottom: '0.5rem', lineHeight: 1.5, margin: '0 0 0.5rem' }}>
+                  <p style={{ fontSize: '0.85rem', color: 'var(--text-primary)', margin: '0 0 0.5rem', lineHeight: 1.5 }}>
                     {post.content.length > 100 ? post.content.substring(0, 100) + '…' : post.content}
                   </p>
                   <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
@@ -182,7 +148,6 @@ export default function Dashboard() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
