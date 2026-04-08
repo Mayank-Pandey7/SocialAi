@@ -178,9 +178,50 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
 
   /* Main content: account for topbar + bottom nav */
   .layout-main {
-    padding: 1.25rem 1rem 80px !important;
+    padding: 1.25rem 1.25rem 90px !important;
     margin-top: 56px !important;
     width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  /* Prevent any child from overflowing horizontally */
+  .layout-main > * {
+    min-width: 0;
+  }
+
+  /* Cards: reduce padding on mobile so content fits */
+  .card {
+    padding: 1rem !important;
+  }
+
+  /* Page header: tighter on mobile */
+  .page-header {
+    margin-bottom: 1.25rem !important;
+  }
+  .page-header h1 {
+    font-size: 1.4rem !important;
+  }
+
+  /* All grids collapse to single column */
+  .grid-2, .grid-3, .grid-4 {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Stat value slightly smaller so it fits */
+  .stat-value {
+    font-size: 1.35rem !important;
+  }
+
+  /* Charts: must never exceed card width */
+  canvas {
+    max-width: 100% !important;
+  }
+
+  /* Top performing posts: truncated text row wraps nicely */
+  .top-post-row {
+    flex-wrap: wrap !important;
+    gap: 0.4rem !important;
   }
 }
 
@@ -189,11 +230,6 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
    ============================================ */
 
 @media (max-width: 768px) {
-
-  /* Dashboard grids */
-  .grid-2, .grid-3, .grid-4 {
-    grid-template-columns: 1fr !important;
-  }
 
   /* NAV — hide links, shrink buttons */
   .hp-nav-links {
