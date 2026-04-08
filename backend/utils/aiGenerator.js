@@ -91,15 +91,19 @@ const generateFromTemplate = (interest, tone) => {
 
 const generateContent = async (interest, tone, platform = 'twitter', customPrompt = '') => {
   try {
-    const content = await generateWithGemini(interest, tone, platform, customPrompt);
-    console.log('✅ Generated with Gemini AI');
-    return { content, source: 'ai' };
-  } catch (err) {
-  console.error('❌ Gemini Error:', err); 
-  return { content: generateFromTemplate(interest, tone), source: 'template' };
-}
-};
+    console.log("🚀 Trying Gemini...");
 
+    const content = await generateWithGemini(interest, tone, platform, customPrompt);
+
+    console.log("✅ Gemini SUCCESS");
+    return { content, source: 'ai' };
+
+  } catch (err) {
+    console.error("❌ GEMINI FAILED:", err.message);
+
+    return { content: generateFromTemplate(interest, tone), source: 'template' };
+  }
+};
 
 const generateWithGemini = async (interest, tone, platform, customPrompt) => {
   if (!model) throw new Error("Gemini not initialized");
