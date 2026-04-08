@@ -1,4 +1,9 @@
+import { GoogleGenerativeAI } from "@google/generative-ai";
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+});
 
 const templates = {
   technology: {
@@ -72,13 +77,45 @@ const generateFromTemplate = (interest, tone) => {
   return template.replace(/{topic}/g, kw[Math.floor(Math.random() * kw.length)]);
 };
 
-
-
 const generateContent = async (interest, tone, platform = 'twitter', customPrompt = '') => {
-  
-  // Fallback to templates
-  console.log('📝 Using template fallback');
-  return { content: generateFromTemplate(interest, tone), source: 'template' };
+  try {
+    const content = await generateWithGemini(interest, tone, platform, customPrompt);
+    console.log('✅ Generated with Gemini AI');
+    return { content, source: 'ai' };
+  } catch (err) {
+    console.warn('⚠️ Gemini failed:', err.message);
+
+    // fallback (important)
+    return { content: generateFromTemplate(interest, tone), source: 'template' };
+  }
+};
+
+
+const generateWithGemini = async (interest, tone, platform, customPrompt) => {
+  const toneDesc   = toneDescriptions[tone] || toneDescriptions.professional;
+  const constraint = platformConstraints[platform] || platformConstraints.twitter;
+  const kw         = topicKeywords[interest] || topicKeywords.technology;
+  const keyword    = kw[Math.floor(Math.random() * kw.length)];
+
+  const userTopic = customPrompt || keyword;
+
+  const prompt = `You are a viral social media content writer specializing in ${interest}.
+
+Write ONE ${platform} post about: "${userTopic}"
+
+Tone: ${toneDesc}
+Rules: ${constraint}
+
+- Be specific and real
+- Add emojis
+- Add hashtags
+- No generic lines
+- Only output the post`;
+
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+
+  return response.text();
 };
 
 const extractHashtags = (content) => {
