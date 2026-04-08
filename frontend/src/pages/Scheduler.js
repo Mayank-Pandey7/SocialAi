@@ -34,6 +34,18 @@ export default function Scheduler() {
     if (!form.content.trim()) { toast.error('Content is required'); return; }
     setSaving(true);
     try {
+      const handleSchedule = async (e) => {
+    e.preventDefault();
+    if (!form.content.trim()) { toast.error('Content is required'); return; }
+    setSaving(true);
+    try {
+      const formToSend = {
+        ...form,
+        scheduledAt: form.scheduledAt
+          ? new Date(form.scheduledAt).toISOString()
+          : ''
+      };
+      await API.post('/scheduler/schedule', formToSend);
       await API.post('/scheduler/schedule', form);
       toast.success(form.scheduledAt ? '🗓️ Post scheduled!' : '💾 Draft saved!');
       setForm({ content:'', platform:'twitter', scheduledAt:'', tone:'professional', interest:'technology' });
@@ -61,7 +73,9 @@ export default function Scheduler() {
   };
 
   // Get min datetime for scheduler
-  const minDateTime = new Date(Date.now() + 5 * 60000).toISOString().slice(0, 16);
+const now = new Date(Date.now() + 5 * 60000);
+const minDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+  .toISOString().slice(0, 16);
 
   const scheduled = posts.filter(p => p.status === 'scheduled');
   const drafts    = posts.filter(p => p.status === 'draft');
