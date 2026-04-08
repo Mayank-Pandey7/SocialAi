@@ -1,9 +1,14 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const model = genAI.getGenerativeModel({
-  model: "gemini-3.1-flash-lite-preview",
-});
+let model;
+
+if (process.env.GEMINI_API_KEY) {
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+
+  model = genAI.getGenerativeModel({
+    model: "gemini-2.5-flash",
+  });
+}
 
 const templates = {
   technology: {
@@ -83,7 +88,6 @@ const generateContent = async (interest, tone, platform = 'twitter', customPromp
     console.log('✅ Generated with Gemini AI');
     return { content, source: 'ai' };
   } catch (err) {
-  // This will tell you if it's a "Model Not Found" or "Quota Exceeded" error
   console.error('❌ Gemini Error:', err); 
   return { content: generateFromTemplate(interest, tone), source: 'template' };
 }
