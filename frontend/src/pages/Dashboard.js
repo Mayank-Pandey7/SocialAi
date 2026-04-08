@@ -54,11 +54,12 @@ export default function Dashboard() {
   return (
   <div style={{
     minHeight: '100vh',
-    background: '#05070d'
+    background: '#05070d',
+    padding: '1rem 1.5rem'
   }}>
       {/* Header */}
       <div style={{ marginBottom:'2rem' }}>
-        <h1 style={{ fontSize:'1.75rem', fontWeight:700 }}>{greeting}, {user?.name?.split(' ')[0]} 👋</h1>
+        <h1 style={{fontSize:'1.75rem', fontWeight:700, margin: 0 }}>{greeting}, {user?.name?.split(' ')[0]} 👋</h1>
         <p style={{ color:'var(--text-secondary)', marginTop:'0.25rem' }}>Here's your content performance overview</p>
       </div>
 
