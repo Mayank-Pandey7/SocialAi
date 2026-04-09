@@ -3,12 +3,14 @@ import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import toast from 'react-hot-toast';
 
-const NAV_ITEMS = [
-  { to:'/dashboard', icon:'🏠', label:'Dashboard' },
-  { to:'/generator', icon:'✨', label:'Generator' },
-  { to:'/trending',  icon:'🔥', label:'Trending' },
-  { to:'/analyzer',  icon:'📊', label:'Analyzer' },
-  { to:'/scheduler', icon:'📅', label:'Scheduler' },
+import { LayoutDashboard, Sparkles, TrendingUp, BarChart2, CalendarDays } from "lucide-react";
+
+const navItems = [
+  { to: "/dashboard",  icon: <LayoutDashboard size={18} />, label: "Dashboard" },
+  { to: "/generator",  icon: <Sparkles size={18} />,        label: "Generator" },
+  { to: "/trending",   icon: <TrendingUp size={18} />,      label: "Trending" },
+  { to: "/analyzer",   icon: <BarChart2 size={18} />,       label: "Analyzer" },
+  { to: "/scheduler",  icon: <CalendarDays size={18} />,    label: "Scheduler" },
 ];
 
 export default function Layout() {
