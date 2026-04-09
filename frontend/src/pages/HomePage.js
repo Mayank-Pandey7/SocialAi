@@ -8,37 +8,37 @@ const FEATURES = [
     icon: "✦",
     title: "AI Content Engine",
     desc: "Generate platform-perfect posts in seconds — professional, funny, motivational or casual tones at your command.",
-    color: "#a78bfa",
+    color: "#2dd4bf",
   },
   {
     icon: "◈",
     title: "Trending Intel",
     desc: "Real-time topic discovery across tech, sports, business & more. Always post what people care about.",
-    color: "#34d399",
+    color: "#22c55e",
   },
   {
     icon: "◉",
     title: "Engagement Charts",
     desc: "Beautiful analytics dashboards that show reach, likes, and engagement across all your content.",
-    color: "#fb923c",
+    color: "#f59e0b",
   },
   {
     icon: "◆",
     title: "Smart Scheduler",
     desc: "Draft today. Schedule for the perfect moment. Your content calendar, fully in control.",
-    color: "#60a5fa",
+    color: "#0d9488",
   },
   {
     icon: "◎",
     title: "Multi-Platform",
     desc: "Twitter, Instagram, LinkedIn, Facebook — each post optimised for its platform's character limits and culture.",
-    color: "#f472b6",
+    color: "#2dd4bf",
   },
   {
     icon: "⬡",
     title: "Zero API Cost",
     desc: "Powered by free AI models and smart templates. Professional output without the subscription fees.",
-    color: "#facc15",
+    color: "#f59e0b",
   },
 ];
 
@@ -152,7 +152,7 @@ export default function HomePage() {
             top: "10%",
             left: "15%",
             background:
-              "radial-gradient(circle, rgba(167,139,250,0.18) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(13,148,136,0.18) 0%, transparent 70%)",
           }}
         />
         <div
@@ -161,7 +161,7 @@ export default function HomePage() {
             top: "30%",
             right: "10%",
             background:
-              "radial-gradient(circle, rgba(52,211,153,0.12) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(45,212,191,0.12) 0%, transparent 70%)",
           }}
         />
         <div
@@ -170,7 +170,7 @@ export default function HomePage() {
             bottom: "5%",
             left: "40%",
             background:
-              "radial-gradient(circle, rgba(96,165,250,0.1) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(13,148,136,0.1) 0%, transparent 70%)",
           }}
         />
 
@@ -211,7 +211,6 @@ export default function HomePage() {
         </div>
 
         <div className="hp-hero-visual" style={s.heroVisual}>
-          {/* position:relative here so the absolute badges anchor to this wrapper */}
           <div style={{ position: "relative" }}>
             <div style={s.floatCard}>
               <div style={s.floatCardTop}>
@@ -249,9 +248,9 @@ export default function HomePage() {
                 bottom: "-14px",
                 left: "16px",
                 animationDelay: "1s",
-                background: "rgba(52,211,153,0.15)",
-                borderColor: "rgba(52,211,153,0.3)",
-                color: "#34d399",
+                background: "rgba(34,197,94,0.12)",
+                borderColor: "rgba(34,197,94,0.25)",
+                color: "#22c55e",
               }}
             >
               📈 +340% engagement
@@ -311,7 +310,7 @@ export default function HomePage() {
           <div style={s.eyebrow}>Live preview</div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
           <p
-            style={{ color: "#6b7280", fontSize: "1rem", marginTop: "0.75rem" }}
+            style={{ color: "#7fa9a6", fontSize: "1rem", marginTop: "0.75rem" }}
           >
             Switch tones below — watch the same topic transform instantly
           </p>
@@ -353,12 +352,12 @@ export default function HomePage() {
                     style={{
                       fontWeight: 600,
                       fontSize: "0.9rem",
-                      color: "#e5e7eb",
+                      color: "#e0f2f1",
                     }}
                   >
                     SocialAI User
                   </div>
-                  <div style={{ fontSize: "0.75rem", color: "#6b7280" }}>
+                  <div style={{ fontSize: "0.75rem", color: "#4a7370" }}>
                     @user · 2s ago
                   </div>
                 </div>
@@ -380,7 +379,7 @@ export default function HomePage() {
             <div
               style={{
                 ...s.floatActions,
-                borderTop: "1px solid rgba(255,255,255,0.06)",
+                borderTop: "1px solid rgba(13,148,136,0.15)",
                 paddingTop: "0.75rem",
                 marginTop: 0,
               }}
@@ -417,7 +416,7 @@ export default function HomePage() {
           </h2>
           <p
             style={{
-              color: "#9ca3af",
+              color: "#7fa9a6",
               fontSize: "1rem",
               maxWidth: 480,
               margin: "1rem auto 2rem",
@@ -444,7 +443,7 @@ export default function HomePage() {
             <span style={s.logoGlyph}>⚡</span>
             <span style={s.logoWord}>SocialAI</span>
           </div>
-          <p style={{ color: "#4b5563", fontSize: "0.82rem" }}>
+          <p style={{ color: "#4a7370", fontSize: "0.82rem" }}>
             © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
@@ -473,14 +472,14 @@ export default function HomePage() {
 const s = {
   page: {
     background: `
-    radial-gradient(circle at 30% 30%, rgba(180, 34, 34, 0.06), transparent 40%),
-    radial-gradient(circle at 70% 20%, rgba(255,255,255,0.04), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.03), transparent 50%),
-    #02050a
+    radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
+    radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
+    radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
+    #0a1212
   `,
     minHeight: "100vh",
     fontFamily: "'DM Sans', sans-serif",
-    color: "#e5e7eb",
+    color: "#e0f2f1",
     overflowX: "hidden",
   },
 
@@ -490,9 +489,9 @@ const s = {
     left: 0,
     right: 0,
     zIndex: 100,
-    background: "rgba(6,9,18,0.85)",
+    background: "rgba(10,18,18,0.85)",
     backdropFilter: "blur(20px)",
-    borderBottom: "1px solid rgba(255,255,255,0.06)",
+    borderBottom: "1px solid #1f3d3d",
   },
   navInner: {
     maxWidth: 1200,
@@ -509,13 +508,13 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontWeight: 800,
     fontSize: "1.15rem",
-    background: "linear-gradient(135deg, #38bdf8, #60a5fa)",
+    background: "linear-gradient(135deg, #0d9488, #2dd4bf)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
   navLinks: { display: "flex", gap: "2rem", flex: 1, marginLeft: "2rem" },
   navLink: {
-    color: "#9ca3af",
+    color: "#7fa9a6",
     textDecoration: "none",
     fontSize: "0.875rem",
     fontWeight: 400,
@@ -523,8 +522,8 @@ const s = {
   btnOutline: {
     padding: "0.5rem 1.1rem",
     borderRadius: 8,
-    border: "1px solid rgba(255,255,255,0.15)",
-    color: "#e5e7eb",
+    border: "1px solid #1f3d3d",
+    color: "#e0f2f1",
     textDecoration: "none",
     fontSize: "0.85rem",
     whiteSpace: "nowrap",
@@ -532,7 +531,7 @@ const s = {
   btnFill: {
     padding: "0.5rem 1.1rem",
     borderRadius: 8,
-    background: "linear-gradient(135deg, #0369a1, #0ea5e9)",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
     color: "#fff",
     textDecoration: "none",
     fontSize: "0.85rem",
@@ -555,7 +554,7 @@ const s = {
     position: "fixed",
     inset: 0,
     backgroundImage:
-      "radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px)",
+      "radial-gradient(rgba(13,148,136,0.12) 1px, transparent 1px)",
     backgroundSize: "22px 22px",
     pointerEvents: "none",
     zIndex: 0,
@@ -576,11 +575,11 @@ const s = {
     alignItems: "center",
     gap: "0.5rem",
     padding: "0.35rem 0.9rem",
-    border: "1px solid rgba(56,189,248,0.3)",
+    border: "1px solid rgba(13,148,136,0.35)",
     borderRadius: 20,
     fontSize: "0.78rem",
-    color: "#38bdf8",
-    background: "rgba(56,189,248,0.08)",
+    color: "#2dd4bf",
+    background: "rgba(13,148,136,0.1)",
     marginBottom: "1.5rem",
     fontWeight: 500,
   },
@@ -588,7 +587,7 @@ const s = {
     width: 6,
     height: 6,
     borderRadius: "50%",
-    background: "#38bdf8",
+    background: "#0d9488",
     animation: "pulse 2s ease infinite",
   },
   heroH1: {
@@ -597,23 +596,23 @@ const s = {
     fontWeight: 800,
     lineHeight: 1.08,
     marginBottom: "1.25rem",
-    color: "#f9fafb",
+    color: "#e0f2f1",
   },
   heroAccent: {
     background:
-      "linear-gradient(135deg, #38bdf8 0%, #60a5fa 50%, #34d399 100%)",
+      "linear-gradient(135deg, #0d9488 0%, #2dd4bf 50%, #22c55e 100%)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
   cursor: {
     display: "inline-block",
-    color: "#38bdf8",
+    color: "#0d9488",
     animation: "blink 1s step-end infinite",
     marginLeft: 2,
   },
   heroSub: {
     fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
-    color: "#9ca3af",
+    color: "#7fa9a6",
     lineHeight: 1.7,
     marginBottom: "2rem",
   },
@@ -627,7 +626,7 @@ const s = {
   heroCta: {
     padding: "0.85rem 1.4rem",
     borderRadius: 10,
-    background: "linear-gradient(135deg, #0369a1, #0ea5e9)",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
     color: "#fff",
     textDecoration: "none",
     fontSize: "0.9rem",
@@ -637,7 +636,7 @@ const s = {
     justifyContent: "center",
   },
   heroCtaGhost: {
-    color: "#9ca3af",
+    color: "#7fa9a6",
     textDecoration: "none",
     fontSize: "0.9rem",
     padding: "0.85rem 1rem",
@@ -652,15 +651,15 @@ const s = {
   techPill: {
     padding: "0.25rem 0.75rem",
     borderRadius: 20,
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "#6b7280",
+    border: "1px solid #1f3d3d",
+    color: "#4a7370",
     fontSize: "0.72rem",
     fontWeight: 500,
   },
 
   floatCard: {
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.1)",
+    background: "rgba(19,36,36,0.9)",
+    border: "1px solid #1f3d3d",
     borderRadius: 16,
     padding: "1.25rem",
     backdropFilter: "blur(12px)",
@@ -675,7 +674,7 @@ const s = {
     width: 38,
     height: 38,
     borderRadius: "50%",
-    background: "linear-gradient(135deg, #0369a1, #0ea5e9)",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -684,22 +683,22 @@ const s = {
     color: "#fff",
     flexShrink: 0,
   },
-  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "#e5e7eb" },
-  floatHandle: { fontSize: "0.75rem", color: "#6b7280" },
+  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "#e0f2f1" },
+  floatHandle: { fontSize: "0.75rem", color: "#4a7370" },
   aiTag: {
     marginLeft: "auto",
     padding: "0.2rem 0.6rem",
-    border: "1px solid rgba(56,189,248,0.35)",
+    border: "1px solid rgba(13,148,136,0.35)",
     borderRadius: 20,
     fontSize: "0.72rem",
-    color: "#38bdf8",
-    background: "rgba(56,189,248,0.1)",
+    color: "#2dd4bf",
+    background: "rgba(13,148,136,0.12)",
     fontWeight: 600,
     flexShrink: 0,
   },
   floatText: {
     fontSize: "0.88rem",
-    color: "#d1d5db",
+    color: "#7fa9a6",
     lineHeight: 1.65,
     margin: 0,
     marginBottom: "0.875rem",
@@ -707,18 +706,18 @@ const s = {
   floatActions: {
     display: "flex",
     gap: "1.25rem",
-    borderTop: "1px solid rgba(255,255,255,0.06)",
+    borderTop: "1px solid #1f3d3d",
     paddingTop: "0.75rem",
   },
-  floatStat: { fontSize: "0.78rem", color: "#6b7280" },
+  floatStat: { fontSize: "0.78rem", color: "#4a7370" },
   floatBadge: {
     position: "absolute",
     padding: "0.4rem 0.9rem",
-    background: "rgba(167,139,250,0.12)",
-    border: "1px solid rgba(167,139,250,0.25)",
+    background: "rgba(13,148,136,0.12)",
+    border: "1px solid rgba(13,148,136,0.25)",
     borderRadius: 20,
     fontSize: "0.75rem",
-    color: "#a78bfa",
+    color: "#2dd4bf",
     fontWeight: 500,
     backdropFilter: "blur(8px)",
     animation: "float 4s ease-in-out infinite",
@@ -726,9 +725,9 @@ const s = {
   },
 
   statsBand: {
-    background: "rgba(255,255,255,0.025)",
-    borderTop: "1px solid rgba(255,255,255,0.06)",
-    borderBottom: "1px solid rgba(255,255,255,0.06)",
+    background: "#0f1f1f",
+    borderTop: "1px solid #1f3d3d",
+    borderBottom: "1px solid #1f3d3d",
   },
   statsInner: {
     maxWidth: 1200,
@@ -743,19 +742,19 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
     fontWeight: 800,
-    background: "linear-gradient(135deg, #a78bfa, #60a5fa)",
+    background: "linear-gradient(135deg, #0d9488, #2dd4bf)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
     lineHeight: 1,
   },
-  statLabel: { fontSize: "0.82rem", color: "#6b7280", marginTop: "0.35rem" },
+  statLabel: { fontSize: "0.82rem", color: "#4a7370", marginTop: "0.35rem" },
 
   section: { maxWidth: 1200, margin: "0 auto", padding: "6rem 2rem" },
   sectionHead: { textAlign: "center", marginBottom: "3.5rem" },
   eyebrow: {
     fontSize: "0.78rem",
     fontWeight: 600,
-    color: "#a78bfa",
+    color: "#0d9488",
     textTransform: "uppercase",
     letterSpacing: "0.12em",
     marginBottom: "0.75rem",
@@ -764,7 +763,7 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontSize: "clamp(1.6rem, 3.5vw, 2.75rem)",
     fontWeight: 800,
-    color: "#f9fafb",
+    color: "#e0f2f1",
     lineHeight: 1.15,
   },
 
@@ -774,8 +773,8 @@ const s = {
     gap: "1.25rem",
   },
   featCard: {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.07)",
+    background: "#132424",
+    border: "1px solid #1f3d3d",
     borderRadius: 14,
     padding: "1.75rem",
     transition: "border-color 0.2s",
@@ -796,12 +795,12 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontWeight: 700,
     fontSize: "1rem",
-    color: "#f3f4f6",
+    color: "#e0f2f1",
     marginBottom: "0.6rem",
   },
   featDesc: {
     fontSize: "0.875rem",
-    color: "#6b7280",
+    color: "#7fa9a6",
     lineHeight: 1.7,
     fontWeight: 300,
   },
@@ -823,9 +822,9 @@ const s = {
   tonePill: {
     padding: "0.45rem 1rem",
     borderRadius: 20,
-    border: "1px solid rgba(255,255,255,0.1)",
+    border: "1px solid #1f3d3d",
     background: "transparent",
-    color: "#6b7280",
+    color: "#4a7370",
     fontSize: "0.82rem",
     cursor: "pointer",
     fontFamily: "'DM Sans', sans-serif",
@@ -833,14 +832,14 @@ const s = {
     transition: "all 0.2s",
   },
   tonePillActive: {
-    border: "1px solid rgba(167,139,250,0.5)",
-    background: "rgba(167,139,250,0.12)",
-    color: "#a78bfa",
+    border: "1px solid rgba(13,148,136,0.5)",
+    background: "rgba(13,148,136,0.12)",
+    color: "#2dd4bf",
   },
   demoCard: {
     width: "100%",
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(255,255,255,0.1)",
+    background: "#132424",
+    border: "1px solid #1f3d3d",
     borderRadius: 16,
     padding: "1.5rem",
   },
@@ -854,7 +853,7 @@ const s = {
     width: 38,
     height: 38,
     borderRadius: "50%",
-    background: "linear-gradient(135deg, #059669, #0891b2)",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
@@ -867,8 +866,8 @@ const s = {
     maxWidth: 800,
     margin: "0 auto",
     textAlign: "center",
-    background: "rgba(124,58,237,0.07)",
-    border: "1px solid rgba(124,58,237,0.2)",
+    background: "rgba(13,148,136,0.07)",
+    border: "1px solid rgba(13,148,136,0.2)",
     borderRadius: 20,
     padding: "4rem 3rem",
     position: "relative",
@@ -880,7 +879,7 @@ const s = {
     height: 500,
     borderRadius: "50%",
     background:
-      "radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%)",
+      "radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)",
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
@@ -888,8 +887,9 @@ const s = {
   },
 
   footer: {
-    borderTop: "1px solid rgba(255,255,255,0.06)",
+    borderTop: "1px solid #1f3d3d",
     padding: "2rem 1.5rem",
+    background: "#0a1212",
   },
   footerInner: {
     maxWidth: 1200,
@@ -900,5 +900,5 @@ const s = {
     gap: "1rem",
     flexWrap: "wrap",
   },
-  footerLink: { color: "#4b5563", textDecoration: "none", fontSize: "0.82rem" },
+  footerLink: { color: "#4a7370", textDecoration: "none", fontSize: "0.82rem" },
 };
