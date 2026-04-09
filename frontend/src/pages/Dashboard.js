@@ -95,7 +95,7 @@ export default function Dashboard() {
       {/* Header */}
       <div style={{ marginBottom: "2rem" }}>
         <h1 style={{ fontSize: "1.75rem", fontWeight: 700, margin: 0 }}>
-          {greeting}, {user?.name?.split(" ")[0]} 👋
+          {greeting}, {user?.name?.split(" ")[0]} 
         </h1>
         <p
           style={{
