@@ -171,20 +171,7 @@ export default function Scheduler() {
                   <option value="facebook">👍 Facebook</option>
                 </select>
               </div>
-              <div>
-                <label className="label">Tone</label>
-                <select
-                  className="select"
-                  value={form.tone}
-                  onChange={(e) => setForm({ ...form, tone: e.target.value })}
-                >
-                  <option value="professional">💼 Professional</option>
-                  <option value="funny">😄 Funny</option>
-                  <option value="motivational">💪 Motivational</option>
-                  <option value="casual">😊 Casual</option>
-                  <option value="inspirational">✨ Inspirational</option>
-                </select>
-              </div>
+         
             </div>
 
             <div style={{ marginBottom: "1.25rem" }}>
