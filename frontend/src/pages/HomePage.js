@@ -137,7 +137,7 @@ export default function HomePage() {
               Sign in
             </Link>
             <Link to="/register" className="hp-nav-btn-fill" style={s.btnFill}>
-              Get started →
+              Create an account →
             </Link>
           </div>
         </div>
@@ -227,9 +227,9 @@ export default function HomePage() {
                 yours? #Innovation #Tech
               </p>
               <div style={s.floatActions}>
-                <span style={s.floatStat}>❤ 2.4K</span>
-                <span style={s.floatStat}>🔁 847</span>
-                <span style={s.floatStat}>👁 18.2K</span>
+                <span style={s.floatStat}>❤ 112.4K</span>
+                <span style={s.floatStat}>🔁 1847</span>
+                <span style={s.floatStat}>👁 918.2K</span>
               </div>
             </div>
             <div
@@ -304,7 +304,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── DEMO ── */}
       <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
           <div style={s.eyebrow}>Live preview</div>
@@ -403,7 +402,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── CTA ── */}
+
       <section style={s.ctaSection}>
         <div className="hp-cta-box" style={s.ctaBox}>
           <div style={s.ctaOrb} />
@@ -436,7 +435,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+
+
       <footer style={s.footer}>
         <div style={s.footerInner}>
           <div style={s.logo}>
