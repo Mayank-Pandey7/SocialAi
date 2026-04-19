@@ -11,7 +11,7 @@ const FEATURES = [
     icon: "✦",
     title: "AI Content Engine",
     desc: "Generate platform-perfect posts in seconds — professional, funny, motivational or casual tones at your command.",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
   },
   {
     icon: "◈",
@@ -35,7 +35,7 @@ const FEATURES = [
     icon: "◎",
     title: "Multi-Platform",
     desc: "Twitter, Instagram, LinkedIn, Facebook — each post optimised for its platform's character limits and culture.",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
   },
   {
     icon: "⬡",
@@ -334,7 +334,7 @@ export default function HomePage() {
           <div style={s.eyebrow}>Live preview(demo) </div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
           <p
-            style={{ color: "#7fa9a6", fontSize: "1rem", marginTop: "0.75rem" }}
+            style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}
           >
             Switch tones below — watch the same topic transform instantly
           </p>
@@ -376,7 +376,7 @@ export default function HomePage() {
                     style={{
                       fontWeight: 600,
                       fontSize: "0.9rem",
-                      color: "#e0f2f1",
+                      color: "var(--text-primary)",
                     }}
                   >
                     SocialAI User
@@ -440,7 +440,7 @@ export default function HomePage() {
           </h2>
           <p
             style={{
-              color: "#7fa9a6",
+              color: "var(--text-secondary)",
               fontSize: "1rem",
               maxWidth: 480,
               margin: "1rem auto 2rem",
@@ -504,7 +504,7 @@ const s = {
   `,
     minHeight: "100vh",
     fontFamily: "'DM Sans', sans-serif",
-    color: "#e0f2f1",
+    color: "var(--text-primary)",
     overflowX: "hidden",
   },
 
@@ -539,7 +539,7 @@ const s = {
   },
   navLinks: { display: "flex", gap: "2rem", flex: 1, marginLeft: "2rem" },
   navLink: {
-    color: "#7fa9a6",
+    color: "var(--text-secondary)",
     textDecoration: "none",
     fontSize: "0.875rem",
     fontWeight: 400,
@@ -548,7 +548,7 @@ const s = {
     padding: "0.5rem 1.1rem",
     borderRadius: 8,
     border: "1px solid var(--border)",
-    color: "#e0f2f1",
+    color: "var(--text-primary)",
     textDecoration: "none",
     fontSize: "0.85rem",
     whiteSpace: "nowrap",
@@ -603,7 +603,7 @@ const s = {
     border: "1px solid rgba(13,148,136,0.35)",
     borderRadius: 20,
     fontSize: "0.78rem",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
     background: "rgba(13,148,136,0.1)",
     marginBottom: "1.5rem",
     fontWeight: 500,
@@ -621,7 +621,7 @@ const s = {
     fontWeight: 800,
     lineHeight: 1.08,
     marginBottom: "1.25rem",
-    color: "#e0f2f1",
+    color: "var(--text-primary)",
   },
   heroAccent: {
     background:
@@ -637,7 +637,7 @@ const s = {
   },
   heroSub: {
     fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
-    color: "#7fa9a6",
+    color: "var(--text-secondary)",
     lineHeight: 1.7,
     marginBottom: "2rem",
   },
@@ -661,7 +661,7 @@ const s = {
     justifyContent: "center",
   },
   heroCtaGhost: {
-    color: "#7fa9a6",
+    color: "var(--text-secondary)",
     textDecoration: "none",
     fontSize: "0.9rem",
     padding: "0.85rem 1rem",
@@ -708,7 +708,7 @@ const s = {
     color: "#fff",
     flexShrink: 0,
   },
-  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "#e0f2f1" },
+  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "var(--text-primary)" },
   floatHandle: { fontSize: "0.75rem", color: "var(--text-muted)" },
   aiTag: {
     marginLeft: "auto",
@@ -716,14 +716,14 @@ const s = {
     border: "1px solid rgba(13,148,136,0.35)",
     borderRadius: 20,
     fontSize: "0.72rem",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
     background: "rgba(13,148,136,0.12)",
     fontWeight: 600,
     flexShrink: 0,
   },
   floatText: {
     fontSize: "0.88rem",
-    color: "#7fa9a6",
+    color: "var(--text-secondary)",
     lineHeight: 1.65,
     margin: 0,
     marginBottom: "0.875rem",
@@ -742,7 +742,7 @@ const s = {
     border: "1px solid rgba(13,148,136,0.25)",
     borderRadius: 20,
     fontSize: "0.75rem",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
     fontWeight: 500,
     backdropFilter: "blur(8px)",
     animation: "float 4s ease-in-out infinite",
@@ -788,7 +788,7 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontSize: "clamp(1.6rem, 3.5vw, 2.75rem)",
     fontWeight: 800,
-    color: "#e0f2f1",
+    color: "var(--text-primary)",
     lineHeight: 1.15,
   },
 
@@ -820,12 +820,12 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontWeight: 700,
     fontSize: "1rem",
-    color: "#e0f2f1",
+    color: "var(--text-primary)",
     marginBottom: "0.6rem",
   },
   featDesc: {
     fontSize: "0.875rem",
-    color: "#7fa9a6",
+    color: "var(--text-secondary)",
     lineHeight: 1.7,
     fontWeight: 300,
   },
@@ -859,7 +859,7 @@ const s = {
   tonePillActive: {
     border: "1px solid rgba(13,148,136,0.5)",
     background: "rgba(13,148,136,0.12)",
-    color: "#2dd4bf",
+    color: "var(--accent-light)",
   },
   demoCard: {
     width: "100%",
