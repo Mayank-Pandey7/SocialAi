@@ -263,6 +263,9 @@ export default function HomePage() {
                 top: "-14px",
                 right: "16px",
                 animationDelay: "0.5s",
+                background: "rgba(34,197,94,0.12)",
+                borderColor: "rgba(34,197,94,0.25)",
+                color: "#50ee8a",
               }}
             >
               ⚡ Generated in 1.2s
@@ -275,7 +278,7 @@ export default function HomePage() {
                 animationDelay: "1s",
                 background: "rgba(34,197,94,0.12)",
                 borderColor: "rgba(34,197,94,0.25)",
-                color: "#22c55e",
+                color: "#50ee8a",
               }}
             >
               📈 +340% engagement
@@ -331,7 +334,7 @@ export default function HomePage() {
 
       <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
-          <div style={s.eyebrow}>Live preview(demo) </div>
+          <div style={s.eyebrow}>Live preview (demo) </div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
           <p
             style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}
