@@ -265,7 +265,7 @@ export default function HomePage() {
                 animationDelay: "0.5s",
                 background: "rgba(34,197,94,0.12)",
                 borderColor: "rgba(34,197,94,0.25)",
-                color: "#50ee8a",
+                color: "#1a9346",
               }}
             >
               ⚡ Generated in 1.2s
@@ -278,7 +278,7 @@ export default function HomePage() {
                 animationDelay: "1s",
                 background: "rgba(34,197,94,0.12)",
                 borderColor: "rgba(34,197,94,0.25)",
-                color: "#50ee8a",
+                color: "#1a9346",
               }}
             >
               📈 +340% engagement
