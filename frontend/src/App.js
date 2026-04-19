@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 import HomePage     from './pages/HomePage';
 import LoginPage    from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -39,11 +40,13 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <Router>
-        <Toaster position="top-right" toastOptions={{ style: { background:'#1a1f2e', color:'#e5e7eb', border:'1px solid rgba(255,255,255,0.1)' } }} />
-        <AppRoutes />
-      </Router>
-    </AuthProvider>
+    <ThemeProvider>
+      <AuthProvider>
+        <Router>
+          <Toaster position="top-right" toastOptions={{ style: { background:'#1a1f2e', color:'#e5e7eb', border:'1px solid rgba(255,255,255,0.1)' } }} />
+          <AppRoutes />
+        </Router>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }

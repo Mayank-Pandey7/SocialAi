@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
+import { faEnvelope, faLock, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from '../context/ThemeContext'
 
 const TYPED_WORDS = ["tweets.", "captions.", "threads.", "posts.", "content."];
 
@@ -73,6 +74,7 @@ const DEMO_POSTS = {
 };
 
 export default function HomePage() {
+  const { isDark, toggleTheme } = useTheme();
   const [typedIndex, setTypedIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -130,7 +132,28 @@ export default function HomePage() {
               Stats
             </a>
           </div>
-          <div style={{ display: "flex", gap: "0.75rem" }}>
+          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+            <button
+              onClick={toggleTheme}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              style={{
+                background: "transparent",
+                border: "1px solid var(--border)",
+                color: "var(--text-secondary)",
+                cursor: "pointer",
+                borderRadius: 8,
+                width: 36,
+                height: 36,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "0.95rem",
+                transition: "all 0.2s",
+                flexShrink: 0,
+              }}
+            >
+              <FontAwesomeIcon icon={isDark ? faSun : faMoon} style={{ color: isDark ? "#f59e0b" : "#0d9488" }} />
+            </button>
             <Link
               to="/login"
               className="hp-nav-btn-outline"
@@ -358,7 +381,7 @@ export default function HomePage() {
                   >
                     SocialAI User
                   </div>
-                  <div style={{ fontSize: "0.75rem", color: "#4a7370" }}>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
                     @user · 2s ago
                   </div>
                 </div>
@@ -445,7 +468,7 @@ export default function HomePage() {
             <span style={s.logoGlyph}>⚡</span>
             <span style={s.logoWord}>SocialAI</span>
           </div>
-          <p style={{ color: "#4a7370", fontSize: "0.82rem" }}>
+          <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
             © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
@@ -477,7 +500,7 @@ const s = {
     radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
     radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
     radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
-    #0a1212
+    var(--bg-primary)
   `,
     minHeight: "100vh",
     fontFamily: "'DM Sans', sans-serif",
@@ -493,7 +516,7 @@ const s = {
     zIndex: 100,
     background: "rgba(10,18,18,0.85)",
     backdropFilter: "blur(20px)",
-    borderBottom: "1px solid #1f3d3d",
+    borderBottom: "1px solid var(--border)",
   },
   navInner: {
     maxWidth: 1200,
@@ -524,7 +547,7 @@ const s = {
   btnOutline: {
     padding: "0.5rem 1.1rem",
     borderRadius: 8,
-    border: "1px solid #1f3d3d",
+    border: "1px solid var(--border)",
     color: "#e0f2f1",
     textDecoration: "none",
     fontSize: "0.85rem",
@@ -653,15 +676,15 @@ const s = {
   techPill: {
     padding: "0.25rem 0.75rem",
     borderRadius: 20,
-    border: "1px solid #1f3d3d",
-    color: "#4a7370",
+    border: "1px solid var(--border)",
+    color: "var(--text-muted)",
     fontSize: "0.72rem",
     fontWeight: 500,
   },
 
   floatCard: {
     background: "rgba(19,36,36,0.9)",
-    border: "1px solid #1f3d3d",
+    border: "1px solid var(--border)",
     borderRadius: 16,
     padding: "1.25rem",
     backdropFilter: "blur(12px)",
@@ -686,7 +709,7 @@ const s = {
     flexShrink: 0,
   },
   floatName: { fontSize: "0.875rem", fontWeight: 600, color: "#e0f2f1" },
-  floatHandle: { fontSize: "0.75rem", color: "#4a7370" },
+  floatHandle: { fontSize: "0.75rem", color: "var(--text-muted)" },
   aiTag: {
     marginLeft: "auto",
     padding: "0.2rem 0.6rem",
@@ -708,10 +731,10 @@ const s = {
   floatActions: {
     display: "flex",
     gap: "1.25rem",
-    borderTop: "1px solid #1f3d3d",
+    borderTop: "1px solid var(--border)",
     paddingTop: "0.75rem",
   },
-  floatStat: { fontSize: "0.78rem", color: "#4a7370" },
+  floatStat: { fontSize: "0.78rem", color: "var(--text-muted)" },
   floatBadge: {
     position: "absolute",
     padding: "0.4rem 0.9rem",
@@ -727,9 +750,9 @@ const s = {
   },
 
   statsBand: {
-    background: "#0f1f1f",
-    borderTop: "1px solid #1f3d3d",
-    borderBottom: "1px solid #1f3d3d",
+    background: "var(--bg-secondary)",
+    borderTop: "1px solid var(--border)",
+    borderBottom: "1px solid var(--border)",
   },
   statsInner: {
     maxWidth: 1200,
@@ -749,7 +772,7 @@ const s = {
     WebkitTextFillColor: "transparent",
     lineHeight: 1,
   },
-  statLabel: { fontSize: "0.82rem", color: "#4a7370", marginTop: "0.35rem" },
+  statLabel: { fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "0.35rem" },
 
   section: { maxWidth: 1200, margin: "0 auto", padding: "6rem 2rem" },
   sectionHead: { textAlign: "center", marginBottom: "3.5rem" },
@@ -775,8 +798,8 @@ const s = {
     gap: "1.25rem",
   },
   featCard: {
-    background: "#132424",
-    border: "1px solid #1f3d3d",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
     borderRadius: 14,
     padding: "1.75rem",
     transition: "border-color 0.2s",
@@ -824,9 +847,9 @@ const s = {
   tonePill: {
     padding: "0.45rem 1rem",
     borderRadius: 20,
-    border: "1px solid #1f3d3d",
+    border: "1px solid var(--border)",
     background: "transparent",
-    color: "#4a7370",
+    color: "var(--text-muted)",
     fontSize: "0.82rem",
     cursor: "pointer",
     fontFamily: "'DM Sans', sans-serif",
@@ -840,8 +863,8 @@ const s = {
   },
   demoCard: {
     width: "100%",
-    background: "#132424",
-    border: "1px solid #1f3d3d",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
     borderRadius: 16,
     padding: "1.5rem",
   },
@@ -889,9 +912,9 @@ const s = {
   },
 
   footer: {
-    borderTop: "1px solid #1f3d3d",
+    borderTop: "1px solid var(--border)",
     padding: "2rem 1.5rem",
-    background: "#0a1212",
+    background: "var(--bg-primary)",
   },
   footerInner: {
     maxWidth: 1200,
@@ -902,5 +925,5 @@ const s = {
     gap: "1rem",
     flexWrap: "wrap",
   },
-  footerLink: { color: "#4a7370", textDecoration: "none", fontSize: "0.82rem" },
+  footerLink: { color: "var(--text-muted)", textDecoration: "none", fontSize: "0.82rem" },
 };

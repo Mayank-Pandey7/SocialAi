@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useTheme } from '../../context/ThemeContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faHouse, faWandMagicSparkles, faFire, faChartBar,
@@ -19,22 +20,15 @@ const NAV_ITEMS = [
 
 export default function Layout() {
   const { user, logout, updateProfile } = useAuth();
+  const { isDark, toggleTheme: contextToggle, setTheme } = useTheme();
   const navigate = useNavigate();
   const [collapsed,   setCollapsed]   = useState(false);
   const [mobileOpen,  setMobileOpen]  = useState(false);
-  const [isDark,      setIsDark]      = useState(user?.darkMode !== false);
 
-  // Apply theme class to body on mount and change
+  // Sync with user preference on login
   useEffect(() => {
-    document.body.classList.toggle('light', !isDark);
-  }, [isDark]);
-
-  // Sync with user preference on load
-  useEffect(() => {
-    if (user) {
-      const dark = user.darkMode !== false;
-      setIsDark(dark);
-      document.body.classList.toggle('light', !dark);
+    if (user && user.darkMode !== undefined) {
+      setTheme(user.darkMode !== false);
     }
   }, [user]);
 
@@ -45,11 +39,9 @@ export default function Layout() {
   };
 
   const toggleTheme = async () => {
-    const newDark = !isDark;
-    setIsDark(newDark);
-    document.body.classList.toggle('light', !newDark);
+    contextToggle();
     try {
-      await updateProfile({ darkMode: newDark });
+      await updateProfile({ darkMode: !isDark });
     } catch (e) {
       // silent fail — preference still applied locally
     }
