@@ -1,9 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
+  const { isDark, toggleTheme } = useTheme();
   const [step, setStep] = useState("email"); // "email" | "otp" | "password"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -109,9 +113,31 @@ export default function LoginPage() {
   return (
     <div style={styles.page}>
       <div style={styles.card} className="fade-in">
-        <div style={styles.logo}>
-          <span style={styles.logoIcon}>⚡</span>
-          <span style={styles.logoText}>SocialAI</span>
+        <div style={{ ...styles.logo, justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <span style={styles.logoIcon}>⚡</span>
+            <span style={styles.logoText}>SocialAI</span>
+          </div>
+          <button
+            onClick={toggleTheme}
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            style={{
+              background: "transparent",
+              border: "1px solid var(--border)",
+              color: "var(--text-secondary)",
+              cursor: "pointer",
+              borderRadius: 8,
+              width: 34,
+              height: 34,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "0.9rem",
+              transition: "all 0.2s",
+            }}
+          >
+            <FontAwesomeIcon icon={isDark ? faSun : faMoon} style={{ color: isDark ? "#f59e0b" : "#0d9488" }} />
+          </button>
         </div>
 
         {step === "email" && (
