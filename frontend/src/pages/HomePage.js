@@ -514,8 +514,7 @@ const s = {
     left: 0,
     right: 0,
     zIndex: 100,
-    background: "rgba(10,18,18,0.85)",
-    backdropFilter: "blur(20px)",
+    background: "var(--bg-secondary)",
     borderBottom: "1px solid var(--border)",
   },
   navInner: {
@@ -533,7 +532,7 @@ const s = {
     fontFamily: "'Syne', sans-serif",
     fontWeight: 800,
     fontSize: "1.15rem",
-    background: "linear-gradient(135deg, #0d9488, #2dd4bf)",
+    background: "var(--gradient)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
@@ -548,6 +547,7 @@ const s = {
     padding: "0.5rem 1.1rem",
     borderRadius: 8,
     border: "1px solid var(--border)",
+    background: "var(--bg-card)",
     color: "var(--text-primary)",
     textDecoration: "none",
     fontSize: "0.85rem",
@@ -624,8 +624,7 @@ const s = {
     color: "var(--text-primary)",
   },
   heroAccent: {
-    background:
-      "linear-gradient(135deg, #0d9488 0%, #2dd4bf 50%, #22c55e 100%)",
+    background: "var(--gradient)",
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
@@ -683,7 +682,7 @@ const s = {
   },
 
   floatCard: {
-    background: "rgba(19,36,36,0.9)",
+    background: "var(--bg-card)",
     border: "1px solid var(--border)",
     borderRadius: 16,
     padding: "1.25rem",
