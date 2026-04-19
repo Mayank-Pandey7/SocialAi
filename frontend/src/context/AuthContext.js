@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
@@ -35,6 +34,18 @@ export const AuthProvider = ({ children }) => {
     return res.data;
   };
 
+  const sendOtp = async (email) => {
+    const res = await API.post('/auth/send-otp', { email });
+    return res.data;
+  };
+
+  const verifyOtp = async (email, otp) => {
+    const res = await API.post('/auth/verify-otp', { email, otp });
+    localStorage.setItem('token', res.data.token);
+    setUser(res.data.user);
+    return res.data;
+  };
+
   const register = async (name, email, password, interests) => {
     const res = await API.post('/auth/register', { name, email, password, interests });
     localStorage.setItem('token', res.data.token);
@@ -54,7 +65,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout, updateProfile, API }}>
+    <AuthContext.Provider value={{ user, loading, login, sendOtp, verifyOtp, register, logout, updateProfile, API }}>
       {children}
     </AuthContext.Provider>
   );

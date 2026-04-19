@@ -1,4 +1,3 @@
-
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
@@ -39,6 +38,9 @@ const UserSchema = new mongoose.Schema(
     postsGenerated: { type: Number, default: 0 },
     // Dark mode preference
     darkMode: { type: Boolean, default: true },
+    // OTP fields
+    otp: { type: String, select: false },
+    otpExpiry: { type: Date, select: false },
   },
   { timestamps: true } // Adds createdAt and updatedAt automatically
 );
