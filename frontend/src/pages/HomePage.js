@@ -308,7 +308,7 @@ export default function HomePage() {
 
       <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
-          <div style={s.eyebrow}>Live preview</div>
+          <div style={s.eyebrow}>Live preview(demo) </div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
           <p
             style={{ color: "#7fa9a6", fontSize: "1rem", marginTop: "0.75rem" }}
