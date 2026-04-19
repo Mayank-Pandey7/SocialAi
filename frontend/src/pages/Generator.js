@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { API } from "../context/AuthContext";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 const INTERESTS = [
   "technology",

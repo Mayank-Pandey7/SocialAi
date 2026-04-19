@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth, API } from "../context/AuthContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 const StatCard = ({ icon, label, value, change, color }) => (
   <div className="card fade-in">
@@ -104,7 +106,7 @@ export default function Dashboard() {
             marginBottom: 0,
           }}
         >
-          Here's your content performance overview
+          Here's your content performance overview.
         </p>
       </div>
 

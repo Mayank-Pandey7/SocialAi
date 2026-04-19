@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { API } from "../context/AuthContext";
 import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock } from '@fortawesome/free-solid-svg-icons'
 
 const CATEGORIES = [
   "all",
