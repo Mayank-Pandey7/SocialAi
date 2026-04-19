@@ -5,7 +5,15 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const { body, validationResult } = require('express-validator');
 const User = require('../models/User');
-const { protect } = require('../middleware/auth');
+
+let protect;
+try {
+  protect = require('../middleware/auth').protect;
+  if (!protect) throw new Error('protect is undefined');
+} catch (e) {
+  console.error('Failed to load protect middleware:', e.message);
+  process.exit(1);
+}
 
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE || '7d' });
