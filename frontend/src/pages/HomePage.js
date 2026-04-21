@@ -142,11 +142,13 @@ export default function HomePage() {
                 style={{ color: isDark ? "#f59e0b" : "#0d9488", fontSize: "0.95rem" }}
               />
             </button>
-            {/* Sign in hidden on mobile — Register is sufficient CTA */}
-            <Link to="/login" className="hp-nav-signin" style={s.btnline}>
+            {/* Sign in always visible — Register hidden on mobile */}
+            <Link to="/login" className="hp-nav-btn-fill" style={s.btnOutline}>
               Sign in
             </Link>
-           
+            <Link to="/register" className="hp-nav-signin" style={s.btnFill}>
+              Register →
+            </Link>
           </div>
         </div>
       </nav>
