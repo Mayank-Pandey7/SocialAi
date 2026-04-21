@@ -162,7 +162,7 @@ export default function HomePage() {
               Sign in
             </Link>
             <Link to="/register" className="hp-nav-btn-fill" style={s.btnFill}>
-              Create an account →
+              Register →
             </Link>
           </div>
         </div>
