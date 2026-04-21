@@ -117,48 +117,33 @@ export default function HomePage() {
       {/* ── NAV ── */}
       <nav style={s.nav}>
         <div style={s.navInner}>
+          {/* Logo — always visible */}
           <div style={s.logo}>
             <span style={s.logoGlyph}>⚡</span>
             <span style={s.logoWord}>SocialAI</span>
           </div>
+
+          {/* Nav links — hidden on mobile via CSS class */}
           <div className="hp-nav-links" style={s.navLinks}>
-            <a href="#features" style={s.navLink}>
-              Features
-            </a>
-            <a href="#demo" style={s.navLink}>
-              Demo
-            </a>
-            <a href="#stats" style={s.navLink}>
-              Stats
-            </a>
+            <a href="#features" style={s.navLink}>Features</a>
+            <a href="#demo" style={s.navLink}>Demo</a>
+            <a href="#stats" style={s.navLink}>Stats</a>
           </div>
-          <div style={{ display: "flex", gap: "0.75rem", alignItems: "center" }}>
+
+          {/* Right actions — theme toggle + buttons, always grouped together */}
+          <div style={s.navActions}>
             <button
               onClick={toggleTheme}
               title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-              style={{
-                background: "transparent",
-                border: "1px solid var(--border)",
-                color: "var(--text-secondary)",
-                cursor: "pointer",
-                borderRadius: 8,
-                width: 36,
-                height: 36,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "0.95rem",
-                transition: "all 0.2s",
-                flexShrink: 0,
-              }}
+              style={s.themeToggle}
             >
-              <FontAwesomeIcon icon={isDark ? faSun : faMoon} style={{ color: isDark ? "#f59e0b" : "#0d9488" }} />
+              <FontAwesomeIcon
+                icon={isDark ? faSun : faMoon}
+                style={{ color: isDark ? "#f59e0b" : "#0d9488", fontSize: "0.95rem" }}
+              />
             </button>
-            <Link
-              to="/login"
-              className="hp-nav-btn-outline"
-              style={s.btnOutline}
-            >
+            {/* Sign in hidden on mobile — Register is sufficient CTA */}
+            <Link to="/login" className="hp-nav-signin" style={s.btnOutline}>
               Sign in
             </Link>
             <Link to="/register" className="hp-nav-btn-fill" style={s.btnFill}>
@@ -334,11 +319,9 @@ export default function HomePage() {
 
       <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
         <div style={s.sectionHead}>
-          <div style={s.eyebrow}>Live preview (demo) </div>
+          <div style={s.eyebrow}>Live preview (demo)</div>
           <h2 style={s.sectionH2}>See the AI in action</h2>
-          <p
-            style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}
-          >
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}>
             Switch tones below — watch the same topic transform instantly
           </p>
         </div>
@@ -366,22 +349,10 @@ export default function HomePage() {
             }}
           >
             <div style={s.demoHeader}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.75rem",
-                }}
-              >
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
                 <div style={s.demoAvatar}>S</div>
                 <div>
-                  <div
-                    style={{
-                      fontWeight: 600,
-                      fontSize: "0.9rem",
-                      color: "var(--text-primary)",
-                    }}
-                  >
+                  <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "var(--text-primary)" }}>
                     SocialAI User
                   </div>
                   <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
@@ -393,14 +364,7 @@ export default function HomePage() {
                 ✦ {activeTone}
               </span>
             </div>
-            <p
-              style={{
-                ...s.floatText,
-                padding: "0 0 1rem",
-                lineHeight: 1.7,
-                minHeight: 80,
-              }}
-            >
+            <p style={{ ...s.floatText, padding: "0 0 1rem", lineHeight: 1.7, minHeight: 80 }}>
               {DEMO_POSTS[activeTone]}
             </p>
             <div
@@ -429,7 +393,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
 
       <section style={s.ctaSection}>
         <div className="hp-cta-box" style={s.ctaBox}>
@@ -463,8 +426,6 @@ export default function HomePage() {
         </div>
       </section>
 
-
-
       <footer style={s.footer}>
         <div style={s.footerInner}>
           <div style={s.logo}>
@@ -475,23 +436,48 @@ export default function HomePage() {
             © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
           </p>
           <div style={{ display: "flex", gap: "1.5rem" }}>
-            <Link to="/login" style={s.footerLink}>
-              Login
-            </Link>
-            <Link to="/register" style={s.footerLink}>
-              Register
-            </Link>
+            <Link to="/login" style={s.footerLink}>Login</Link>
+            <Link to="/register" style={s.footerLink}>Register</Link>
           </div>
         </div>
       </footer>
 
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
         html { scroll-behavior: smooth; }
-        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-        @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        @keyframes float   { 0%,100% { transform: translateY(0); }  50% { transform: translateY(-10px); } }
+        @keyframes blink   { 0%,100% { opacity: 1; }                50% { opacity: 0; } }
+        @keyframes fadeUp  { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse   { 0%,100% { opacity: 1; }                50% { opacity: 0.5; } }
+
+        /* ── Mobile nav: hide links + sign-in, keep toggle + register ── */
+        @media (max-width: 640px) {
+          .hp-nav-links   { display: none !important; }
+          .hp-nav-signin  { display: none !important; }
+        }
+
+        /* ── Hero stacks on mobile ── */
+        @media (max-width: 768px) {
+          .hp-hero         { flex-direction: column !important; padding: 6rem 1.25rem 3rem !important; gap: 2.5rem !important; }
+          .hp-hero-content { flex: unset !important; }
+          .hp-hero-visual  { flex: unset !important; max-width: 100% !important; width: 100% !important; }
+        }
+
+        /* ── Stats 2-col on mobile ── */
+        @media (max-width: 640px) {
+          .hp-stats-inner  { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+
+        /* ── Feature grid 1-col on mobile ── */
+        @media (max-width: 480px) {
+          .hp-feat-grid    { grid-template-columns: 1fr !important; }
+          .hp-section      { padding: 4rem 1.25rem !important; }
+          .hp-cta-row      { flex-direction: column !important; align-items: stretch !important; }
+          .hp-cta-box      { padding: 2.5rem 1.5rem !important; }
+          .hp-cta-h2       { font-size: 1.75rem !important; }
+        }
       `}</style>
     </div>
   );
@@ -500,17 +486,18 @@ export default function HomePage() {
 const s = {
   page: {
     background: `
-    radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
-    radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
-    radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
-    var(--bg-primary)
-  `,
+      radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
+      radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
+      radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
+      var(--bg-primary)
+    `,
     minHeight: "100vh",
     fontFamily: "'DM Sans', sans-serif",
     color: "var(--text-primary)",
     overflowX: "hidden",
   },
 
+  /* ─── NAV ─── */
   nav: {
     position: "fixed",
     top: 0,
@@ -526,10 +513,11 @@ const s = {
     padding: "0 1.25rem",
     height: 64,
     display: "flex",
-    alignItems: "center",
+    alignItems: "center",       // ✓ all children vertically centred
     justifyContent: "space-between",
+    gap: "0.75rem",             // ✓ breathing room between logo / links / actions
   },
-  logo: { display: "flex", alignItems: "center", gap: "0.4rem" },
+  logo: { display: "flex", alignItems: "center", gap: "0.4rem", flexShrink: 0 },
   logoGlyph: { fontSize: "1.25rem" },
   logoWord: {
     fontFamily: "'Syne', sans-serif",
@@ -539,12 +527,42 @@ const s = {
     WebkitBackgroundClip: "text",
     WebkitTextFillColor: "transparent",
   },
-  navLinks: { display: "flex", gap: "2rem", flex: 1, marginLeft: "2rem" },
+
+  // Nav links sit in the middle — don't let them steal all space
+  navLinks: {
+    display: "flex",
+    gap: "2rem",
+    flex: "0 1 auto",           // ✓ was "flex: 1" — that pushed actions off-screen
+    marginLeft: "1.5rem",
+  },
   navLink: {
     color: "var(--text-secondary)",
     textDecoration: "none",
     fontSize: "0.875rem",
     fontWeight: 400,
+  },
+
+  // All right-hand controls in ONE flex group — toggle + sign-in + register
+  navActions: {
+    display: "flex",
+    alignItems: "center",       // ✓ vertically centred together
+    gap: "0.6rem",              // ✓ consistent spacing between all three
+    flexShrink: 0,              // ✓ never squish or clip
+    marginLeft: "auto",         // ✓ push to the far right
+  },
+  themeToggle: {
+    background: "transparent",
+    border: "1px solid var(--border)",
+    color: "var(--text-secondary)",
+    cursor: "pointer",
+    borderRadius: 8,
+    width: 36,
+    height: 36,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "all 0.2s",
+    flexShrink: 0,
   },
   btnOutline: {
     padding: "0.5rem 1.1rem",
@@ -567,6 +585,7 @@ const s = {
     whiteSpace: "nowrap",
   },
 
+  /* ─── HERO ─── */
   hero: {
     minHeight: "100vh",
     display: "flex",
@@ -581,8 +600,7 @@ const s = {
   gridBg: {
     position: "fixed",
     inset: 0,
-    backgroundImage:
-      "radial-gradient(rgba(13,148,136,0.12) 1px, transparent 1px)",
+    backgroundImage: "radial-gradient(rgba(13,148,136,0.12) 1px, transparent 1px)",
     backgroundSize: "22px 22px",
     pointerEvents: "none",
     zIndex: 0,
@@ -684,6 +702,7 @@ const s = {
     fontWeight: 500,
   },
 
+  /* ─── FLOAT CARD ─── */
   floatCard: {
     background: "var(--bg-card)",
     border: "1px solid var(--border)",
@@ -751,6 +770,7 @@ const s = {
     whiteSpace: "nowrap",
   },
 
+  /* ─── STATS ─── */
   statsBand: {
     background: "var(--bg-secondary)",
     borderTop: "1px solid var(--border)",
@@ -776,6 +796,7 @@ const s = {
   },
   statLabel: { fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "0.35rem" },
 
+  /* ─── SECTIONS ─── */
   section: { maxWidth: 1200, margin: "0 auto", padding: "6rem 2rem" },
   sectionHead: { textAlign: "center", marginBottom: "3.5rem" },
   eyebrow: {
@@ -794,6 +815,7 @@ const s = {
     lineHeight: 1.15,
   },
 
+  /* ─── FEATURES ─── */
   featGrid: {
     display: "grid",
     gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
@@ -832,6 +854,7 @@ const s = {
     fontWeight: 300,
   },
 
+  /* ─── DEMO ─── */
   demoWrap: {
     maxWidth: 640,
     margin: "0 auto",
@@ -888,6 +911,7 @@ const s = {
     color: "#fff",
   },
 
+  /* ─── CTA SECTION ─── */
   ctaSection: { padding: "5rem 1.5rem", position: "relative" },
   ctaBox: {
     maxWidth: 800,
@@ -905,14 +929,14 @@ const s = {
     width: 500,
     height: 500,
     borderRadius: "50%",
-    background:
-      "radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)",
+    background: "radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)",
     top: "50%",
     left: "50%",
     transform: "translate(-50%,-50%)",
     pointerEvents: "none",
   },
 
+  /* ─── FOOTER ─── */
   footer: {
     borderTop: "1px solid var(--border)",
     padding: "2rem 1.5rem",
@@ -927,5 +951,9 @@ const s = {
     gap: "1rem",
     flexWrap: "wrap",
   },
-  footerLink: { color: "var(--text-muted)", textDecoration: "none", fontSize: "0.82rem" },
+  footerLink: {
+    color: "var(--text-muted)",
+    textDecoration: "none",
+    fontSize: "0.82rem",
+  },
 };
