@@ -1,716 +1,960 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faLock, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from '../context/ThemeContext'
 
-const PLATFORMS = ["Twitter", "Instagram", "LinkedIn", "Facebook"];
-const TONES = ["professional", "casual", "funny", "motivational"];
-const TOPICS = ["tech & ai", "startup life", "design", "productivity"];
-
-const DEMO_OUTPUTS = {
-  "professional-tech & ai":
-    "The companies quietly winning in AI aren't the loudest. They're the ones building reliable infrastructure while everyone debates AGI timelines. Execution > hype. #AI #Tech",
-  "casual-tech & ai":
-    "okay but why is every ai tool still asking me to 'craft' my prompt like i'm writing a poem?? just let me type normally and figure it out 😭 #devlife",
-  "funny-tech & ai":
-    "me: write me a professional email\nAI: certainly! here's a 6-paragraph essay with 3 metaphors and a haiku\nme: i just needed 2 sentences\nAI: understood. here are 4 versions 🙃",
-  "motivational-tech & ai":
-    "Every developer who ships things that people actually use started with a project that maybe 5 people noticed. Build anyway. Ship anyway. 🚀",
-  "professional-startup life":
-    "Fundraising teaches you something nobody warns you about: the investors who move fast are rarely the ones you want. The right ones ask hard questions slowly. #startups",
-  "casual-startup life":
-    "3 years into building and the proudest moment is still when a user messaged saying they use it every day. no revenue milestone beats that honestly",
-  "funny-startup life":
-    "startup milestone tracker:\n✅ MVP done\n✅ first 10 users\n✅ first churn\n✅ pivoted twice\n✅ called it 'early traction'\n❌ profitable\n❌ sleeping normally",
-  "motivational-startup life":
-    "The version 1 you shipped and the version 1 you envisioned are never the same. That gap is not failure — it's how you learned what the product actually needed to be.",
-  "professional-design":
-    "Good interface design is invisible. Users don't think about the button — they think about the task. That invisibility is the hardest thing to build. #uxdesign #productdesign",
-  "casual-design":
-    "designer brain is seeing a sign with bad kerning in the wild and being unable to move past it until you've mentally fixed it",
-  "funny-design":
-    "client: can we make the logo bigger?\nme: *makes it bigger*\nclient: actually smaller than before but bigger in feel\nme: ...what",
-  "motivational-design":
-    "Every great product was once a rough wireframe on a napkin (or a Figma file with 40 pages named 'final_v2_REAL_USE_THIS'). Start messy. Refine relentlessly.",
-  "professional-productivity":
-    "The most productive people I know don't have better systems. They've just gotten ruthless about what they agree to before it enters their system. Calendar hygiene is a skill.",
-  "casual-productivity":
-    "the productivity hack nobody sells you: having one day where you do absolutely nothing and feeling zero guilt about it. works every time",
-  "funny-productivity":
-    "my productivity system:\n1. write long to-do list\n2. do the 2 easy things\n3. add them back just to cross them off\n4. feel accomplished\n5. ignore the rest",
-  "motivational-productivity":
-    "You don't need a perfect morning routine. You need to start. The gap between planning to be productive and being productive is exactly one decision.",
-};
+const TYPED_WORDS = ["tweets.", "captions.", "threads.", "posts.", "content."];
 
 const FEATURES = [
   {
-    label: "AI Content Engine",
-    body: "Platform-perfect posts across every tone. The same idea reads completely differently when it's yours.",
+    icon: "✦",
+    title: "AI Content Engine",
+    desc: "Generate platform-perfect posts in seconds — professional, funny, motivational or casual tones at your command.",
+    color: "var(--accent-light)",
   },
   {
-    label: "Trending Topics",
-    body: "Real-time signals across tech, business, sport, culture. Know what's resonating before you post.",
+    icon: "◈",
+    title: "Trending Intel",
+    desc: "Real-time topic discovery across tech, sports, business & more. Always post what people care about.",
+    color: "#22c55e",
   },
   {
-    label: "Multi-platform",
-    body: "Twitter's character limit. Instagram's culture. LinkedIn's register. Each post adapted, not copied.",
+    icon: "◉",
+    title: "Engagement Charts",
+    desc: "Beautiful analytics dashboards that show reach, likes, and engagement across all your content.",
+    color: "#f59e0b",
   },
   {
-    label: "Analytics",
-    body: "Reach, engagement, and growth across your content. Know what works, stop guessing.",
+    icon: "◆",
+    title: "Smart Scheduler",
+    desc: "Draft today. Schedule for the perfect moment. Your content calendar, fully in control.",
+    color: "#0d9488",
   },
   {
-    label: "Smart Scheduler",
-    body: "Draft now, post at the right moment. Your calendar, your rules.",
+    icon: "◎",
+    title: "Multi-Platform",
+    desc: "Twitter, Instagram, LinkedIn, Facebook — each post optimised for its platform's character limits and culture.",
+    color: "var(--accent-light)",
   },
   {
-    label: "Free to use",
-    body: "No paywalls. No token limits. Built on open AI and smart templates.",
+    icon: "⬡",
+    title: "Zero API Cost",
+    desc: "Powered by free AI models and smart templates. Professional output without the subscription fees.",
+    color: "#f59e0b",
   },
 ];
 
-export default function HomePage() {
-  const [platform, setPlatform] = useState("Twitter");
-  const [tone, setTone] = useState("casual");
-  const [topic, setTopic] = useState("tech & ai");
-  const [generating, setGenerating] = useState(false);
-  const [output, setOutput] = useState(
-    DEMO_OUTPUTS["casual-tech & ai"]
-  );
-  const [charCount, setCharCount] = useState(0);
-  const [copied, setCopied] = useState(false);
-  const outputRef = useRef(null);
+const STATS = [
+  { value: "10K+", label: "Posts Generated" },
+  { value: "5", label: "Platforms Supported" },
+  { value: "100%", label: "Free to Use" },
+  { value: "< 3s", label: "Generation Time" },
+];
 
-  const generate = () => {
-    setGenerating(true);
-    setOutput("");
-    const key = `${tone}-${topic}`;
-    const text =
-      DEMO_OUTPUTS[key] ||
-      DEMO_OUTPUTS["casual-tech & ai"];
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      setOutput(text.slice(0, i));
-      if (i >= text.length) {
-        clearInterval(interval);
-        setGenerating(false);
-      }
-    }, 14);
-  };
+const TONES = [
+  "professional",
+  "funny",
+  "motivational",
+  "casual",
+  "inspirational",
+];
+
+const DEMO_POSTS = {
+  professional:
+    "🚀 AI is not replacing your job — someone who understands AI is. The question isn't whether to adapt, it's how fast. #TechStrategy #FutureReady #Innovation",
+  funny:
+    "Sometimes I use AI to feel productive Like yeah, I'm doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor",
+  motivational:
+    "Every expert was once a complete beginner. Every viral post was once someone's first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset",
+  casual:
+    "honestly AI tools are lowkey changing everything and nobody's talking about it enough 👀 the next 2 years are going to be wild #JustSaying",
+  inspirational:
+    "The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst",
+};
+
+export default function HomePage() {
+  const { isDark, toggleTheme } = useTheme();
+  const [typedIndex, setTypedIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [activeTone, setActiveTone] = useState("professional");
+  const [demoVisible, setDemoVisible] = useState(false);
+  const demoRef = useRef(null);
 
   useEffect(() => {
-    setCharCount(output.length);
-  }, [output]);
+    const word = TYPED_WORDS[typedIndex];
+    let timeout;
+    if (!isDeleting && displayText.length < word.length) {
+      timeout = setTimeout(
+        () => setDisplayText(word.slice(0, displayText.length + 1)),
+        80,
+      );
+    } else if (!isDeleting && displayText.length === word.length) {
+      timeout = setTimeout(() => setIsDeleting(true), 1800);
+    } else if (isDeleting && displayText.length > 0) {
+      timeout = setTimeout(() => setDisplayText(displayText.slice(0, -1)), 40);
+    } else if (isDeleting && displayText.length === 0) {
+      setIsDeleting(false);
+      setTypedIndex((i) => (i + 1) % TYPED_WORDS.length);
+    }
+    return () => clearTimeout(timeout);
+  }, [displayText, isDeleting, typedIndex]);
 
-  const copy = () => {
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1800);
-  };
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setDemoVisible(true);
+      },
+      { threshold: 0.2 },
+    );
+    if (demoRef.current) obs.observe(demoRef.current);
+    return () => obs.disconnect();
+  }, []);
 
   return (
     <div style={s.page}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        a { text-decoration: none; }
-
-        .chip { transition: background 0.14s, border-color 0.14s, color 0.14s; cursor: pointer; }
-        .chip:hover { border-color: rgba(255,255,255,0.3) !important; }
-        .chip.active { background: rgba(255,255,255,0.1) !important; border-color: rgba(255,255,255,0.4) !important; color: #fff !important; }
-
-        .feat-row { border-top: 1px solid rgba(255,255,255,0.06); transition: background 0.14s; }
-        .feat-row:hover { background: rgba(255,255,255,0.03); }
-
-        .gen-btn { transition: background 0.18s, transform 0.1s; }
-        .gen-btn:hover { background: rgba(255,255,255,0.14) !important; }
-        .gen-btn:active { transform: scale(0.98); }
-
-        .cta-main { transition: background 0.16s, transform 0.1s; }
-        .cta-main:hover { background: #e2e2e2 !important; }
-        .cta-main:active { transform: scale(0.98); }
-
-        .cta-sec { transition: border-color 0.16s, color 0.16s; }
-        .cta-sec:hover { border-color: rgba(255,255,255,0.4) !important; color: #fff !important; }
-
-        .nav-link { transition: color 0.14s; }
-        .nav-link:hover { color: #fff !important; }
-
-        @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        .cursor { display: inline-block; width: 2px; height: 1em; background: #fff; vertical-align: text-bottom; animation: blink 0.9s step-end infinite; margin-left: 1px; }
-
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .spinner { animation: spin 0.7s linear infinite; }
-
-        @media (max-width: 720px) {
-          .hero-layout { flex-direction: column !important; }
-          .hide-mobile { display: none !important; }
-          .demo-panel { padding: 1.25rem !important; }
-          .nav-ctas .hide-sm { display: none; }
-        }
-      `}</style>
-
-      {/* NAV */}
+      {/* ── NAV ── */}
       <nav style={s.nav}>
         <div style={s.navInner}>
+          {/* Logo — always visible */}
           <div style={s.logo}>
-            <div style={s.logoBox}>S</div>
-            <span style={s.logoText}>SocialAI</span>
+            <span style={s.logoGlyph}>⚡</span>
+            <span style={s.logoWord}>SocialAI</span>
           </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "2rem" }} className="hide-mobile">
-            {["Features", "Demo", "Stats"].map((l) => (
-              <a key={l} href={`#${l.toLowerCase()}`} className="nav-link" style={s.navLink}>{l}</a>
-            ))}
+
+          {/* Nav links — hidden on mobile via CSS class */}
+          <div className="hp-nav-links" style={s.navLinks}>
+            <a href="#features" style={s.navLink}>Features</a>
+            <a href="#demo" style={s.navLink}>Demo</a>
+            <a href="#stats" style={s.navLink}>Stats</a>
           </div>
-          <div style={{ display: "flex", gap: "0.6rem", alignItems: "center" }} className="nav-ctas">
-            <Link to="/login" className="cta-sec hide-sm" style={s.navBtnSecondary}>Sign in</Link>
-            <Link to="/register" className="cta-main" style={s.navBtnPrimary}>Get started</Link>
+
+          {/* Right actions — theme toggle + buttons, always grouped together */}
+          <div style={s.navActions}>
+            <button
+              onClick={toggleTheme}
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+              style={s.themeToggle}
+            >
+              <FontAwesomeIcon
+                icon={isDark ? faSun : faMoon}
+                style={{ color: isDark ? "#f59e0b" : "#0d9488", fontSize: "0.95rem" }}
+              />
+            </button>
+            {/* Sign in always visible — Register hidden on mobile */}
+            <Link to="/login" className="hp-nav-btn-fill" style={s.btnOutline}>
+              Sign in
+            </Link>
+            <Link to="/register" className="hp-nav-signin" style={s.btnFill}>
+              Register →
+            </Link>
           </div>
         </div>
       </nav>
 
-      {/* HERO */}
-      <section id="demo" style={s.hero}>
-        <div style={s.heroInner}>
-          {/* Left: Copy */}
-          <div style={s.heroLeft}>
-            <p style={s.heroEye}>AI content for every platform</p>
-            <h1 style={s.heroH1}>
-              Write less.<br />
-              <span style={s.heroAccent}>Post smarter.</span>
-            </h1>
-            <p style={s.heroSub}>
-              Pick a topic, pick a tone — SocialAI writes the post. Adapted for every platform, ready in seconds.
-            </p>
-            <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginTop: "2rem" }}>
-              <Link to="/register" className="cta-main" style={s.heroCta}>Start free</Link>
-              <a href="#features" className="cta-sec" style={s.heroCtaGhost}>See features →</a>
+      {/* ── HERO ── */}
+      <section className="hp-hero" style={s.hero}>
+        <div style={s.gridBg} aria-hidden />
+        <div
+          style={{
+            ...s.orb,
+            top: "10%",
+            left: "15%",
+            background:
+              "radial-gradient(circle, rgba(13,148,136,0.18) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          style={{
+            ...s.orb,
+            top: "30%",
+            right: "10%",
+            background:
+              "radial-gradient(circle, rgba(45,212,191,0.12) 0%, transparent 70%)",
+          }}
+        />
+        <div
+          style={{
+            ...s.orb,
+            bottom: "5%",
+            left: "40%",
+            background:
+              "radial-gradient(circle, rgba(13,148,136,0.1) 0%, transparent 70%)",
+          }}
+        />
+
+        <div className="hp-hero-content" style={s.heroContent}>
+          <div style={s.badge}>
+            <span style={s.badgeDot} />
+            AI-Powered · Free to Use · No Setup Required
+          </div>
+          <h1 style={s.heroH1}>
+            Generate viral
+            <br />
+            <span style={s.heroAccent}>{displayText}</span>
+            <span style={s.cursor}>|</span>
+          </h1>
+          <p style={s.heroSub}>
+            SocialAI writes platform-perfect social media content in seconds.
+            <br />
+            Pick your tone, pick your topic — let AI do the rest.
+          </p>
+          <div className="hp-cta-row" style={s.ctaRow}>
+            <Link to="/register" style={s.heroCta}>
+              Start generating free{" "}
+              <span style={{ marginLeft: "0.5rem" }}>→</span>
+            </Link>
+            <a href="#demo" style={s.heroCtaGhost}>
+              See live demo ↓
+            </a>
+          </div>
+          <div className="hp-trust-row" style={s.trustRow}>
+            {["JavaScript", "React.js", "Node.js", "Express.Js", "MongoDB"].map(
+              (t) => (
+                <span key={t} style={s.techPill}>
+                  {t}
+                </span>
+              ),
+            )}
+          </div>
+        </div>
+
+        <div className="hp-hero-visual" style={s.heroVisual}>
+          <div style={{ position: "relative" }}>
+            <div style={s.floatCard}>
+              <div style={s.floatCardTop}>
+                <div style={s.avatar}>M</div>
+                <div>
+                  <div style={s.floatName}>Mayank Pandey</div>
+                  <div style={s.floatHandle}>@mayank_pandey · just now</div>
+                </div>
+                <div style={s.aiTag}>✦ AI</div>
+              </div>
+              <p style={s.floatText}>
+                🚀 The future belongs to those who learn, adapt, and build.
+                Every great product started as someone's crazy idea. What's
+                yours? #Innovation #Tech
+              </p>
+              <div style={s.floatActions}>
+                <span style={s.floatStat}>❤ 112.4K</span>
+                <span style={s.floatStat}>🔁 1847</span>
+                <span style={s.floatStat}>👁 918.2K</span>
+              </div>
             </div>
-            <div style={s.techStack}>
-              {["React", "Node.js", "Express", "MongoDB"].map((t) => (
-                <span key={t} style={s.techPill}>{t}</span>
-              ))}
+            <div
+              style={{
+                ...s.floatBadge,
+                top: "-14px",
+                right: "16px",
+                animationDelay: "0.5s",
+                background: "rgba(34,197,94,0.12)",
+                borderColor: "rgba(34,197,94,0.25)",
+                color: "#1a9346",
+              }}
+            >
+              ⚡ Generated in 1.2s
+            </div>
+            <div
+              style={{
+                ...s.floatBadge,
+                bottom: "-14px",
+                left: "16px",
+                animationDelay: "1s",
+                background: "rgba(34,197,94,0.12)",
+                borderColor: "rgba(34,197,94,0.25)",
+                color: "#1a9346",
+              }}
+            >
+              📈 +340% engagement
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Right: Live demo */}
-          <div style={s.demoPanel} className="demo-panel">
-            {/* Controls row */}
-            <div style={s.demoControls}>
-              <div style={s.controlGroup}>
-                <span style={s.controlLabel}>Platform</span>
-                <div style={s.chips}>
-                  {PLATFORMS.map((p) => (
-                    <button
-                      key={p}
-                      onClick={() => setPlatform(p)}
-                      className={`chip${platform === p ? " active" : ""}`}
-                      style={{ ...s.chip, ...(platform === p ? s.chipActive : {}) }}
-                    >
-                      {p}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div style={s.controlGroup}>
-                <span style={s.controlLabel}>Tone</span>
-                <div style={s.chips}>
-                  {TONES.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setTone(t)}
-                      className={`chip${tone === t ? " active" : ""}`}
-                      style={{ ...s.chip, ...(tone === t ? s.chipActive : {}) }}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-              <div style={s.controlGroup}>
-                <span style={s.controlLabel}>Topic</span>
-                <div style={s.chips}>
-                  {TOPICS.map((t) => (
-                    <button
-                      key={t}
-                      onClick={() => setTopic(t)}
-                      className={`chip${topic === t ? " active" : ""}`}
-                      style={{ ...s.chip, ...(topic === t ? s.chipActive : {}) }}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
+      {/* ── STATS ── */}
+      <section id="stats" style={s.statsBand}>
+        <div className="hp-stats-inner" style={s.statsInner}>
+          {STATS.map((st) => (
+            <div key={st.label} style={s.statItem}>
+              <div style={s.statVal}>{st.value}</div>
+              <div style={s.statLabel}>{st.label}</div>
             </div>
+          ))}
+        </div>
+      </section>
 
-            {/* Output */}
-            <div style={s.demoOutput} ref={outputRef}>
-              <div style={s.demoOutputHeader}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <div style={s.demoAvatar}>M</div>
-                  <div>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 500, color: "rgba(255,255,255,0.85)" }}>Mayank Pandey</div>
-                    <div style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.35)", fontFamily: "'JetBrains Mono', monospace" }}>@mayank_pandey · {platform}</div>
+      {/* ── FEATURES ── */}
+      <section id="features" className="hp-section" style={s.section}>
+        <div style={s.sectionHead}>
+          <div style={s.eyebrow}>Everything you need</div>
+          <h2 style={s.sectionH2}>
+            Built for content creators
+            <br />
+            who move fast
+          </h2>
+        </div>
+        <div className="hp-feat-grid" style={s.featGrid}>
+          {FEATURES.map((f, i) => (
+            <div
+              key={f.title}
+              style={{ ...s.featCard, animationDelay: `${i * 0.08}s` }}
+            >
+              <div
+                style={{
+                  ...s.featIcon,
+                  color: f.color,
+                  borderColor: f.color + "30",
+                  background: f.color + "10",
+                }}
+              >
+                {f.icon}
+              </div>
+              <h3 style={s.featTitle}>{f.title}</h3>
+              <p style={s.featDesc}>{f.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
+        <div style={s.sectionHead}>
+          <div style={s.eyebrow}>Live preview (demo)</div>
+          <h2 style={s.sectionH2}>See the AI in action</h2>
+          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}>
+            Switch tones below — watch the same topic transform instantly
+          </p>
+        </div>
+        <div style={s.demoWrap}>
+          <div style={s.toneRow}>
+            {TONES.map((t) => (
+              <button
+                key={t}
+                onClick={() => setActiveTone(t)}
+                style={{
+                  ...s.tonePill,
+                  ...(activeTone === t ? s.tonePillActive : {}),
+                }}
+              >
+                {t}
+              </button>
+            ))}
+          </div>
+          <div
+            style={{
+              ...s.demoCard,
+              opacity: demoVisible ? 1 : 0,
+              transform: demoVisible ? "none" : "translateY(20px)",
+              transition: "all 0.6s ease",
+            }}
+          >
+            <div style={s.demoHeader}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
+                <div style={s.demoAvatar}>S</div>
+                <div>
+                  <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "var(--text-primary)" }}>
+                    SocialAI User
+                  </div>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
+                    @user · 2s ago
                   </div>
                 </div>
-                <button onClick={copy} style={s.copyBtn} title="Copy post">
-                  {copied ? "✓ copied" : "copy"}
-                </button>
               </div>
-              <div style={s.demoText}>
-                {output || <span style={{ color: "rgba(255,255,255,0.2)", fontStyle: "italic" }}>Hit generate…</span>}
-                {generating && <span className="cursor" />}
-              </div>
-              <div style={s.demoMeta}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: "0.72rem", color: platform === "Twitter" && charCount > 280 ? "#f87171" : "rgba(255,255,255,0.3)" }}>
-                  {charCount}{platform === "Twitter" ? " / 280" : ""}
-                </span>
-                <span style={{ color: "rgba(255,255,255,0.2)", fontSize: "0.72rem" }}>
-                  {tone} · {topic}
-                </span>
-              </div>
+              <span style={{ ...s.aiTag, fontSize: "0.72rem" }}>
+                ✦ {activeTone}
+              </span>
             </div>
-
-            {/* Generate button */}
-            <button
-              onClick={generate}
-              disabled={generating}
-              className="gen-btn"
-              style={s.genBtn}
+            <p style={{ ...s.floatText, padding: "0 0 1rem", lineHeight: 1.7, minHeight: 80 }}>
+              {DEMO_POSTS[activeTone]}
+            </p>
+            <div
+              style={{
+                ...s.floatActions,
+                borderTop: "1px solid rgba(13,148,136,0.15)",
+                paddingTop: "0.75rem",
+                marginTop: 0,
+              }}
             >
-              {generating ? (
-                <>
-                  <svg className="spinner" width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <circle cx="7" cy="7" r="5.5" stroke="rgba(255,255,255,0.25)" strokeWidth="2" />
-                    <path d="M7 1.5a5.5 5.5 0 0 1 5.5 5.5" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
-                  </svg>
-                  Generating…
-                </>
-              ) : (
-                "Generate post →"
-              )}
-            </button>
+              <span style={s.floatStat}>❤ 1.2K</span>
+              <span style={s.floatStat}>🔁 340</span>
+              <span style={s.floatStat}>👁 9.8K</span>
+            </div>
           </div>
+          <Link
+            to="/register"
+            style={{
+              ...s.heroCta,
+              margin: "0 auto",
+              display: "inline-flex",
+              marginTop: "1.5rem",
+            }}
+          >
+            Try it yourself — it's free →
+          </Link>
         </div>
       </section>
 
-      {/* STATS BAR */}
-      <div id="stats" style={s.statsBar}>
-        {[
-          ["10K+", "posts generated"],
-          ["5", "platforms"],
-          ["< 3s", "generation time"],
-          ["100%", "free to use"],
-        ].map(([v, l]) => (
-          <div key={l} style={s.statItem}>
-            <span style={s.statVal}>{v}</span>
-            <span style={s.statLabel}>{l}</span>
-          </div>
-        ))}
-      </div>
-
-      {/* FEATURES */}
-      <section id="features" style={s.featSection}>
-        <div style={s.featInner}>
-          <div style={s.featHeader}>
-            <h2 style={s.featH2}>Everything you need to post consistently</h2>
-            <p style={s.featSub}>Not just a generator — a full content workflow.</p>
-          </div>
-          <div style={s.featList}>
-            {FEATURES.map((f, i) => (
-              <div key={f.label} className="feat-row" style={s.featRow}>
-                <div style={s.featNum}>{String(i + 1).padStart(2, "0")}</div>
-                <div style={s.featLabel}>{f.label}</div>
-                <div style={s.featBody}>{f.body}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
       <section style={s.ctaSection}>
-        <div style={s.ctaInner}>
-          <h2 style={s.ctaH2}>Start posting today.</h2>
-          <p style={s.ctaSub}>Free account. No credit card. Takes 30 seconds.</p>
-          <div style={{ display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap" }}>
-            <Link to="/register" className="cta-main" style={{ ...s.heroCta, padding: "0.85rem 2rem" }}>Create free account</Link>
-            <Link to="/login" className="cta-sec" style={s.heroCtaGhost}>Sign in →</Link>
+        <div className="hp-cta-box" style={s.ctaBox}>
+          <div style={s.ctaOrb} />
+          <div style={s.eyebrow}>Struggling to create engaging content?</div>
+          <h2
+            className="hp-cta-h2"
+            style={{ ...s.sectionH2, fontSize: "2.5rem", marginTop: "0.75rem" }}
+          >
+            Ready to create better content
+          </h2>
+          <p
+            style={{
+              color: "var(--text-secondary)",
+              fontSize: "1rem",
+              maxWidth: 480,
+              margin: "1rem auto 2rem",
+            }}
+          >
+            Sign in now and start generating AI-powered social media captions in
+            under 60 seconds.
+          </p>
+          <div className="hp-cta-row" style={s.ctaRow}>
+            <Link to="/register" style={s.heroCta}>
+              Create free account →
+            </Link>
+            <Link to="/login" style={s.heroCtaGhost}>
+              Sign in
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer style={s.footer}>
         <div style={s.footerInner}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <div style={{ ...s.logoBox, width: 24, height: 24, fontSize: "0.7rem" }}>S</div>
-            <span style={{ fontSize: "0.85rem", fontWeight: 500, color: "rgba(255,255,255,0.5)" }}>SocialAI</span>
+          <div style={s.logo}>
+            <span style={s.logoGlyph}>⚡</span>
+            <span style={s.logoWord}>SocialAI</span>
           </div>
-          <span style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.25)" }}>© 2025 SocialAI · built by @mynkdev</span>
-          <div style={{ display: "flex", gap: "1.25rem" }}>
-            {[["Login", "/login"], ["Register", "/register"]].map(([l, h]) => (
-              <Link key={l} to={h} className="nav-link" style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.3)" }}>{l}</Link>
-            ))}
+          <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
+            © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
+          </p>
+          <div style={{ display: "flex", gap: "1.5rem" }}>
+            <Link to="/login" style={s.footerLink}>Login</Link>
+            <Link to="/register" style={s.footerLink}>Register</Link>
           </div>
         </div>
       </footer>
+
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+
+        html { scroll-behavior: smooth; }
+
+        @keyframes float   { 0%,100% { transform: translateY(0); }  50% { transform: translateY(-10px); } }
+        @keyframes blink   { 0%,100% { opacity: 1; }                50% { opacity: 0; } }
+        @keyframes fadeUp  { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse   { 0%,100% { opacity: 1; }                50% { opacity: 0.5; } }
+
+        /* ── Mobile nav: hide links + sign-in, keep toggle + register ── */
+        @media (max-width: 640px) {
+          .hp-nav-links   { display: none !important; }
+          .hp-nav-signin  { display: none !important; }
+        }
+
+        /* ── Hero stacks on mobile ── */
+        @media (max-width: 768px) {
+          .hp-hero         { flex-direction: column !important; padding: 6rem 1.25rem 3rem !important; gap: 2.5rem !important; }
+          .hp-hero-content { flex: unset !important; }
+          .hp-hero-visual  { flex: unset !important; max-width: 100% !important; width: 100% !important; }
+        }
+
+        /* ── Stats 2-col on mobile ── */
+        @media (max-width: 640px) {
+          .hp-stats-inner  { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+
+        /* ── Feature grid 1-col on mobile ── */
+        @media (max-width: 480px) {
+          .hp-feat-grid    { grid-template-columns: 1fr !important; }
+          .hp-section      { padding: 4rem 1.25rem !important; }
+          .hp-cta-row      { flex-direction: column !important; align-items: stretch !important; }
+          .hp-cta-box      { padding: 2.5rem 1.5rem !important; }
+          .hp-cta-h2       { font-size: 1.75rem !important; }
+        }
+      `}</style>
     </div>
   );
 }
 
 const s = {
   page: {
-    background: "#0a0a0a",
+    background: `
+      radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
+      radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
+      radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
+      var(--bg-primary)
+    `,
     minHeight: "100vh",
-    fontFamily: "'Inter', system-ui, sans-serif",
-    color: "rgba(255,255,255,0.85)",
+    fontFamily: "'DM Sans', sans-serif",
+    color: "var(--text-primary)",
     overflowX: "hidden",
   },
 
-  /* NAV */
+  /* ─── NAV ─── */
   nav: {
-    position: "sticky",
+    position: "fixed",
     top: 0,
+    left: 0,
+    right: 0,
     zIndex: 100,
-    background: "rgba(10,10,10,0.85)",
-    backdropFilter: "blur(12px)",
-    WebkitBackdropFilter: "blur(12px)",
-    borderBottom: "1px solid rgba(255,255,255,0.07)",
+    background: "var(--bg-secondary)",
+    borderBottom: "1px solid var(--border)",
   },
   navInner: {
-    maxWidth: 1100,
+    maxWidth: 1200,
     margin: "0 auto",
-    padding: "0 1.5rem",
-    height: 60,
+    padding: "0 1.25rem",
+    height: 64,
     display: "flex",
-    alignItems: "center",
+    alignItems: "center",       // ✓ all children vertically centred
     justifyContent: "space-between",
-    gap: "1rem",
+    gap: "0.75rem",             // ✓ breathing room between logo / links / actions
   },
-  logo: { display: "flex", alignItems: "center", gap: "0.5rem" },
-  logoBox: {
-    width: 28,
-    height: 28,
-    background: "#fff",
-    borderRadius: 6,
+  logo: { display: "flex", alignItems: "center", gap: "0.4rem", flexShrink: 0 },
+  logoGlyph: { fontSize: "1.25rem" },
+  logoWord: {
+    fontFamily: "'Syne', sans-serif",
+    fontWeight: 800,
+    fontSize: "1.15rem",
+    background: "var(--gradient)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+
+  // Nav links sit in the middle — don't let them steal all space
+  navLinks: {
+    display: "flex",
+    gap: "2rem",
+    flex: "0 1 auto",           // ✓ was "flex: 1" — that pushed actions off-screen
+    marginLeft: "1.5rem",
+  },
+  navLink: {
+    color: "var(--text-secondary)",
+    textDecoration: "none",
+    fontSize: "0.875rem",
+    fontWeight: 400,
+  },
+
+  // All right-hand controls in ONE flex group — toggle + sign-in + register
+  navActions: {
+    display: "flex",
+    alignItems: "center",       // ✓ vertically centred together
+    gap: "0.6rem",              // ✓ consistent spacing between all three
+    flexShrink: 0,              // ✓ never squish or clip
+    marginLeft: "auto",         // ✓ push to the far right
+  },
+  themeToggle: {
+    background: "transparent",
+    border: "1px solid var(--border)",
+    color: "var(--text-secondary)",
+    cursor: "pointer",
+    borderRadius: 8,
+    width: 36,
+    height: 36,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    fontSize: "0.8rem",
-    fontWeight: 600,
-    color: "#0a0a0a",
+    transition: "all 0.2s",
     flexShrink: 0,
   },
-  logoText: { fontWeight: 600, fontSize: "1rem", color: "#fff", letterSpacing: "-0.02em" },
-  navLink: { fontSize: "0.85rem", color: "rgba(255,255,255,0.45)", fontWeight: 400 },
-  navBtnSecondary: {
-    padding: "0.4rem 0.9rem",
-    borderRadius: 7,
-    border: "1px solid rgba(255,255,255,0.15)",
-    color: "rgba(255,255,255,0.6)",
-    fontSize: "0.82rem",
-    fontWeight: 500,
-    background: "transparent",
+  btnOutline: {
+    padding: "0.5rem 1.1rem",
+    borderRadius: 8,
+    border: "1px solid var(--border)",
+    background: "var(--bg-card)",
+    color: "var(--text-primary)",
+    textDecoration: "none",
+    fontSize: "0.85rem",
+    whiteSpace: "nowrap",
   },
-  navBtnPrimary: {
-    padding: "0.4rem 1rem",
-    borderRadius: 7,
-    background: "#fff",
-    color: "#0a0a0a",
-    fontSize: "0.82rem",
-    fontWeight: 600,
+  btnFill: {
+    padding: "0.5rem 1.1rem",
+    borderRadius: 8,
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "0.85rem",
+    fontWeight: 500,
+    whiteSpace: "nowrap",
   },
 
-  /* HERO */
+  /* ─── HERO ─── */
   hero: {
-    borderBottom: "1px solid rgba(255,255,255,0.07)",
-  },
-  heroInner: {
-    maxWidth: 1100,
-    margin: "0 auto",
-    padding: "5rem 1.5rem 5rem",
+    minHeight: "100vh",
     display: "flex",
-    alignItems: "flex-start",
+    alignItems: "center",
+    justifyContent: "space-between",
+    maxWidth: 1200,
+    margin: "0 auto",
+    padding: "8rem 2rem 4rem",
     gap: "4rem",
-    flexWrap: "wrap",
+    position: "relative",
   },
-  heroLeft: {
-    flex: "1 1 300px",
-    paddingTop: "1rem",
+  gridBg: {
+    position: "fixed",
+    inset: 0,
+    backgroundImage: "radial-gradient(rgba(13,148,136,0.12) 1px, transparent 1px)",
+    backgroundSize: "22px 22px",
+    pointerEvents: "none",
+    zIndex: 0,
   },
-  heroEye: {
-    fontSize: "0.75rem",
+  orb: {
+    position: "absolute",
+    width: 600,
+    height: 600,
+    borderRadius: "50%",
+    pointerEvents: "none",
+  },
+
+  heroContent: { flex: "1 1 480px", zIndex: 1 },
+  heroVisual: { flex: "0 0 400px", maxWidth: 420, zIndex: 1 },
+
+  badge: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    padding: "0.35rem 0.9rem",
+    border: "1px solid rgba(13,148,136,0.35)",
+    borderRadius: 20,
+    fontSize: "0.78rem",
+    color: "var(--accent-light)",
+    background: "rgba(13,148,136,0.1)",
+    marginBottom: "1.5rem",
     fontWeight: 500,
-    color: "rgba(255,255,255,0.3)",
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    marginBottom: "1rem",
+  },
+  badgeDot: {
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    background: "#0d9488",
+    animation: "pulse 2s ease infinite",
   },
   heroH1: {
-    fontSize: "clamp(2.2rem,4.5vw,3.4rem)",
-    fontWeight: 300,
-    lineHeight: 1.1,
-    letterSpacing: "-0.04em",
-    color: "#fff",
+    fontFamily: "'Syne', sans-serif",
+    fontSize: "clamp(2.5rem, 5vw, 4rem)",
+    fontWeight: 800,
+    lineHeight: 1.08,
+    marginBottom: "1.25rem",
+    color: "var(--text-primary)",
   },
   heroAccent: {
-    fontWeight: 600,
-    color: "#fff",
+    background: "var(--gradient)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+  },
+  cursor: {
+    display: "inline-block",
+    color: "#0d9488",
+    animation: "blink 1s step-end infinite",
+    marginLeft: 2,
   },
   heroSub: {
-    fontSize: "0.95rem",
-    color: "rgba(255,255,255,0.45)",
+    fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
+    color: "var(--text-secondary)",
     lineHeight: 1.7,
-    marginTop: "1.25rem",
-    maxWidth: 360,
-    fontWeight: 400,
-  },
-  heroCta: {
-    padding: "0.75rem 1.5rem",
-    borderRadius: 8,
-    background: "#fff",
-    color: "#0a0a0a",
-    fontSize: "0.875rem",
-    fontWeight: 600,
-    display: "inline-flex",
-    alignItems: "center",
-  },
-  heroCtaGhost: {
-    padding: "0.75rem 1.25rem",
-    borderRadius: 8,
-    border: "1px solid rgba(255,255,255,0.15)",
-    color: "rgba(255,255,255,0.5)",
-    fontSize: "0.875rem",
-    fontWeight: 500,
-    display: "inline-flex",
-    alignItems: "center",
-  },
-  techStack: { display: "flex", gap: "0.4rem", flexWrap: "wrap", marginTop: "2.5rem" },
-  techPill: {
-    padding: "0.2rem 0.65rem",
-    borderRadius: 20,
-    border: "1px solid rgba(255,255,255,0.1)",
-    color: "rgba(255,255,255,0.25)",
-    fontSize: "0.7rem",
-    fontWeight: 500,
-    fontFamily: "'JetBrains Mono', monospace",
-  },
-
-  /* DEMO PANEL */
-  demoPanel: {
-    flex: "1 1 360px",
-    maxWidth: 480,
-    background: "#111",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: 14,
-    padding: "1.5rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-  },
-  demoControls: { display: "flex", flexDirection: "column", gap: "0.75rem" },
-  controlGroup: { display: "flex", flexDirection: "column", gap: "0.4rem" },
-  controlLabel: {
-    fontSize: "0.68rem",
-    fontWeight: 500,
-    color: "rgba(255,255,255,0.25)",
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
-    fontFamily: "'JetBrains Mono', monospace",
-  },
-  chips: { display: "flex", gap: "0.35rem", flexWrap: "wrap" },
-  chip: {
-    padding: "0.28rem 0.75rem",
-    borderRadius: 20,
-    border: "1px solid rgba(255,255,255,0.1)",
-    background: "transparent",
-    color: "rgba(255,255,255,0.4)",
-    fontSize: "0.75rem",
-    fontWeight: 500,
-    cursor: "pointer",
-  },
-  chipActive: {
-    background: "rgba(255,255,255,0.1)",
-    borderColor: "rgba(255,255,255,0.35)",
-    color: "#fff",
-  },
-
-  demoOutput: {
-    background: "#0a0a0a",
-    border: "1px solid rgba(255,255,255,0.08)",
-    borderRadius: 10,
-    padding: "1rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: "0.75rem",
-    minHeight: 160,
-  },
-  demoOutputHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  demoAvatar: {
-    width: 30,
-    height: 30,
-    borderRadius: "50%",
-    background: "rgba(255,255,255,0.12)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "0.75rem",
-    fontWeight: 600,
-    color: "rgba(255,255,255,0.7)",
-    flexShrink: 0,
-  },
-  demoText: {
-    fontSize: "0.875rem",
-    color: "rgba(255,255,255,0.75)",
-    lineHeight: 1.7,
-    whiteSpace: "pre-wrap",
-    flex: 1,
-  },
-  demoMeta: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  copyBtn: {
-    background: "transparent",
-    border: "1px solid rgba(255,255,255,0.12)",
-    borderRadius: 5,
-    color: "rgba(255,255,255,0.35)",
-    fontSize: "0.72rem",
-    fontWeight: 500,
-    padding: "0.2rem 0.6rem",
-    cursor: "pointer",
-    fontFamily: "'JetBrains Mono', monospace",
-    transition: "color 0.14s, border-color 0.14s",
-  },
-  genBtn: {
-    width: "100%",
-    padding: "0.75rem",
-    borderRadius: 8,
-    border: "1px solid rgba(255,255,255,0.12)",
-    background: "rgba(255,255,255,0.07)",
-    color: "rgba(255,255,255,0.8)",
-    fontSize: "0.875rem",
-    fontWeight: 500,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: "0.5rem",
-  },
-
-  /* STATS */
-  statsBar: {
-    display: "grid",
-    gridTemplateColumns: "repeat(4,1fr)",
-    borderBottom: "1px solid rgba(255,255,255,0.07)",
-  },
-  statItem: {
-    padding: "2rem 1rem",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "0.3rem",
-    borderRight: "1px solid rgba(255,255,255,0.07)",
-  },
-  statVal: {
-    fontSize: "clamp(1.5rem,3vw,2rem)",
-    fontWeight: 300,
-    color: "#fff",
-    letterSpacing: "-0.03em",
-    fontFamily: "'JetBrains Mono', monospace",
-  },
-  statLabel: {
-    fontSize: "0.72rem",
-    color: "rgba(255,255,255,0.3)",
-    textTransform: "uppercase",
-    letterSpacing: "0.08em",
-    fontWeight: 500,
-  },
-
-  /* FEATURES */
-  featSection: {
-    borderBottom: "1px solid rgba(255,255,255,0.07)",
-    padding: "5rem 1.5rem",
-  },
-  featInner: { maxWidth: 1100, margin: "0 auto" },
-  featHeader: { marginBottom: "3rem" },
-  featH2: {
-    fontSize: "clamp(1.4rem,2.5vw,2rem)",
-    fontWeight: 300,
-    color: "#fff",
-    letterSpacing: "-0.03em",
-    marginBottom: "0.5rem",
-  },
-  featSub: {
-    fontSize: "0.9rem",
-    color: "rgba(255,255,255,0.35)",
-    fontWeight: 400,
-  },
-  featList: {},
-  featRow: {
-    display: "grid",
-    gridTemplateColumns: "3rem 1fr 2fr",
-    gap: "1.5rem",
-    padding: "1.25rem 0",
-    alignItems: "start",
-  },
-  featNum: {
-    fontFamily: "'JetBrains Mono', monospace",
-    fontSize: "0.72rem",
-    color: "rgba(255,255,255,0.2)",
-    paddingTop: "0.15rem",
-  },
-  featLabel: {
-    fontSize: "0.875rem",
-    fontWeight: 500,
-    color: "rgba(255,255,255,0.75)",
-  },
-  featBody: {
-    fontSize: "0.875rem",
-    color: "rgba(255,255,255,0.35)",
-    lineHeight: 1.65,
-    fontWeight: 400,
-  },
-
-  /* CTA */
-  ctaSection: {
-    padding: "7rem 1.5rem",
-    textAlign: "center",
-    borderBottom: "1px solid rgba(255,255,255,0.07)",
-  },
-  ctaInner: { maxWidth: 500, margin: "0 auto" },
-  ctaH2: {
-    fontSize: "clamp(2rem,4vw,3rem)",
-    fontWeight: 300,
-    color: "#fff",
-    letterSpacing: "-0.04em",
-    marginBottom: "0.75rem",
-  },
-  ctaSub: {
-    fontSize: "0.9rem",
-    color: "rgba(255,255,255,0.35)",
     marginBottom: "2rem",
   },
 
-  /* FOOTER */
-  footer: {
+  ctaRow: {
+    display: "flex",
+    gap: "1rem",
+    flexWrap: "wrap",
+    alignItems: "center",
+  },
+  heroCta: {
+    padding: "0.85rem 1.4rem",
+    borderRadius: 10,
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
+    color: "#fff",
+    textDecoration: "none",
+    fontSize: "0.9rem",
+    fontWeight: 500,
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  heroCtaGhost: {
+    color: "var(--text-secondary)",
+    textDecoration: "none",
+    fontSize: "0.9rem",
+    padding: "0.85rem 1rem",
+    fontWeight: 400,
+  },
+  trustRow: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "0.5rem",
+    marginTop: "2.5rem",
+  },
+  techPill: {
+    padding: "0.25rem 0.75rem",
+    borderRadius: 20,
+    border: "1px solid var(--border)",
+    color: "var(--text-muted)",
+    fontSize: "0.72rem",
+    fontWeight: 500,
+  },
+
+  /* ─── FLOAT CARD ─── */
+  floatCard: {
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
+    borderRadius: 16,
+    padding: "1.25rem",
+    backdropFilter: "blur(12px)",
+  },
+  floatCardTop: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.75rem",
+    marginBottom: "0.875rem",
+  },
+  avatar: {
+    width: 38,
+    height: 38,
+    borderRadius: "50%",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 700,
+    fontSize: "0.95rem",
+    color: "#fff",
+    flexShrink: 0,
+  },
+  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "var(--text-primary)" },
+  floatHandle: { fontSize: "0.75rem", color: "var(--text-muted)" },
+  aiTag: {
+    marginLeft: "auto",
+    padding: "0.2rem 0.6rem",
+    border: "1px solid rgba(13,148,136,0.35)",
+    borderRadius: 20,
+    fontSize: "0.72rem",
+    color: "var(--accent-light)",
+    background: "rgba(13,148,136,0.12)",
+    fontWeight: 600,
+    flexShrink: 0,
+  },
+  floatText: {
+    fontSize: "0.88rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.65,
+    margin: 0,
+    marginBottom: "0.875rem",
+  },
+  floatActions: {
+    display: "flex",
+    gap: "1.25rem",
+    borderTop: "1px solid var(--border)",
+    paddingTop: "0.75rem",
+  },
+  floatStat: { fontSize: "0.78rem", color: "var(--text-muted)" },
+  floatBadge: {
+    position: "absolute",
+    padding: "0.4rem 0.9rem",
+    background: "rgba(13,148,136,0.12)",
+    border: "1px solid rgba(13,148,136,0.25)",
+    borderRadius: 20,
+    fontSize: "0.75rem",
+    color: "var(--accent-light)",
+    fontWeight: 500,
+    backdropFilter: "blur(8px)",
+    animation: "float 4s ease-in-out infinite",
+    whiteSpace: "nowrap",
+  },
+
+  /* ─── STATS ─── */
+  statsBand: {
+    background: "var(--bg-secondary)",
+    borderTop: "1px solid var(--border)",
+    borderBottom: "1px solid var(--border)",
+  },
+  statsInner: {
+    maxWidth: 1200,
+    margin: "0 auto",
+    padding: "2.5rem 2rem",
+    display: "grid",
+    gridTemplateColumns: "repeat(4, 1fr)",
+    gap: "1rem",
+  },
+  statItem: { textAlign: "center", padding: "0.5rem" },
+  statVal: {
+    fontFamily: "'Syne', sans-serif",
+    fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+    fontWeight: 800,
+    background: "linear-gradient(135deg, #0d9488, #2dd4bf)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
+    lineHeight: 1,
+  },
+  statLabel: { fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "0.35rem" },
+
+  /* ─── SECTIONS ─── */
+  section: { maxWidth: 1200, margin: "0 auto", padding: "6rem 2rem" },
+  sectionHead: { textAlign: "center", marginBottom: "3.5rem" },
+  eyebrow: {
+    fontSize: "0.78rem",
+    fontWeight: 600,
+    color: "#0d9488",
+    textTransform: "uppercase",
+    letterSpacing: "0.12em",
+    marginBottom: "0.75rem",
+  },
+  sectionH2: {
+    fontFamily: "'Syne', sans-serif",
+    fontSize: "clamp(1.6rem, 3.5vw, 2.75rem)",
+    fontWeight: 800,
+    color: "var(--text-primary)",
+    lineHeight: 1.15,
+  },
+
+  /* ─── FEATURES ─── */
+  featGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+    gap: "1.25rem",
+  },
+  featCard: {
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
+    borderRadius: 14,
+    padding: "1.75rem",
+    transition: "border-color 0.2s",
+    animation: "fadeUp 0.6s ease both",
+  },
+  featIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 10,
+    border: "1px solid",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.15rem",
+    marginBottom: "1rem",
+  },
+  featTitle: {
+    fontFamily: "'Syne', sans-serif",
+    fontWeight: 700,
+    fontSize: "1rem",
+    color: "var(--text-primary)",
+    marginBottom: "0.6rem",
+  },
+  featDesc: {
+    fontSize: "0.875rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.7,
+    fontWeight: 300,
+  },
+
+  /* ─── DEMO ─── */
+  demoWrap: {
+    maxWidth: 640,
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    gap: "1.25rem",
+  },
+  toneRow: {
+    display: "flex",
+    gap: "0.5rem",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  },
+  tonePill: {
+    padding: "0.45rem 1rem",
+    borderRadius: 20,
+    border: "1px solid var(--border)",
+    background: "transparent",
+    color: "var(--text-muted)",
+    fontSize: "0.82rem",
+    cursor: "pointer",
+    fontFamily: "'DM Sans', sans-serif",
+    fontWeight: 500,
+    transition: "all 0.2s",
+  },
+  tonePillActive: {
+    border: "1px solid rgba(13,148,136,0.5)",
+    background: "rgba(13,148,136,0.12)",
+    color: "var(--accent-light)",
+  },
+  demoCard: {
+    width: "100%",
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
+    borderRadius: 16,
     padding: "1.5rem",
-    background: "#0a0a0a",
+  },
+  demoHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: "1rem",
+  },
+  demoAvatar: {
+    width: 38,
+    height: 38,
+    borderRadius: "50%",
+    background: "linear-gradient(135deg, #0d9488, #0f766e)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontWeight: 700,
+    color: "#fff",
+  },
+
+  /* ─── CTA SECTION ─── */
+  ctaSection: { padding: "5rem 1.5rem", position: "relative" },
+  ctaBox: {
+    maxWidth: 800,
+    margin: "0 auto",
+    textAlign: "center",
+    background: "rgba(13,148,136,0.07)",
+    border: "1px solid rgba(13,148,136,0.2)",
+    borderRadius: 20,
+    padding: "4rem 3rem",
+    position: "relative",
+    overflow: "hidden",
+  },
+  ctaOrb: {
+    position: "absolute",
+    width: 500,
+    height: 500,
+    borderRadius: "50%",
+    background: "radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%,-50%)",
+    pointerEvents: "none",
+  },
+
+  /* ─── FOOTER ─── */
+  footer: {
+    borderTop: "1px solid var(--border)",
+    padding: "2rem 1.5rem",
+    background: "var(--bg-primary)",
   },
   footerInner: {
-    maxWidth: 1100,
+    maxWidth: 1200,
     margin: "0 auto",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    flexWrap: "wrap",
     gap: "1rem",
+    flexWrap: "wrap",
+  },
+  footerLink: {
+    color: "var(--text-muted)",
+    textDecoration: "none",
+    fontSize: "0.82rem",
   },
 };
+
