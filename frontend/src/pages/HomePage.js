@@ -547,6 +547,8 @@ export default function HomePage() {
           #hp-footer-inner { flex-direction: column !important; gap: 2.5rem !important; }
           .hp-hero-section { padding: 7rem 1.25rem 4rem !important; }
         }
+          #hp-hero-preview > div {transition: transform 220ms ease, box-shadow 220ms ease;}
+          #hp-hero-preview > div:hover {transform: translateY(-4px);box-shadow: 0 12px 32px rgba(0,0,0,0.08);}
       `}</style>
     </div>
   );
@@ -1057,6 +1059,68 @@ const s = {
     lineHeight: 1.7,
     margin: "0 0 2rem",
   },
+
+  socialCard: {
+  background: "var(--bg-card)",
+  border: "1px solid var(--border)",
+  borderRadius: 14,
+  padding: "1.5rem",
+  boxShadow: "0 10px 30px rgba(0,0,0,0.04)",
+  transition: "all 0.25s ease",
+},
+
+socialHeader: {
+  display: "flex",
+  alignItems: "center",
+  gap: "0.9rem",
+  marginBottom: "1.2rem",
+},
+
+avatar: {
+  width: 42,
+  height: 42,
+  borderRadius: "50%",
+  background: "#0d6b5e",
+  color: "#fff",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+  fontWeight: 600,
+  fontSize: "1rem",
+},
+
+userName: {
+  fontWeight: 600,
+  fontSize: "0.95rem",
+  color: "var(--text-primary)",
+},
+
+userMeta: {
+  fontSize: "0.75rem",
+  color: "var(--text-muted)",
+  marginTop: 2,
+},
+
+socialContent: {
+  fontSize: "0.92rem",
+  lineHeight: 1.75,
+  color: "var(--text-secondary)",
+  marginBottom: "1.4rem",
+},
+
+hashTag: {
+  color: "#0d6b5e",
+  fontWeight: 500,
+},
+
+socialFooter: {
+  display: "flex",
+  gap: "1.6rem",
+  paddingTop: "1rem",
+  borderTop: "1px solid var(--border)",
+  color: "var(--text-muted)",
+  fontSize: "0.85rem",
+},
 
   /* FOOTER */
   footer: {
