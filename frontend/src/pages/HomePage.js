@@ -322,28 +322,23 @@ export default function HomePage() {
 
     <div style={s.socialContent}>
       AI won't replace developers.
-
-      <br /><br />
-
+      <br/><br />
       Developers who use AI will replace
       developers who don't.
-
-      <br /><br />
-
+      <br/><br/>
       The future belongs to people who
       learn to collaborate with AI.
-
-      <br /><br />
+      <br/><br/>
 
       <span style={s.hashTag}>
-        #AI #Technology
+        #AI #Technology #developers #inovation 
       </span>
     </div>
 
     <div style={s.socialFooter}>
-      <span>👍 142</span>
-      <span>💬 19</span>
-      <span>↗️ 8</span>
+      <span>👍 1542</span>
+      <span>💬 191</span>
+      <span>↗️ 89</span>
     </div>
   </div>
 </AnimatedSection>
