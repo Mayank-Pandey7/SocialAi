@@ -1,960 +1,1179 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEnvelope, faLock, faSun, faMoon } from '@fortawesome/free-solid-svg-icons'
-import { useTheme } from '../context/ThemeContext'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { useTheme } from "../context/ThemeContext";
 
-const TYPED_WORDS = ["tweets.", "captions.", "threads.", "posts.", "content."];
-
+/* ─── Data ─── */
 const FEATURES = [
   {
-    icon: "✦",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/>
+      </svg>
+    ),
     title: "AI Content Engine",
-    desc: "Generate platform-perfect posts in seconds — professional, funny, motivational or casual tones at your command.",
-    color: "var(--accent-light)",
+    desc: "Generate platform-perfect posts in seconds — professional, funny, or casual tones at your command.",
   },
   {
-    icon: "◈",
-    title: "Trending Intel",
-    desc: "Real-time topic discovery across tech, sports, business & more. Always post what people care about.",
-    color: "#22c55e",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+      </svg>
+    ),
+    title: "Trending Topics",
+    desc: "Real-time topic discovery across tech, sports, business and culture. Always post what people care about.",
   },
   {
-    icon: "◉",
-    title: "Engagement Charts",
-    desc: "Beautiful analytics dashboards that show reach, likes, and engagement across all your content.",
-    color: "#f59e0b",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
+      </svg>
+    ),
+    title: "Analytics",
+    desc: "Clean dashboards showing reach and engagement across all your content — no noise, just signal.",
   },
   {
-    icon: "◆",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+      </svg>
+    ),
     title: "Smart Scheduler",
-    desc: "Draft today. Schedule for the perfect moment. Your content calendar, fully in control.",
-    color: "#0d9488",
+    desc: "Draft today, schedule for the perfect moment. Your content calendar, fully under your control.",
   },
   {
-    icon: "◎",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>
+      </svg>
+    ),
     title: "Multi-Platform",
     desc: "Twitter, Instagram, LinkedIn, Facebook — each post optimised for its platform's character limits and culture.",
-    color: "var(--accent-light)",
   },
   {
-    icon: "⬡",
-    title: "Zero API Cost",
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
+      </svg>
+    ),
+    title: "Zero Cost",
     desc: "Powered by free AI models and smart templates. Professional output without the subscription fees.",
-    color: "#f59e0b",
   },
 ];
 
-const STATS = [
-  { value: "10K+", label: "Posts Generated" },
-  { value: "5", label: "Platforms Supported" },
-  { value: "100%", label: "Free to Use" },
-  { value: "< 3s", label: "Generation Time" },
-];
-
-const TONES = [
-  "professional",
-  "funny",
-  "motivational",
-  "casual",
-  "inspirational",
-];
-
-const DEMO_POSTS = {
-  professional:
-    "🚀 AI is not replacing your job — someone who understands AI is. The question isn't whether to adapt, it's how fast. #TechStrategy #FutureReady #Innovation",
-  funny:
-    "Sometimes I use AI to feel productive Like yeah, I'm doing something with my life then reality hits… I just copied and pasted everything 🤡 #DevLife #TechHumor",
-  motivational:
-    "Every expert was once a complete beginner. Every viral post was once someone's first attempt. Keep building. Keep posting. 💪 #NeverStopLearning #GrowthMindset",
-  casual:
-    "honestly AI tools are lowkey changing everything and nobody's talking about it enough 👀 the next 2 years are going to be wild #JustSaying",
-  inspirational:
-    "The most powerful tool in technology is still human creativity. Machines compute. Humans imagine. ✨ Build something that matters. #Innovation #HumanFirst",
+const PLATFORMS = ["LinkedIn", "Twitter", "Instagram", "Facebook"];
+const TONES = ["Professional", "Casual", "Funny", "Motivational", "Inspirational"];
+const SAMPLE_OUTPUTS = {
+  "LinkedIn-Professional":
+    "AI isn't replacing human creativity — it's amplifying it. The most effective teams I've seen this year aren't the ones avoiding AI; they're the ones integrating it thoughtfully into their workflow.\n\nThe question isn't whether to adapt. It's how intentionally you do it.\n\n#Leadership #Innovation #FutureOfWork",
+  "LinkedIn-Casual":
+    "Hot take: spending 2 hours perfecting a LinkedIn post that gets 12 likes is wild when you could spend 10 minutes with AI and move on with your life 😅\n\nWorking smarter, not harder. #ProductivityTips",
+  "Twitter-Professional":
+    "The best content creators aren't the most talented writers.\n\nThey're the most consistent ones.\n\nAI doesn't replace your voice — it removes the friction so you can show up every day.",
+  "Twitter-Funny":
+    "me: I'll just write a quick tweet\nalso me: *opens AI tool*\nalso me: *stares at 12 generated options*\nalso me: *picks the first one and edits it anyway*\n\nthe circle of content creation",
+  "Instagram-Motivational":
+    "Every scroll is a choice. Every post is a statement.\n\nWhat are you saying about who you are?\n\nBuild the feed you want others to find. ✦\n\n#ContentCreator #Mindset #GrowthMindset",
 };
 
-export default function HomePage() {
-  const { isDark, toggleTheme } = useTheme();
-  const [typedIndex, setTypedIndex] = useState(0);
-  const [displayText, setDisplayText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [activeTone, setActiveTone] = useState("professional");
-  const [demoVisible, setDemoVisible] = useState(false);
-  const demoRef = useRef(null);
-
-  useEffect(() => {
-    const word = TYPED_WORDS[typedIndex];
-    let timeout;
-    if (!isDeleting && displayText.length < word.length) {
-      timeout = setTimeout(
-        () => setDisplayText(word.slice(0, displayText.length + 1)),
-        80,
-      );
-    } else if (!isDeleting && displayText.length === word.length) {
-      timeout = setTimeout(() => setIsDeleting(true), 1800);
-    } else if (isDeleting && displayText.length > 0) {
-      timeout = setTimeout(() => setDisplayText(displayText.slice(0, -1)), 40);
-    } else if (isDeleting && displayText.length === 0) {
-      setIsDeleting(false);
-      setTypedIndex((i) => (i + 1) % TYPED_WORDS.length);
-    }
-    return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, typedIndex]);
-
+/* ─── Hooks ─── */
+function useInView(threshold = 0.15) {
+  const ref = useRef(null);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     const obs = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) setDemoVisible(true);
-      },
-      { threshold: 0.2 },
+      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
     );
-    if (demoRef.current) obs.observe(demoRef.current);
+    if (ref.current) obs.observe(ref.current);
     return () => obs.disconnect();
-  }, []);
+  }, [threshold]);
+  return [ref, visible];
+}
+
+function useCounter(target, visible, duration = 1200) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!visible) return;
+    let start = null;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      setCount(Math.floor(progress * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [visible, target, duration]);
+  return count;
+}
+
+/* ─── Sub-components ─── */
+function AnimatedSection({ children, className = "", style = {}, delay = 0 }) {
+  const [ref, visible] = useInView();
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? "none" : "translateY(20px)",
+        transition: `opacity 0.55s ease ${delay}s, transform 0.55s ease ${delay}s`,
+        ...style,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+function StatCounter({ value, suffix, label, visible }) {
+  const num = useCounter(value, visible);
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={s.statVal}>{num}{suffix}</div>
+      <div style={s.statLabel}>{label}</div>
+    </div>
+  );
+}
+
+/* ─── Demo Section ─── */
+function DemoSection() {
+  const [platform, setPlatform] = useState("LinkedIn");
+  const [tone, setTone] = useState("Professional");
+  const [topic, setTopic] = useState("");
+  const [output, setOutput] = useState(SAMPLE_OUTPUTS["LinkedIn-Professional"]);
+  const [loading, setLoading] = useState(false);
+  const [generated, setGenerated] = useState(true);
+  const [demoRef, demoVisible] = [useRef(null), true];
+
+  const generate = useCallback(() => {
+    setLoading(true);
+    setGenerated(false);
+    setTimeout(() => {
+      const key = `${platform}-${tone}`;
+      setOutput(SAMPLE_OUTPUTS[key] || SAMPLE_OUTPUTS["LinkedIn-Professional"]);
+      setLoading(false);
+      setGenerated(true);
+    }, 900);
+  }, [platform, tone]);
+
+  return (
+    <AnimatedSection style={{ maxWidth: 760, margin: "0 auto" }}>
+      <div style={s.demoShell}>
+        {/* Input Row */}
+        <div style={s.demoInputRow}>
+          <div style={s.demoField}>
+            <label style={s.demoLabel}>Platform</label>
+            <select
+              value={platform}
+              onChange={(e) => setPlatform(e.target.value)}
+              style={s.demoSelect}
+            >
+              {PLATFORMS.map((p) => <option key={p}>{p}</option>)}
+            </select>
+          </div>
+          <div style={s.demoField}>
+            <label style={s.demoLabel}>Tone</label>
+            <select
+              value={tone}
+              onChange={(e) => setTone(e.target.value)}
+              style={s.demoSelect}
+            >
+              {TONES.map((t) => <option key={t}>{t}</option>)}
+            </select>
+          </div>
+          <div style={{ ...s.demoField, flex: 2 }}>
+            <label style={s.demoLabel}>Topic <span style={{ color: "var(--text-muted)" }}>(optional)</span></label>
+            <input
+              type="text"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              placeholder="e.g. AI in education, remote work…"
+              style={s.demoInput}
+              onKeyDown={(e) => e.key === "Enter" && generate()}
+            />
+          </div>
+          <button onClick={generate} style={s.generateBtn} disabled={loading}>
+            {loading ? (
+              <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={s.spinner} />
+                Generating
+              </span>
+            ) : "Generate"}
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div style={s.demoDivider} />
+
+        {/* Output */}
+        <div style={{ ...s.demoOutput, opacity: generated ? 1 : 0.3, transition: "opacity 0.3s" }}>
+          <div style={s.demoOutputHeader}>
+            <span style={s.demoOutputPlatform}>{platform}</span>
+            <span style={s.demoOutputTone}>{tone}</span>
+          </div>
+          <p style={s.demoOutputText}>{output}</p>
+          <div style={s.demoOutputFooter}>
+            <button style={s.demoAction}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/>
+              </svg>
+              Copy
+            </button>
+            <button onClick={generate} style={s.demoAction}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: 6 }}>
+                <polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/>
+              </svg>
+              Regenerate
+            </button>
+          </div>
+        </div>
+      </div>
+    </AnimatedSection>
+  );
+}
+
+/* ─── Main Component ─── */
+export default function HomePage() {
+  const { isDark, toggleTheme } = useTheme();
+  const [statsRef, statsVisible] = useInView(0.3);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div style={s.page}>
       {/* ── NAV ── */}
       <nav style={s.nav}>
         <div style={s.navInner}>
-          {/* Logo — always visible */}
-          <div style={s.logo}>
-            <span style={s.logoGlyph}>⚡</span>
+          <Link to="/" style={s.logo}>
+            <span style={s.logoMark} />
             <span style={s.logoWord}>SocialAI</span>
-          </div>
+          </Link>
 
-          {/* Nav links — hidden on mobile via CSS class */}
           <div className="hp-nav-links" style={s.navLinks}>
-            <a href="#features" style={s.navLink}>Features</a>
-            <a href="#demo" style={s.navLink}>Demo</a>
-            <a href="#stats" style={s.navLink}>Stats</a>
+            {["Features", "Demo", "Pricing"].map((item) => (
+              <a key={item} href={`#${item.toLowerCase()}`} style={s.navLink} className="nav-link">
+                {item}
+              </a>
+            ))}
           </div>
 
-          {/* Right actions — theme toggle + buttons, always grouped together */}
           <div style={s.navActions}>
             <button
               onClick={toggleTheme}
-              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
               style={s.themeToggle}
+              aria-label={isDark ? "Switch to light" : "Switch to dark"}
             >
               <FontAwesomeIcon
                 icon={isDark ? faSun : faMoon}
-                style={{ color: isDark ? "#f59e0b" : "#0d9488", fontSize: "0.95rem" }}
+                style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}
               />
             </button>
-            {/* Sign in always visible — Register hidden on mobile */}
-            <Link to="/login" className="hp-nav-btn-fill" style={s.btnOutline}>
-              Sign in
-            </Link>
-            <Link to="/register" className="hp-nav-signin" style={s.btnFill}>
-              Register →
-            </Link>
+            <Link to="/login" className="hp-signin" style={s.navLinkBtn}>Sign in</Link>
+            <Link to="/register" style={s.navCta}>Get started</Link>
           </div>
         </div>
       </nav>
 
       {/* ── HERO ── */}
-      <section className="hp-hero" style={s.hero}>
-        <div style={s.gridBg} aria-hidden />
-        <div
-          style={{
-            ...s.orb,
-            top: "10%",
-            left: "15%",
-            background:
-              "radial-gradient(circle, rgba(13,148,136,0.18) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            ...s.orb,
-            top: "30%",
-            right: "10%",
-            background:
-              "radial-gradient(circle, rgba(45,212,191,0.12) 0%, transparent 70%)",
-          }}
-        />
-        <div
-          style={{
-            ...s.orb,
-            bottom: "5%",
-            left: "40%",
-            background:
-              "radial-gradient(circle, rgba(13,148,136,0.1) 0%, transparent 70%)",
-          }}
-        />
+      <section style={s.hero}>
+        <div style={s.heroInner}>
+          <AnimatedSection delay={0}>
+            <div style={s.heroEyebrow}>
+              <span style={s.eyebrowDot} />
+              Free to use · No credit card
+            </div>
+          </AnimatedSection>
 
-        <div className="hp-hero-content" style={s.heroContent}>
-          <div style={s.badge}>
-            <span style={s.badgeDot} />
-            AI-Powered · Free to Use · No Setup Required
-          </div>
-          <h1 style={s.heroH1}>
-            Generate viral
-            <br />
-            <span style={s.heroAccent}>{displayText}</span>
-            <span style={s.cursor}>|</span>
-          </h1>
-          <p style={s.heroSub}>
-            SocialAI writes platform-perfect social media content in seconds.
-            <br />
-            Pick your tone, pick your topic — let AI do the rest.
-          </p>
-          <div className="hp-cta-row" style={s.ctaRow}>
-            <Link to="/register" style={s.heroCta}>
-              Start generating free{" "}
-              <span style={{ marginLeft: "0.5rem" }}>→</span>
-            </Link>
-            <a href="#demo" style={s.heroCtaGhost}>
-              See live demo ↓
-            </a>
-          </div>
-          <div className="hp-trust-row" style={s.trustRow}>
-            {["JavaScript", "React.js", "Node.js", "Express.Js", "MongoDB"].map(
-              (t) => (
-                <span key={t} style={s.techPill}>
-                  {t}
-                </span>
-              ),
-            )}
-          </div>
+          <AnimatedSection delay={0.05}>
+            <h1 style={s.heroH1}>
+              Create better social media
+              <br />
+              <span style={s.heroH1Accent}>content with AI</span>
+            </h1>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.1}>
+            <p style={s.heroSub}>
+              Generate professional posts for LinkedIn, Twitter and Instagram in seconds.
+              <br />
+              Pick your tone, pick your topic — let AI do the rest.
+            </p>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.15}>
+            <div style={s.heroCtas}>
+              <Link to="/register" style={s.heroPrimary}>
+                Get started free
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                  <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+                </svg>
+              </Link>
+              <a href="#demo" style={s.heroSecondary}>View demo</a>
+            </div>
+          </AnimatedSection>
+
+          <AnimatedSection delay={0.2}>
+            <div style={s.heroStack}>
+              {["React", "Node.js", "Express", "MongoDB"].map((t) => (
+                <span key={t} style={s.stackPill}>{t}</span>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
 
-        <div className="hp-hero-visual" style={s.heroVisual}>
-          <div style={{ position: "relative" }}>
-            <div style={s.floatCard}>
-              <div style={s.floatCardTop}>
-                <div style={s.avatar}>M</div>
-                <div>
-                  <div style={s.floatName}>Mayank Pandey</div>
-                  <div style={s.floatHandle}>@mayank_pandey · just now</div>
+        {/* Hero product preview */}
+        <AnimatedSection delay={0.12} style={s.heroPreview}>
+          <div style={s.previewCard}>
+            <div style={s.previewTop}>
+              <div style={s.previewDots}>
+                <span style={{ ...s.previewDot, background: "#ff5f57" }} />
+                <span style={{ ...s.previewDot, background: "#febc2e" }} />
+                <span style={{ ...s.previewDot, background: "#28c840" }} />
+              </div>
+              <div style={s.previewTitle}>Generate content</div>
+            </div>
+            <div style={s.previewBody}>
+              <div style={s.previewRow}>
+                <span style={s.previewFieldLabel}>Platform</span>
+                <div style={s.previewChips}>
+                  {["LinkedIn", "Twitter", "Instagram"].map((p, i) => (
+                    <span key={p} style={{ ...s.previewChip, ...(i === 0 ? s.previewChipActive : {}) }}>{p}</span>
+                  ))}
                 </div>
-                <div style={s.aiTag}>✦ AI</div>
               </div>
-              <p style={s.floatText}>
-                🚀 The future belongs to those who learn, adapt, and build.
-                Every great product started as someone's crazy idea. What's
-                yours? #Innovation #Tech
-              </p>
-              <div style={s.floatActions}>
-                <span style={s.floatStat}>❤ 112.4K</span>
-                <span style={s.floatStat}>🔁 1847</span>
-                <span style={s.floatStat}>👁 918.2K</span>
+              <div style={s.previewRow}>
+                <span style={s.previewFieldLabel}>Tone</span>
+                <div style={s.previewChips}>
+                  {["Professional", "Casual", "Funny"].map((t, i) => (
+                    <span key={t} style={{ ...s.previewChip, ...(i === 0 ? s.previewChipActive : {}) }}>{t}</span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div
-              style={{
-                ...s.floatBadge,
-                top: "-14px",
-                right: "16px",
-                animationDelay: "0.5s",
-                background: "rgba(34,197,94,0.12)",
-                borderColor: "rgba(34,197,94,0.25)",
-                color: "#1a9346",
-              }}
-            >
-              ⚡ Generated in 1.2s
-            </div>
-            <div
-              style={{
-                ...s.floatBadge,
-                bottom: "-14px",
-                left: "16px",
-                animationDelay: "1s",
-                background: "rgba(34,197,94,0.12)",
-                borderColor: "rgba(34,197,94,0.25)",
-                color: "#1a9346",
-              }}
-            >
-              📈 +340% engagement
+              <div style={s.previewRow}>
+                <span style={s.previewFieldLabel}>Topic</span>
+                <div style={s.previewInputMock}>AI in the workplace</div>
+              </div>
+              <div style={s.previewGenerateBtn}>Generate →</div>
+              <div style={s.previewOutput}>
+                <div style={s.previewOutputLabel}>
+                  <span style={s.previewOutputDot} />
+                  Generated
+                </div>
+                <p style={s.previewOutputText}>
+                  AI isn't replacing human creativity — it's amplifying it.
+                  The most effective teams integrate it thoughtfully...
+                  <span style={{ color: "var(--text-muted)" }}> #Leadership #Innovation</span>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
 
       {/* ── STATS ── */}
-      <section id="stats" style={s.statsBand}>
-        <div className="hp-stats-inner" style={s.statsInner}>
-          {STATS.map((st) => (
-            <div key={st.label} style={s.statItem}>
-              <div style={s.statVal}>{st.value}</div>
-              <div style={s.statLabel}>{st.label}</div>
-            </div>
-          ))}
+      <div style={s.statsBand} ref={statsRef}>
+        <div style={s.statsInner}>
+          <StatCounter value={10000} suffix="+" label="Posts generated" visible={statsVisible} />
+          <div style={s.statsDivider} />
+          <StatCounter value={5} suffix="" label="Platforms supported" visible={statsVisible} />
+          <div style={s.statsDivider} />
+          <StatCounter value={100} suffix="%" label="Free to use" visible={statsVisible} />
+          <div style={s.statsDivider} />
+          <StatCounter value={3} suffix="s" label="Avg. generation time" visible={statsVisible} />
         </div>
-      </section>
+      </div>
 
       {/* ── FEATURES ── */}
-      <section id="features" className="hp-section" style={s.section}>
+      <section id="features" style={s.section}>
         <div style={s.sectionHead}>
-          <div style={s.eyebrow}>Everything you need</div>
-          <h2 style={s.sectionH2}>
-            Built for content creators
-            <br />
-            who move fast
-          </h2>
+          <AnimatedSection>
+            <p style={s.eyebrow}>Features</p>
+            <h2 style={s.sectionH2}>Everything you need to create better content</h2>
+            <p style={s.sectionSub}>Built for creators who want to spend less time writing and more time building an audience.</p>
+          </AnimatedSection>
         </div>
-        <div className="hp-feat-grid" style={s.featGrid}>
+        <div style={s.featGrid}>
           {FEATURES.map((f, i) => (
-            <div
-              key={f.title}
-              style={{ ...s.featCard, animationDelay: `${i * 0.08}s` }}
-            >
-              <div
-                style={{
-                  ...s.featIcon,
-                  color: f.color,
-                  borderColor: f.color + "30",
-                  background: f.color + "10",
-                }}
-              >
-                {f.icon}
-              </div>
+            <AnimatedSection key={f.title} delay={i * 0.06} style={s.featCard} className="feat-card">
+              <div style={s.featIcon}>{f.icon}</div>
               <h3 style={s.featTitle}>{f.title}</h3>
               <p style={s.featDesc}>{f.desc}</p>
-            </div>
+            </AnimatedSection>
           ))}
         </div>
       </section>
 
-      <section id="demo" ref={demoRef} className="hp-section" style={s.section}>
-        <div style={s.sectionHead}>
-          <div style={s.eyebrow}>Live preview (demo)</div>
-          <h2 style={s.sectionH2}>See the AI in action</h2>
-          <p style={{ color: "var(--text-secondary)", fontSize: "1rem", marginTop: "0.75rem" }}>
-            Switch tones below — watch the same topic transform instantly
-          </p>
-        </div>
-        <div style={s.demoWrap}>
-          <div style={s.toneRow}>
-            {TONES.map((t) => (
-              <button
-                key={t}
-                onClick={() => setActiveTone(t)}
-                style={{
-                  ...s.tonePill,
-                  ...(activeTone === t ? s.tonePillActive : {}),
-                }}
-              >
-                {t}
-              </button>
-            ))}
+      {/* ── DEMO ── */}
+      <section id="demo" style={{ ...s.section, background: "var(--bg-secondary)" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto", padding: "0 2rem" }}>
+          <div style={s.sectionHead}>
+            <AnimatedSection>
+              <p style={s.eyebrow}>Live demo</p>
+              <h2 style={s.sectionH2}>See it in action</h2>
+              <p style={s.sectionSub}>Pick a platform, choose a tone, and generate real content — right here.</p>
+            </AnimatedSection>
           </div>
-          <div
-            style={{
-              ...s.demoCard,
-              opacity: demoVisible ? 1 : 0,
-              transform: demoVisible ? "none" : "translateY(20px)",
-              transition: "all 0.6s ease",
-            }}
-          >
-            <div style={s.demoHeader}>
-              <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-                <div style={s.demoAvatar}>S</div>
-                <div>
-                  <div style={{ fontWeight: 600, fontSize: "0.9rem", color: "var(--text-primary)" }}>
-                    SocialAI User
-                  </div>
-                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}>
-                    @user · 2s ago
-                  </div>
-                </div>
-              </div>
-              <span style={{ ...s.aiTag, fontSize: "0.72rem" }}>
-                ✦ {activeTone}
-              </span>
-            </div>
-            <p style={{ ...s.floatText, padding: "0 0 1rem", lineHeight: 1.7, minHeight: 80 }}>
-              {DEMO_POSTS[activeTone]}
-            </p>
-            <div
-              style={{
-                ...s.floatActions,
-                borderTop: "1px solid rgba(13,148,136,0.15)",
-                paddingTop: "0.75rem",
-                marginTop: 0,
-              }}
-            >
-              <span style={s.floatStat}>❤ 1.2K</span>
-              <span style={s.floatStat}>🔁 340</span>
-              <span style={s.floatStat}>👁 9.8K</span>
-            </div>
-          </div>
-          <Link
-            to="/register"
-            style={{
-              ...s.heroCta,
-              margin: "0 auto",
-              display: "inline-flex",
-              marginTop: "1.5rem",
-            }}
-          >
-            Try it yourself — it's free →
-          </Link>
+          <DemoSection />
+          <AnimatedSection style={{ textAlign: "center", marginTop: "2.5rem" }}>
+            <Link to="/register" style={s.heroPrimary}>
+              Try it yourself — it's free
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </AnimatedSection>
         </div>
       </section>
 
+      {/* ── CTA ── */}
       <section style={s.ctaSection}>
-        <div className="hp-cta-box" style={s.ctaBox}>
-          <div style={s.ctaOrb} />
-          <div style={s.eyebrow}>Struggling to create engaging content?</div>
-          <h2
-            className="hp-cta-h2"
-            style={{ ...s.sectionH2, fontSize: "2.5rem", marginTop: "0.75rem" }}
-          >
-            Ready to create better content
-          </h2>
-          <p
-            style={{
-              color: "var(--text-secondary)",
-              fontSize: "1rem",
-              maxWidth: 480,
-              margin: "1rem auto 2rem",
-            }}
-          >
-            Sign in now and start generating AI-powered social media captions in
-            under 60 seconds.
+        <AnimatedSection style={s.ctaInner}>
+          <h2 style={s.ctaH2}>Ready to create better content?</h2>
+          <p style={s.ctaSub}>
+            Join thousands of creators already using SocialAI to grow their audience.
           </p>
-          <div className="hp-cta-row" style={s.ctaRow}>
-            <Link to="/register" style={s.heroCta}>
-              Create free account →
+          <div style={s.heroCtas}>
+            <Link to="/register" style={s.heroPrimary}>
+              Create free account
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: 8 }}>
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
             </Link>
-            <Link to="/login" style={s.heroCtaGhost}>
-              Sign in
-            </Link>
+            <Link to="/login" style={s.heroSecondary}>Sign in</Link>
           </div>
-        </div>
+        </AnimatedSection>
       </section>
 
+      {/* ── FOOTER ── */}
       <footer style={s.footer}>
         <div style={s.footerInner}>
-          <div style={s.logo}>
-            <span style={s.logoGlyph}>⚡</span>
-            <span style={s.logoWord}>SocialAI</span>
+          <div style={s.footerBrand}>
+            <div style={s.logo}>
+              <span style={s.logoMark} />
+              <span style={s.logoWord}>SocialAI</span>
+            </div>
+            <p style={s.footerTagline}>
+              AI-powered social media content for modern creators.
+            </p>
           </div>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>
-            © 2026 LogicAI. All Rights Reserved. Built by @mynkdev
-          </p>
-          <div style={{ display: "flex", gap: "1.5rem" }}>
-            <Link to="/login" style={s.footerLink}>Login</Link>
-            <Link to="/register" style={s.footerLink}>Register</Link>
+          <div style={s.footerCols}>
+            <div style={s.footerCol}>
+              <p style={s.footerColHead}>Product</p>
+              <a href="#features" style={s.footerLink}>Features</a>
+              <a href="#demo" style={s.footerLink}>Demo</a>
+              <Link to="/register" style={s.footerLink}>Get started</Link>
+            </div>
+            <div style={s.footerCol}>
+              <p style={s.footerColHead}>Account</p>
+              <Link to="/login" style={s.footerLink}>Sign in</Link>
+              <Link to="/register" style={s.footerLink}>Register</Link>
+            </div>
+            <div style={s.footerCol}>
+              <p style={s.footerColHead}>Company</p>
+              <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer" style={s.footerLink}>GitHub</a>
+              <a href="#" style={s.footerLink}>Privacy</a>
+              <a href="#" style={s.footerLink}>Terms</a>
+            </div>
           </div>
+        </div>
+        <div style={s.footerBottom}>
+          <span style={{ color: "var(--text-muted)", fontSize: "0.8rem" }}>
+            © 2026 SocialAI. Built by{" "}
+            <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer" style={{ color: "var(--text-secondary)", textDecoration: "none" }}>
+              @mynkdev
+            </a>
+          </span>
         </div>
       </footer>
 
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap');
 
         html { scroll-behavior: smooth; }
 
-        @keyframes float   { 0%,100% { transform: translateY(0); }  50% { transform: translateY(-10px); } }
-        @keyframes blink   { 0%,100% { opacity: 1; }                50% { opacity: 0; } }
-        @keyframes fadeUp  { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse   { 0%,100% { opacity: 1; }                50% { opacity: 0.5; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* ── Mobile nav: hide links + sign-in, keep toggle + register ── */
-        @media (max-width: 640px) {
-          .hp-nav-links   { display: none !important; }
-          .hp-nav-signin  { display: none !important; }
+        * { box-sizing: border-box; }
+
+        .nav-link {
+          position: relative;
+        }
+        .nav-link::after {
+          content: '';
+          position: absolute;
+          bottom: -2px;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: var(--text-primary);
+          transition: width 0.2s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .feat-card:hover {
+          border-color: var(--accent) !important;
+          transform: translateY(-2px);
+          transition: border-color 0.2s, transform 0.2s;
         }
 
-        /* ── Hero stacks on mobile ── */
         @media (max-width: 768px) {
-          .hp-hero         { flex-direction: column !important; padding: 6rem 1.25rem 3rem !important; gap: 2.5rem !important; }
-          .hp-hero-content { flex: unset !important; }
-          .hp-hero-visual  { flex: unset !important; max-width: 100% !important; width: 100% !important; }
+          .hp-nav-links { display: none !important; }
+          .hp-signin { display: none !important; }
         }
-
-        /* ── Stats 2-col on mobile ── */
+        @media (max-width: 900px) {
+          #hp-hero-layout { flex-direction: column !important; }
+          #hp-hero-preview { display: none !important; }
+        }
         @media (max-width: 640px) {
-          .hp-stats-inner  { grid-template-columns: repeat(2, 1fr) !important; }
+          #hp-stats { grid-template-columns: repeat(2,1fr) !important; }
+          #hp-feat-grid { grid-template-columns: 1fr !important; }
+          #hp-demo-inputs { flex-direction: column !important; }
+          #hp-footer-cols { flex-direction: column !important; gap: 2rem !important; }
+          #hp-footer-inner { flex-direction: column !important; gap: 2.5rem !important; }
         }
-
-        /* ── Feature grid 1-col on mobile ── */
-        @media (max-width: 480px) {
-          .hp-feat-grid    { grid-template-columns: 1fr !important; }
-          .hp-section      { padding: 4rem 1.25rem !important; }
-          .hp-cta-row      { flex-direction: column !important; align-items: stretch !important; }
-          .hp-cta-box      { padding: 2.5rem 1.5rem !important; }
-          .hp-cta-h2       { font-size: 1.75rem !important; }
+        @media (prefers-reduced-motion: reduce) {
+          * { animation: none !important; transition: none !important; }
         }
       `}</style>
     </div>
   );
 }
 
+/* ─── Styles ─── */
+const ACCENT = "#0d9488";
+const ACCENT_HOVER = "#0f766e";
+
 const s = {
   page: {
-    background: `
-      radial-gradient(circle at 30% 30%, rgba(13,148,136,0.08), transparent 40%),
-      radial-gradient(circle at 70% 20%, rgba(45,212,191,0.04), transparent 40%),
-      radial-gradient(circle at 50% 80%, rgba(13,148,136,0.05), transparent 50%),
-      var(--bg-primary)
-    `,
+    background: "var(--bg-primary)",
     minHeight: "100vh",
-    fontFamily: "'DM Sans', sans-serif",
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
     color: "var(--text-primary)",
     overflowX: "hidden",
+    "--accent": ACCENT,
   },
 
-  /* ─── NAV ─── */
+  /* NAV */
   nav: {
     position: "fixed",
-    top: 0,
-    left: 0,
-    right: 0,
+    top: 0, left: 0, right: 0,
     zIndex: 100,
-    background: "var(--bg-secondary)",
+    background: "var(--bg-primary)",
     borderBottom: "1px solid var(--border)",
+    backdropFilter: "blur(12px)",
+    WebkitBackdropFilter: "blur(12px)",
   },
   navInner: {
-    maxWidth: 1200,
+    maxWidth: 1100,
     margin: "0 auto",
-    padding: "0 1.25rem",
-    height: 64,
+    padding: "0 1.5rem",
+    height: 60,
     display: "flex",
-    alignItems: "center",       // ✓ all children vertically centred
+    alignItems: "center",
     justifyContent: "space-between",
-    gap: "0.75rem",             // ✓ breathing room between logo / links / actions
+    gap: "1rem",
   },
-  logo: { display: "flex", alignItems: "center", gap: "0.4rem", flexShrink: 0 },
-  logoGlyph: { fontSize: "1.25rem" },
+  logo: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    textDecoration: "none",
+    flexShrink: 0,
+  },
+  logoMark: {
+    display: "inline-block",
+    width: 20,
+    height: 20,
+    borderRadius: 6,
+    background: ACCENT,
+    flexShrink: 0,
+  },
   logoWord: {
-    fontFamily: "'Syne', sans-serif",
-    fontWeight: 800,
-    fontSize: "1.15rem",
-    background: "var(--gradient)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
+    fontSize: "0.95rem",
+    fontWeight: 600,
+    color: "var(--text-primary)",
+    letterSpacing: "-0.01em",
   },
-
-  // Nav links sit in the middle — don't let them steal all space
   navLinks: {
     display: "flex",
     gap: "2rem",
-    flex: "0 1 auto",           // ✓ was "flex: 1" — that pushed actions off-screen
-    marginLeft: "1.5rem",
+    marginLeft: "2rem",
   },
   navLink: {
     color: "var(--text-secondary)",
     textDecoration: "none",
     fontSize: "0.875rem",
     fontWeight: 400,
+    letterSpacing: "-0.01em",
   },
-
-  // All right-hand controls in ONE flex group — toggle + sign-in + register
   navActions: {
     display: "flex",
-    alignItems: "center",       // ✓ vertically centred together
-    gap: "0.6rem",              // ✓ consistent spacing between all three
-    flexShrink: 0,              // ✓ never squish or clip
-    marginLeft: "auto",         // ✓ push to the far right
+    alignItems: "center",
+    gap: "0.5rem",
+    marginLeft: "auto",
+    flexShrink: 0,
   },
   themeToggle: {
     background: "transparent",
     border: "1px solid var(--border)",
-    color: "var(--text-secondary)",
     cursor: "pointer",
     borderRadius: 8,
+    width: 34,
+    height: 34,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "background 0.15s",
+    flexShrink: 0,
+  },
+  navLinkBtn: {
+    color: "var(--text-secondary)",
+    textDecoration: "none",
+    fontSize: "0.875rem",
+    padding: "0.4rem 0.75rem",
+    borderRadius: 7,
+  },
+  navCta: {
+    background: "var(--text-primary)",
+    color: "var(--bg-primary)",
+    textDecoration: "none",
+    fontSize: "0.85rem",
+    fontWeight: 500,
+    padding: "0.45rem 0.9rem",
+    borderRadius: 7,
+    whiteSpace: "nowrap",
+    transition: "opacity 0.15s",
+  },
+
+  /* HERO */
+  hero: {
+    maxWidth: 1100,
+    margin: "0 auto",
+    padding: "9rem 1.5rem 5rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "4rem",
+    minHeight: "100vh",
+  },
+  heroInner: { flex: "1 1 480px", maxWidth: 560 },
+  heroEyebrow: {
+    display: "inline-flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    fontSize: "0.78rem",
+    fontWeight: 500,
+    color: "var(--text-muted)",
+    letterSpacing: "0.04em",
+    textTransform: "uppercase",
+    marginBottom: "1.75rem",
+    border: "1px solid var(--border)",
+    borderRadius: 20,
+    padding: "0.3rem 0.8rem",
+  },
+  eyebrowDot: {
+    display: "inline-block",
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    background: ACCENT,
+    flexShrink: 0,
+  },
+  heroH1: {
+    fontSize: "clamp(2.4rem, 5vw, 3.6rem)",
+    fontWeight: 600,
+    lineHeight: 1.1,
+    letterSpacing: "-0.03em",
+    color: "var(--text-primary)",
+    marginBottom: "1.25rem",
+    margin: "0 0 1.25rem",
+  },
+  heroH1Accent: {
+    color: ACCENT,
+  },
+  heroSub: {
+    fontSize: "1.05rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.75,
+    marginBottom: "2rem",
+    fontWeight: 400,
+  },
+  heroCtas: {
+    display: "flex",
+    gap: "0.75rem",
+    flexWrap: "wrap",
+    alignItems: "center",
+    marginBottom: "2rem",
+  },
+  heroPrimary: {
+    display: "inline-flex",
+    alignItems: "center",
+    padding: "0.65rem 1.25rem",
+    background: ACCENT,
+    color: "#fff",
+    textDecoration: "none",
+    borderRadius: 8,
+    fontSize: "0.9rem",
+    fontWeight: 500,
+    letterSpacing: "-0.01em",
+    transition: "background 0.15s, transform 0.1s",
+    border: `1px solid ${ACCENT_HOVER}`,
+  },
+  heroSecondary: {
+    display: "inline-flex",
+    alignItems: "center",
+    padding: "0.65rem 1.25rem",
+    color: "var(--text-secondary)",
+    textDecoration: "none",
+    borderRadius: 8,
+    fontSize: "0.9rem",
+    fontWeight: 400,
+    border: "1px solid var(--border)",
+    transition: "border-color 0.15s, color 0.15s",
+  },
+  heroStack: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "0.5rem",
+  },
+  stackPill: {
+    padding: "0.25rem 0.65rem",
+    borderRadius: 6,
+    border: "1px solid var(--border)",
+    color: "var(--text-muted)",
+    fontSize: "0.75rem",
+    fontWeight: 500,
+    letterSpacing: "0.01em",
+  },
+  heroPreview: {
+    flex: "0 0 420px",
+    maxWidth: 420,
+  },
+
+  /* Product preview card */
+  previewCard: {
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
+    borderRadius: 14,
+    overflow: "hidden",
+    boxShadow: "0 1px 4px rgba(0,0,0,0.06), 0 4px 24px rgba(0,0,0,0.06)",
+  },
+  previewTop: {
+    background: "var(--bg-secondary)",
+    borderBottom: "1px solid var(--border)",
+    padding: "0.65rem 1rem",
+    display: "flex",
+    alignItems: "center",
+    gap: "0.75rem",
+  },
+  previewDots: { display: "flex", gap: 6 },
+  previewDot: { width: 10, height: 10, borderRadius: "50%" },
+  previewTitle: {
+    fontSize: "0.75rem",
+    color: "var(--text-muted)",
+    fontWeight: 500,
+  },
+  previewBody: { padding: "1.25rem" },
+  previewRow: { marginBottom: "1rem" },
+  previewFieldLabel: {
+    display: "block",
+    fontSize: "0.7rem",
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "var(--text-muted)",
+    marginBottom: "0.4rem",
+  },
+  previewChips: { display: "flex", gap: "0.4rem", flexWrap: "wrap" },
+  previewChip: {
+    padding: "0.25rem 0.6rem",
+    borderRadius: 6,
+    border: "1px solid var(--border)",
+    fontSize: "0.78rem",
+    color: "var(--text-secondary)",
+    cursor: "default",
+  },
+  previewChipActive: {
+    border: `1px solid ${ACCENT}`,
+    color: ACCENT,
+    background: "rgba(13,148,136,0.08)",
+  },
+  previewInputMock: {
+    padding: "0.45rem 0.75rem",
+    borderRadius: 7,
+    border: "1px solid var(--border)",
+    fontSize: "0.82rem",
+    color: "var(--text-primary)",
+    background: "var(--bg-primary)",
+  },
+  previewGenerateBtn: {
+    display: "inline-block",
+    padding: "0.45rem 1rem",
+    background: ACCENT,
+    color: "#fff",
+    borderRadius: 7,
+    fontSize: "0.82rem",
+    fontWeight: 500,
+    marginBottom: "1rem",
+    cursor: "default",
+  },
+  previewOutput: {
+    background: "var(--bg-secondary)",
+    borderRadius: 8,
+    padding: "0.85rem",
+    border: "1px solid var(--border)",
+  },
+  previewOutputLabel: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.4rem",
+    fontSize: "0.7rem",
+    fontWeight: 600,
+    color: ACCENT,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    marginBottom: "0.5rem",
+  },
+  previewOutputDot: {
+    width: 6,
+    height: 6,
+    borderRadius: "50%",
+    background: ACCENT,
+    flexShrink: 0,
+  },
+  previewOutputText: {
+    fontSize: "0.82rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.65,
+    margin: 0,
+  },
+
+  /* STATS */
+  statsBand: {
+    borderTop: "1px solid var(--border)",
+    borderBottom: "1px solid var(--border)",
+    background: "var(--bg-secondary)",
+  },
+  statsInner: {
+    maxWidth: 960,
+    margin: "0 auto",
+    padding: "2.5rem 2rem",
+    display: "grid",
+    gridTemplateColumns: "1fr auto 1fr auto 1fr auto 1fr",
+    alignItems: "center",
+    gap: "1rem",
+  },
+  statVal: {
+    fontFamily: "'Inter', sans-serif",
+    fontSize: "clamp(1.75rem, 3.5vw, 2.25rem)",
+    fontWeight: 600,
+    color: "var(--text-primary)",
+    letterSpacing: "-0.03em",
+    lineHeight: 1,
+    marginBottom: "0.3rem",
+  },
+  statLabel: {
+    fontSize: "0.8rem",
+    color: "var(--text-muted)",
+    fontWeight: 400,
+  },
+  statsDivider: {
+    width: 1,
+    height: 40,
+    background: "var(--border)",
+  },
+
+  /* SECTIONS */
+  section: {
+    padding: "7rem 2rem",
+  },
+  sectionHead: {
+    maxWidth: 560,
+    marginBottom: "3.5rem",
+  },
+  eyebrow: {
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    color: ACCENT,
+    textTransform: "uppercase",
+    letterSpacing: "0.1em",
+    marginBottom: "0.75rem",
+    margin: "0 0 0.75rem",
+  },
+  sectionH2: {
+    fontSize: "clamp(1.6rem, 3.5vw, 2.25rem)",
+    fontWeight: 600,
+    color: "var(--text-primary)",
+    letterSpacing: "-0.025em",
+    lineHeight: 1.2,
+    margin: "0 0 0.875rem",
+  },
+  sectionSub: {
+    fontSize: "1rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.7,
+    margin: 0,
+  },
+
+  /* FEATURES */
+  featGrid: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+    gap: "1px",
+    border: "1px solid var(--border)",
+    borderRadius: 14,
+    overflow: "hidden",
+    maxWidth: 1100,
+    margin: "0 auto",
+  },
+  featCard: {
+    background: "var(--bg-card)",
+    padding: "1.75rem",
+    transition: "border-color 0.2s, transform 0.2s",
+    cursor: "default",
+  },
+  featIcon: {
     width: 36,
     height: 36,
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    transition: "all 0.2s",
-    flexShrink: 0,
-  },
-  btnOutline: {
-    padding: "0.5rem 1.1rem",
-    borderRadius: 8,
-    border: "1px solid var(--border)",
-    background: "var(--bg-card)",
-    color: "var(--text-primary)",
-    textDecoration: "none",
-    fontSize: "0.85rem",
-    whiteSpace: "nowrap",
-  },
-  btnFill: {
-    padding: "0.5rem 1.1rem",
-    borderRadius: 8,
-    background: "linear-gradient(135deg, #0d9488, #0f766e)",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "0.85rem",
-    fontWeight: 500,
-    whiteSpace: "nowrap",
-  },
-
-  /* ─── HERO ─── */
-  hero: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    maxWidth: 1200,
-    margin: "0 auto",
-    padding: "8rem 2rem 4rem",
-    gap: "4rem",
-    position: "relative",
-  },
-  gridBg: {
-    position: "fixed",
-    inset: 0,
-    backgroundImage: "radial-gradient(rgba(13,148,136,0.12) 1px, transparent 1px)",
-    backgroundSize: "22px 22px",
-    pointerEvents: "none",
-    zIndex: 0,
-  },
-  orb: {
-    position: "absolute",
-    width: 600,
-    height: 600,
-    borderRadius: "50%",
-    pointerEvents: "none",
-  },
-
-  heroContent: { flex: "1 1 480px", zIndex: 1 },
-  heroVisual: { flex: "0 0 400px", maxWidth: 420, zIndex: 1 },
-
-  badge: {
-    display: "inline-flex",
-    alignItems: "center",
-    gap: "0.5rem",
-    padding: "0.35rem 0.9rem",
-    border: "1px solid rgba(13,148,136,0.35)",
-    borderRadius: 20,
-    fontSize: "0.78rem",
-    color: "var(--accent-light)",
-    background: "rgba(13,148,136,0.1)",
-    marginBottom: "1.5rem",
-    fontWeight: 500,
-  },
-  badgeDot: {
-    width: 6,
-    height: 6,
-    borderRadius: "50%",
-    background: "#0d9488",
-    animation: "pulse 2s ease infinite",
-  },
-  heroH1: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: "clamp(2.5rem, 5vw, 4rem)",
-    fontWeight: 800,
-    lineHeight: 1.08,
-    marginBottom: "1.25rem",
-    color: "var(--text-primary)",
-  },
-  heroAccent: {
-    background: "var(--gradient)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-  },
-  cursor: {
-    display: "inline-block",
-    color: "#0d9488",
-    animation: "blink 1s step-end infinite",
-    marginLeft: 2,
-  },
-  heroSub: {
-    fontSize: "clamp(0.9rem, 2.5vw, 1.1rem)",
-    color: "var(--text-secondary)",
-    lineHeight: 1.7,
-    marginBottom: "2rem",
-  },
-
-  ctaRow: {
-    display: "flex",
-    gap: "1rem",
-    flexWrap: "wrap",
-    alignItems: "center",
-  },
-  heroCta: {
-    padding: "0.85rem 1.4rem",
-    borderRadius: 10,
-    background: "linear-gradient(135deg, #0d9488, #0f766e)",
-    color: "#fff",
-    textDecoration: "none",
-    fontSize: "0.9rem",
-    fontWeight: 500,
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  heroCtaGhost: {
-    color: "var(--text-secondary)",
-    textDecoration: "none",
-    fontSize: "0.9rem",
-    padding: "0.85rem 1rem",
-    fontWeight: 400,
-  },
-  trustRow: {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "0.5rem",
-    marginTop: "2.5rem",
-  },
-  techPill: {
-    padding: "0.25rem 0.75rem",
-    borderRadius: 20,
-    border: "1px solid var(--border)",
-    color: "var(--text-muted)",
-    fontSize: "0.72rem",
-    fontWeight: 500,
-  },
-
-  /* ─── FLOAT CARD ─── */
-  floatCard: {
-    background: "var(--bg-card)",
-    border: "1px solid var(--border)",
-    borderRadius: 16,
-    padding: "1.25rem",
-    backdropFilter: "blur(12px)",
-  },
-  floatCardTop: {
-    display: "flex",
-    alignItems: "center",
-    gap: "0.75rem",
-    marginBottom: "0.875rem",
-  },
-  avatar: {
-    width: 38,
-    height: 38,
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, #0d9488, #0f766e)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: 700,
-    fontSize: "0.95rem",
-    color: "#fff",
-    flexShrink: 0,
-  },
-  floatName: { fontSize: "0.875rem", fontWeight: 600, color: "var(--text-primary)" },
-  floatHandle: { fontSize: "0.75rem", color: "var(--text-muted)" },
-  aiTag: {
-    marginLeft: "auto",
-    padding: "0.2rem 0.6rem",
-    border: "1px solid rgba(13,148,136,0.35)",
-    borderRadius: 20,
-    fontSize: "0.72rem",
-    color: "var(--accent-light)",
-    background: "rgba(13,148,136,0.12)",
-    fontWeight: 600,
-    flexShrink: 0,
-  },
-  floatText: {
-    fontSize: "0.88rem",
-    color: "var(--text-secondary)",
-    lineHeight: 1.65,
-    margin: 0,
-    marginBottom: "0.875rem",
-  },
-  floatActions: {
-    display: "flex",
-    gap: "1.25rem",
-    borderTop: "1px solid var(--border)",
-    paddingTop: "0.75rem",
-  },
-  floatStat: { fontSize: "0.78rem", color: "var(--text-muted)" },
-  floatBadge: {
-    position: "absolute",
-    padding: "0.4rem 0.9rem",
-    background: "rgba(13,148,136,0.12)",
-    border: "1px solid rgba(13,148,136,0.25)",
-    borderRadius: 20,
-    fontSize: "0.75rem",
-    color: "var(--accent-light)",
-    fontWeight: 500,
-    backdropFilter: "blur(8px)",
-    animation: "float 4s ease-in-out infinite",
-    whiteSpace: "nowrap",
-  },
-
-  /* ─── STATS ─── */
-  statsBand: {
-    background: "var(--bg-secondary)",
-    borderTop: "1px solid var(--border)",
-    borderBottom: "1px solid var(--border)",
-  },
-  statsInner: {
-    maxWidth: 1200,
-    margin: "0 auto",
-    padding: "2.5rem 2rem",
-    display: "grid",
-    gridTemplateColumns: "repeat(4, 1fr)",
-    gap: "1rem",
-  },
-  statItem: { textAlign: "center", padding: "0.5rem" },
-  statVal: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
-    fontWeight: 800,
-    background: "linear-gradient(135deg, #0d9488, #2dd4bf)",
-    WebkitBackgroundClip: "text",
-    WebkitTextFillColor: "transparent",
-    lineHeight: 1,
-  },
-  statLabel: { fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "0.35rem" },
-
-  /* ─── SECTIONS ─── */
-  section: { maxWidth: 1200, margin: "0 auto", padding: "6rem 2rem" },
-  sectionHead: { textAlign: "center", marginBottom: "3.5rem" },
-  eyebrow: {
-    fontSize: "0.78rem",
-    fontWeight: 600,
-    color: "#0d9488",
-    textTransform: "uppercase",
-    letterSpacing: "0.12em",
-    marginBottom: "0.75rem",
-  },
-  sectionH2: {
-    fontFamily: "'Syne', sans-serif",
-    fontSize: "clamp(1.6rem, 3.5vw, 2.75rem)",
-    fontWeight: 800,
-    color: "var(--text-primary)",
-    lineHeight: 1.15,
-  },
-
-  /* ─── FEATURES ─── */
-  featGrid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-    gap: "1.25rem",
-  },
-  featCard: {
-    background: "var(--bg-card)",
-    border: "1px solid var(--border)",
-    borderRadius: 14,
-    padding: "1.75rem",
-    transition: "border-color 0.2s",
-    animation: "fadeUp 0.6s ease both",
-  },
-  featIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 10,
-    border: "1px solid",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontSize: "1.15rem",
+    color: ACCENT,
     marginBottom: "1rem",
+    border: "1px solid var(--border)",
+    borderRadius: 8,
+    background: "var(--bg-secondary)",
   },
   featTitle: {
-    fontFamily: "'Syne', sans-serif",
-    fontWeight: 700,
-    fontSize: "1rem",
+    fontSize: "0.95rem",
+    fontWeight: 600,
     color: "var(--text-primary)",
-    marginBottom: "0.6rem",
+    letterSpacing: "-0.01em",
+    marginBottom: "0.5rem",
+    margin: "0 0 0.5rem",
   },
   featDesc: {
     fontSize: "0.875rem",
     color: "var(--text-secondary)",
     lineHeight: 1.7,
-    fontWeight: 300,
+    margin: 0,
+    fontWeight: 400,
   },
 
-  /* ─── DEMO ─── */
-  demoWrap: {
-    maxWidth: 640,
-    margin: "0 auto",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    gap: "1.25rem",
-  },
-  toneRow: {
-    display: "flex",
-    gap: "0.5rem",
-    flexWrap: "wrap",
-    justifyContent: "center",
-  },
-  tonePill: {
-    padding: "0.45rem 1rem",
-    borderRadius: 20,
-    border: "1px solid var(--border)",
-    background: "transparent",
-    color: "var(--text-muted)",
-    fontSize: "0.82rem",
-    cursor: "pointer",
-    fontFamily: "'DM Sans', sans-serif",
-    fontWeight: 500,
-    transition: "all 0.2s",
-  },
-  tonePillActive: {
-    border: "1px solid rgba(13,148,136,0.5)",
-    background: "rgba(13,148,136,0.12)",
-    color: "var(--accent-light)",
-  },
-  demoCard: {
-    width: "100%",
+  /* DEMO */
+  demoShell: {
     background: "var(--bg-card)",
     border: "1px solid var(--border)",
-    borderRadius: 16,
-    padding: "1.5rem",
-  },
-  demoHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "1rem",
-  },
-  demoAvatar: {
-    width: 38,
-    height: 38,
-    borderRadius: "50%",
-    background: "linear-gradient(135deg, #0d9488, #0f766e)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    fontWeight: 700,
-    color: "#fff",
-  },
-
-  /* ─── CTA SECTION ─── */
-  ctaSection: { padding: "5rem 1.5rem", position: "relative" },
-  ctaBox: {
-    maxWidth: 800,
-    margin: "0 auto",
-    textAlign: "center",
-    background: "rgba(13,148,136,0.07)",
-    border: "1px solid rgba(13,148,136,0.2)",
-    borderRadius: 20,
-    padding: "4rem 3rem",
-    position: "relative",
+    borderRadius: 14,
     overflow: "hidden",
   },
-  ctaOrb: {
-    position: "absolute",
-    width: 500,
-    height: 500,
+  demoInputRow: {
+    display: "flex",
+    gap: "1rem",
+    padding: "1.25rem 1.5rem",
+    alignItems: "flex-end",
+    flexWrap: "wrap",
+  },
+  demoField: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.4rem",
+    flex: 1,
+    minWidth: 120,
+  },
+  demoLabel: {
+    fontSize: "0.72rem",
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "var(--text-muted)",
+  },
+  demoSelect: {
+    background: "var(--bg-primary)",
+    border: "1px solid var(--border)",
+    borderRadius: 7,
+    padding: "0.45rem 0.65rem",
+    fontSize: "0.875rem",
+    color: "var(--text-primary)",
+    cursor: "pointer",
+    outline: "none",
+    fontFamily: "inherit",
+    appearance: "auto",
+  },
+  demoInput: {
+    background: "var(--bg-primary)",
+    border: "1px solid var(--border)",
+    borderRadius: 7,
+    padding: "0.45rem 0.65rem",
+    fontSize: "0.875rem",
+    color: "var(--text-primary)",
+    outline: "none",
+    fontFamily: "inherit",
+    width: "100%",
+  },
+  generateBtn: {
+    padding: "0.5rem 1.1rem",
+    background: ACCENT,
+    color: "#fff",
+    border: "none",
+    borderRadius: 7,
+    fontSize: "0.875rem",
+    fontWeight: 500,
+    cursor: "pointer",
+    whiteSpace: "nowrap",
+    fontFamily: "inherit",
+    transition: "opacity 0.15s",
+    flexShrink: 0,
+    height: 36,
+    display: "flex",
+    alignItems: "center",
+  },
+  demoDivider: {
+    height: 1,
+    background: "var(--border)",
+  },
+  demoOutput: {
+    padding: "1.5rem",
+  },
+  demoOutputHeader: {
+    display: "flex",
+    alignItems: "center",
+    gap: "0.5rem",
+    marginBottom: "0.875rem",
+  },
+  demoOutputPlatform: {
+    fontSize: "0.72rem",
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "var(--text-muted)",
+    padding: "0.2rem 0.5rem",
+    border: "1px solid var(--border)",
+    borderRadius: 5,
+  },
+  demoOutputTone: {
+    fontSize: "0.72rem",
+    fontWeight: 600,
+    color: ACCENT,
+    padding: "0.2rem 0.5rem",
+    border: `1px solid ${ACCENT}30`,
+    borderRadius: 5,
+    background: `${ACCENT}10`,
+  },
+  demoOutputText: {
+    fontSize: "0.9rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.75,
+    whiteSpace: "pre-wrap",
+    margin: "0 0 1.25rem",
+  },
+  demoOutputFooter: {
+    display: "flex",
+    gap: "0.5rem",
+    borderTop: "1px solid var(--border)",
+    paddingTop: "0.875rem",
+  },
+  demoAction: {
+    display: "inline-flex",
+    alignItems: "center",
+    padding: "0.35rem 0.75rem",
+    border: "1px solid var(--border)",
+    borderRadius: 6,
+    background: "var(--bg-secondary)",
+    color: "var(--text-secondary)",
+    fontSize: "0.78rem",
+    cursor: "pointer",
+    fontFamily: "inherit",
+    transition: "border-color 0.15s",
+  },
+  spinner: {
+    display: "inline-block",
+    width: 12,
+    height: 12,
+    border: "2px solid rgba(255,255,255,0.3)",
+    borderTopColor: "#fff",
     borderRadius: "50%",
-    background: "radial-gradient(circle, rgba(13,148,136,0.15) 0%, transparent 70%)",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%,-50%)",
-    pointerEvents: "none",
+    animation: "spin 0.7s linear infinite",
   },
 
-  /* ─── FOOTER ─── */
+  /* CTA */
+  ctaSection: {
+    padding: "7rem 2rem",
+    background: "var(--bg-secondary)",
+    borderTop: "1px solid var(--border)",
+    borderBottom: "1px solid var(--border)",
+  },
+  ctaInner: {
+    maxWidth: 560,
+    margin: "0 auto",
+    textAlign: "center",
+  },
+  ctaH2: {
+    fontSize: "clamp(1.75rem, 4vw, 2.5rem)",
+    fontWeight: 600,
+    color: "var(--text-primary)",
+    letterSpacing: "-0.025em",
+    lineHeight: 1.15,
+    marginBottom: "1rem",
+    margin: "0 0 1rem",
+  },
+  ctaSub: {
+    fontSize: "1rem",
+    color: "var(--text-secondary)",
+    lineHeight: 1.7,
+    marginBottom: "2rem",
+  },
+
+  /* FOOTER */
   footer: {
     borderTop: "1px solid var(--border)",
-    padding: "2rem 1.5rem",
     background: "var(--bg-primary)",
   },
   footerInner: {
-    maxWidth: 1200,
+    maxWidth: 1100,
     margin: "0 auto",
+    padding: "4rem 2rem 3rem",
     display: "flex",
-    alignItems: "center",
+    gap: "4rem",
     justifyContent: "space-between",
-    gap: "1rem",
     flexWrap: "wrap",
+  },
+  footerBrand: { maxWidth: 240 },
+  footerTagline: {
+    fontSize: "0.85rem",
+    color: "var(--text-muted)",
+    lineHeight: 1.65,
+    margin: "0.75rem 0 0",
+  },
+  footerCols: {
+    display: "flex",
+    gap: "3rem",
+    flexWrap: "wrap",
+  },
+  footerCol: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.65rem",
+  },
+  footerColHead: {
+    fontSize: "0.75rem",
+    fontWeight: 600,
+    textTransform: "uppercase",
+    letterSpacing: "0.08em",
+    color: "var(--text-primary)",
+    margin: "0 0 0.25rem",
   },
   footerLink: {
     color: "var(--text-muted)",
     textDecoration: "none",
-    fontSize: "0.82rem",
+    fontSize: "0.875rem",
+    transition: "color 0.15s",
+  },
+  footerBottom: {
+    borderTop: "1px solid var(--border)",
+    padding: "1.25rem 2rem",
+    maxWidth: 1100,
+    margin: "0 auto",
   },
 };
-
