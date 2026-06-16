@@ -303,42 +303,50 @@ export default function HomePage() {
           </div>
 
           {/* Hero product preview */}
-          <AnimatedSection delay={0.12} id="hp-hero-preview" style={s.heroPreview}>
-            <div style={s.previewCard}>
-              <div style={s.previewTop}>
-                <span style={s.previewTopLabel}>New post</span>
-                <span style={s.previewTopMeta}>Draft</span>
-              </div>
-              <div style={s.previewBody}>
-                <div style={s.previewRow}>
-                  <span style={s.previewFieldLabel}>Platform</span>
-                  <div style={s.previewChips}>
-                    {["LinkedIn", "Twitter", "Instagram"].map((p, i) => (
-                      <span key={p} style={{ ...s.previewChip, ...(i === 0 ? s.previewChipActive : {}) }}>{p}</span>
-                    ))}
-                  </div>
-                </div>
-                <div style={s.previewRow}>
-                  <span style={s.previewFieldLabel}>Tone</span>
-                  <div style={s.previewChips}>
-                    {["Professional", "Casual", "Funny"].map((t, i) => (
-                      <span key={t} style={{ ...s.previewChip, ...(i === 0 ? s.previewChipActive : {}) }}>{t}</span>
-                    ))}
-                  </div>
-                </div>
-                <div style={s.previewRow}>
-                  <span style={s.previewFieldLabel}>Topic</span>
-                  <div style={s.previewInputMock}>AI in the workplace</div>
-                </div>
-                <div style={s.previewDivider} />
-                <div style={s.previewOutputLabel}>Draft</div>
-                <p style={s.previewOutputText}>
-                  AI isn't replacing human creativity — it's amplifying it.
-                  The most effective teams integrate it thoughtfully…
-                </p>
-              </div>
-            </div>
-          </AnimatedSection>
+          <AnimatedSection
+  delay={0.12}
+  id="hp-hero-preview"
+  style={s.heroPreview}
+>
+  <div style={s.socialCard}>
+    <div style={s.socialHeader}>
+      <div style={s.avatar}>M</div>
+
+      <div>
+        <div style={s.userName}>Mayank Pandey</div>
+        <div style={s.userMeta}>
+          Software Engineer • Just now
+        </div>
+      </div>
+    </div>
+
+    <div style={s.socialContent}>
+      AI won't replace developers.
+
+      <br /><br />
+
+      Developers who use AI will replace
+      developers who don't.
+
+      <br /><br />
+
+      The future belongs to people who
+      learn to collaborate with AI.
+
+      <br /><br />
+
+      <span style={s.hashTag}>
+        #AI #Technology
+      </span>
+    </div>
+
+    <div style={s.socialFooter}>
+      <span>👍 142</span>
+      <span>💬 19</span>
+      <span>↗️ 8</span>
+    </div>
+  </div>
+</AnimatedSection>
         </div>
       </section>
 
