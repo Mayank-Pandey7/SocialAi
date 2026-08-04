@@ -455,8 +455,8 @@ export default function HomePage() {
           <div className="hero-glass-card">
             <div className="card-author-row">
               <img
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
-                alt="Avatar"
+                src="/mayank.jpg"
+                alt="Mayank Pandey"
                 className="author-avatar"
               />
               <div className="author-info">
@@ -475,6 +475,12 @@ export default function HomePage() {
               <br /><br />
               <span className="post-hashtags">#BuildInPublic #AI #SocialMedia #GrowthMindset</span>
             </div>
+
+            <img
+              src="/mayank.jpg"
+              alt="Mayank Pandey LinkedIn Attachment"
+              className="card-post-image"
+            />
 
             <div className="card-post-stats">
               <div className="stat-group">👍 <strong>1,842</strong> Likes</div>
@@ -1010,6 +1016,15 @@ export default function HomePage() {
           margin-bottom: 1.25rem;
         }
         .post-hashtags { color: var(--accent-light); font-weight: 500; }
+        .card-post-image {
+          width: 100%;
+          max-height: 320px;
+          object-fit: cover;
+          object-position: top;
+          border-radius: 12px;
+          margin-bottom: 1.25rem;
+          border: 1px solid var(--border);
+        }
         .card-post-stats {
           display: flex; gap: 1.5rem;
           border-top: 1px solid var(--border);
