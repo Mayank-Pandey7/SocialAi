@@ -468,12 +468,6 @@ export default function HomePage() {
               <span className="hashtags">#BuildInPublic #AI #SocialMedia #GrowthMindset</span>
             </div>
 
-            <img
-              src="/mayank.jpg"
-              alt="Mayank Pandey LinkedIn Attachment"
-              className="borea-post-img"
-            />
-
             <div className="borea-card-footer">
               <span>👍 <strong>1,842</strong> Likes</span>
               <span>💬 <strong>249</strong> Comments</span>
