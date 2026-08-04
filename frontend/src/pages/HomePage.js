@@ -43,7 +43,7 @@ const SAMPLE_OUTPUTS = {
 
 const FEATURES = [
   {
-    tag: "AI Copywriter",
+    tag: "AI Coprocessor",
     title: "Platform-Native Content Engine",
     desc: "Generate posts tailored for LinkedIn long-form, Twitter punchy threads, or Instagram visual captions in one click.",
     icon: (
@@ -52,11 +52,10 @@ const FEATURES = [
       </svg>
     ),
     span: "col-span-2",
-    accent: "from-teal-500/20 to-emerald-500/10",
   },
   {
     tag: "Viral Score",
-    title: "Engagement Prediction",
+    title: "Engagement Prediction Index",
     desc: "Real-time AI metrics on post readability, hook strength, and viral potential before you publish.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -64,7 +63,6 @@ const FEATURES = [
       </svg>
     ),
     span: "col-span-1",
-    accent: "from-cyan-500/20 to-blue-500/10",
   },
   {
     tag: "Real-time Trends",
@@ -76,11 +74,10 @@ const FEATURES = [
       </svg>
     ),
     span: "col-span-1",
-    accent: "from-purple-500/20 to-violet-500/10",
   },
   {
-    tag: "Smart Planner",
-    title: "Calendar & Queue Scheduler",
+    tag: "Smart Scheduler",
+    title: "Queue Calendar & Time Optimization",
     desc: "Draft content in advance, organize queue schedules, and maintain non-stop publishing consistency.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -88,8 +85,15 @@ const FEATURES = [
       </svg>
     ),
     span: "col-span-2",
-    accent: "from-emerald-500/20 to-teal-500/10",
   },
+];
+
+const COMPARISONS = [
+  { feature: "Content Generation Speed", legacy: "2 - 3 Hours / post", borea: "⚡ 5 Seconds with AI" },
+  { feature: "Multi-Platform Formatting", legacy: "Manual re-writing & editing", borea: "🌐 Automatic 1-Click Adaptation" },
+  { feature: "Tone Precision", legacy: "Inconsistent brand voice", borea: "🎯 5+ Custom Persona Tones" },
+  { feature: "Engagement Analytics", legacy: "Guesswork after posting", borea: "🔥 Real-time Pre-publish Viral Score" },
+  { feature: "Cost & Accessibility", legacy: "$500+/mo copywriting retainers", borea: "💎 100% Free & Unlimited Access" },
 ];
 
 const TESTIMONIALS = [
@@ -97,7 +101,7 @@ const TESTIMONIALS = [
     name: "Alex Rivera",
     role: "Founder @ TechFlow",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    text: "SocialAI cut down our social media drafting time from 3 hours a day to less than 15 minutes. The tone precision is incredible!",
+    text: "SocialAI cut down our social media drafting time from 3 hours a day to less than 15 minutes. The Borea-style AI engine is mindblowing!",
     stars: 5,
     tag: "Verified Founder",
   },
@@ -169,19 +173,18 @@ function useCounter(target, visible, duration = 1000) {
   return count;
 }
 
-/* ─── Sub-components ─── */
 function StatCounter({ value, suffix, label, icon, visible }) {
   const count = useCounter(value, visible);
   return (
-    <div className="stat-card-modern">
-      <div className="stat-icon-wrap">{icon}</div>
-      <div className="stat-val-text">{count.toLocaleString()}{suffix}</div>
-      <div className="stat-lbl-text">{label}</div>
+    <div className="borea-stat-card">
+      <div className="borea-stat-icon">{icon}</div>
+      <div className="borea-stat-val">{count.toLocaleString()}{suffix}</div>
+      <div className="borea-stat-lbl">{label}</div>
     </div>
   );
 }
 
-/* ─── Interactive Playground Demo ─── */
+/* ─── Borea Interactive Studio Playground ─── */
 function LiveStudioDemo() {
   const [selectedPlatform, setSelectedPlatform] = useState("LinkedIn");
   const [selectedTone, setSelectedTone] = useState("Professional");
@@ -190,7 +193,7 @@ function LiveStudioDemo() {
   const [displayedText, setDisplayedText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [viralScore, setViralScore] = useState(94);
+  const [viralScore, setViralScore] = useState(96);
 
   const triggerGeneration = useCallback((plat = selectedPlatform, tne = selectedTone, prmpt = customPrompt) => {
     setIsGenerating(true);
@@ -204,7 +207,7 @@ function LiveStudioDemo() {
       }
       
       setOutputText(targetResult);
-      setViralScore(Math.floor(Math.random() * 8) + 92);
+      setViralScore(Math.floor(Math.random() * 6) + 94);
       setIsGenerating(false);
 
       // Typewriter Effect
@@ -239,53 +242,52 @@ function LiveStudioDemo() {
   };
 
   return (
-    <div className="demo-studio-container">
-      <div className="studio-header">
-        <div className="studio-title-bar">
-          <div className="window-dots">
-            <span className="dot red"></span>
-            <span className="dot yellow"></span>
-            <span className="dot green"></span>
-          </div>
-          <span className="studio-badge">✨ Live AI Content Generator</span>
+    <div className="borea-studio-card">
+      <div className="borea-window-bar">
+        <div className="borea-window-dots">
+          <span className="dot red"></span>
+          <span className="dot yellow"></span>
+          <span className="dot green"></span>
         </div>
+        <span className="borea-window-title">✨ Borea AI Engine • Live Content Studio</span>
+        <div className="borea-window-badge">v2.0 Active</div>
       </div>
 
       {/* Preset Chips */}
-      <div className="preset-chips-row">
-        <span className="preset-label">Try Presets:</span>
+      <div className="borea-presets-bar">
+        <span className="preset-label">Preset Ideas:</span>
         {PRESETS.map((p) => (
-          <button key={p.label} onClick={() => applyPreset(p)} className="preset-chip">
+          <button key={p.label} onClick={() => applyPreset(p)} className="borea-preset-chip">
             {p.label}
           </button>
         ))}
       </div>
 
-      {/* Control Bar */}
-      <div className="studio-controls-grid">
-        <div className="control-group">
-          <label className="control-label">Target Platform</label>
-          <div className="pill-selector">
+      {/* Controls Grid */}
+      <div className="borea-controls-grid">
+        <div className="control-box">
+          <label className="borea-label">Target Platform</label>
+          <div className="borea-pills">
             {PLATFORMS.map((p) => (
               <button
                 key={p.id}
                 onClick={() => { setSelectedPlatform(p.id); triggerGeneration(p.id, selectedTone, customPrompt); }}
-                className={`pill-btn ${selectedPlatform === p.id ? "active" : ""}`}
+                className={`borea-pill ${selectedPlatform === p.id ? "active" : ""}`}
               >
-                <span className="pill-icon">{p.icon}</span> {p.label}
+                <span>{p.icon}</span> {p.label}
               </button>
             ))}
           </div>
         </div>
 
-        <div className="control-group">
-          <label className="control-label">Tone of Voice</label>
-          <div className="pill-selector">
+        <div className="control-box">
+          <label className="borea-label">Tone Persona</label>
+          <div className="borea-pills">
             {TONES.map((t) => (
               <button
                 key={t.id}
                 onClick={() => { setSelectedTone(t.id); triggerGeneration(selectedPlatform, t.id, customPrompt); }}
-                className={`pill-btn ${selectedTone === t.id ? "active" : ""}`}
+                className={`borea-pill ${selectedTone === t.id ? "active" : ""}`}
               >
                 {t.label}
               </button>
@@ -294,57 +296,57 @@ function LiveStudioDemo() {
         </div>
       </div>
 
-      {/* Custom Prompt Input */}
-      <div className="prompt-input-wrapper">
+      {/* Prompt Input */}
+      <div className="borea-input-bar">
         <input
           type="text"
           value={customPrompt}
           onChange={(e) => setCustomPrompt(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && triggerGeneration()}
-          placeholder="Enter an idea, topic, or bullet point (e.g. Why remote work is growing...)"
-          className="prompt-input"
+          placeholder="Type an idea, bullet point, or blog summary..."
+          className="borea-prompt-field"
         />
         <button
           onClick={() => triggerGeneration()}
           disabled={isGenerating}
-          className="generate-action-btn"
+          className="borea-generate-btn"
         >
-          {isGenerating ? "Generating..." : "⚡ Generate Draft"}
+          {isGenerating ? "Synthesizing..." : "⚡ Generate Draft"}
         </button>
       </div>
 
-      {/* Output Display Card */}
-      <div className="output-display-card">
-        <div className="output-card-header">
-          <div className="meta-left">
-            <span className="platform-tag">{selectedPlatform}</span>
-            <span className="tone-tag">{selectedTone}</span>
+      {/* Output Screen */}
+      <div className="borea-output-screen">
+        <div className="borea-output-top">
+          <div className="meta-info">
+            <span className="borea-tag platform">{selectedPlatform}</span>
+            <span className="borea-tag tone">{selectedTone}</span>
           </div>
-          <div className="meta-right">
-            <span className="viral-badge">🔥 Viral Score: {viralScore}/100</span>
-            <span className="length-badge">{(displayedText || "").length} chars</span>
+          <div className="meta-stats">
+            <span className="borea-viral">🔥 Viral Index: {viralScore}/100</span>
+            <span className="borea-count">{(displayedText || "").length} chars</span>
           </div>
         </div>
 
-        <div className="output-body">
-          <pre className="output-text">
+        <div className="borea-output-content">
+          <pre className="borea-code-text">
             {displayedText}
-            <span className="typing-cursor">|</span>
+            <span className="borea-cursor">|</span>
           </pre>
         </div>
 
-        <div className="output-card-footer">
-          <div className="actions-left">
-            <button onClick={handleCopy} className="footer-action-btn primary">
-              {copied ? "✓ Copied to Clipboard!" : "📋 Copy Post"}
+        <div className="borea-output-actions">
+          <div className="left-btns">
+            <button onClick={handleCopy} className="borea-action-btn primary">
+              {copied ? "✓ Copied!" : "📋 Copy Post"}
             </button>
-            <button onClick={() => triggerGeneration()} className="footer-action-btn secondary">
+            <button onClick={() => triggerGeneration()} className="borea-action-btn secondary">
               🔄 Regenerate
             </button>
           </div>
-          <div className="actions-right">
-            <Link to="/register" className="footer-action-btn highlight">
-              🚀 Schedule this Post &rarr;
+          <div className="right-btns">
+            <Link to="/register" className="borea-action-btn glow">
+              🚀 Schedule & Publish &rarr;
             </Link>
           </div>
         </div>
@@ -353,16 +355,16 @@ function LiveStudioDemo() {
   );
 }
 
-/* ─── FAQ Accordion Item ─── */
+/* ─── FAQ Item ─── */
 function FAQItem({ faq }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`faq-card ${open ? "open" : ""}`} onClick={() => setOpen(!open)}>
-      <div className="faq-question">
+    <div className={`borea-faq-item ${open ? "open" : ""}`} onClick={() => setOpen(!open)}>
+      <div className="borea-faq-head">
         <h3>{faq.q}</h3>
-        <span className="faq-toggle-icon">{open ? "−" : "+"}</span>
+        <span className="borea-faq-icon">{open ? "−" : "+"}</span>
       </div>
-      {open && <div className="faq-answer"><p>{faq.a}</p></div>}
+      {open && <div className="borea-faq-body"><p>{faq.a}</p></div>}
     </div>
   );
 }
@@ -371,195 +373,173 @@ function FAQItem({ faq }) {
 export default function HomePage() {
   const { isDark, toggleTheme } = useTheme();
   const [statsRef, statsVisible] = useInView(0.2);
-  const [interactiveTone, setInteractiveTone] = useState(70);
+  const [interactiveTone, setInteractiveTone] = useState(75);
 
   return (
-    <div className="modern-landing-root">
-      {/* Dynamic Background Mesh Gradients */}
-      <div className="bg-mesh-container">
-        <div className="mesh-blob blob-1"></div>
-        <div className="mesh-blob blob-2"></div>
-        <div className="mesh-blob blob-3"></div>
-        <div className="grid-overlay"></div>
+    <div className="borea-landing-wrapper">
+      {/* Radial Atmospheric Lighting Flares */}
+      <div className="borea-atmosphere">
+        <div className="borea-flare flare-cyan"></div>
+        <div className="borea-flare flare-violet"></div>
+        <div className="borea-flare flare-teal"></div>
+        <div className="borea-grid-pattern"></div>
       </div>
 
       {/* ── NAVBAR ── */}
-      <nav className="modern-navbar">
-        <div className="navbar-inner">
-          <Link to="/" className="brand-logo">
-            <div className="logo-icon-glow">
-              <span className="logo-sparkle">✦</span>
-            </div>
-            <span className="brand-name">SocialAI</span>
-            <span className="brand-v2">v2.0</span>
+      <nav className="borea-nav">
+        <div className="borea-nav-container">
+          <Link to="/" className="borea-brand">
+            <div className="borea-logo-symbol">✦</div>
+            <span className="borea-brand-name">SocialAI</span>
+            <span className="borea-v2-badge">Borea AI v2</span>
           </Link>
 
-          <div className="nav-menu-links">
-            <a href="#features" className="nav-item">Features</a>
-            <a href="#demo" className="nav-item">AI Studio</a>
-            <a href="#how-it-works" className="nav-item">Workflow</a>
-            <a href="#testimonials" className="nav-item">Wall of Love</a>
-            <a href="#faq" className="nav-item">FAQ</a>
+          <div className="borea-nav-links">
+            <a href="#features">Features</a>
+            <a href="#demo">AI Studio</a>
+            <a href="#comparison">Comparison</a>
+            <a href="#testimonials">Wall of Love</a>
+            <a href="#faq">FAQ</a>
           </div>
 
-          <div className="nav-right-actions">
-            <button
-              onClick={toggleTheme}
-              className="theme-switch-btn"
-              aria-label={isDark ? "Switch to light" : "Switch to dark"}
-            >
+          <div className="borea-nav-actions">
+            <button onClick={toggleTheme} className="borea-theme-btn" aria-label="Toggle theme">
               <FontAwesomeIcon icon={isDark ? faSun : faMoon} />
             </button>
-            <Link to="/login" className="nav-login-link">Sign In</Link>
-            <Link to="/register" className="nav-primary-cta">Get Started Free &rarr;</Link>
+            <Link to="/login" className="borea-link-btn">Sign In</Link>
+            <Link to="/register" className="borea-btn-gradient">Start Free &rarr;</Link>
           </div>
         </div>
       </nav>
 
       {/* ── HERO SECTION ── */}
-      <section className="hero-section-modern">
-        <div className="hero-container">
-          <div className="hero-pill-badge">
-            <span className="pulse-dot"></span>
-            <span>AI Copilot 2.0 • 100% Free & Unlimited Access</span>
+      <section className="borea-hero">
+        <div className="borea-hero-header">
+          <div className="borea-hero-badge">
+            <span className="borea-dot"></span>
+            <span>Borea-Class AI Content Engine • 100% Free & Open</span>
           </div>
 
-          <h1 className="hero-headline">
-            Write Viral Social Content <br />
-            <span className="gradient-text">10x Faster with AI</span>
+          <h1 className="borea-hero-title">
+            Automate Your Social Media <br />
+            <span className="borea-text-gradient">With Precision AI</span>
           </h1>
 
-          <p className="hero-subtext">
-            SocialAI turns your quick ideas into platform-ready, high-converting posts for LinkedIn, Twitter/X, Instagram & Threads in seconds.
+          <p className="borea-hero-subtitle">
+            Craft high-converting, platform-tailored posts for LinkedIn, Twitter/X, Instagram & Threads in seconds.
           </p>
 
-          <div className="hero-button-group">
-            <Link to="/register" className="hero-cta-primary">
+          <div className="borea-hero-actions">
+            <Link to="/register" className="borea-cta-main">
               <span>Start Writing Free</span>
-              <span className="btn-glow-aura"></span>
+              <span className="borea-cta-glow"></span>
             </Link>
-            <a href="#demo" className="hero-cta-secondary">
-              <span>View Interactive Demo</span>
-              <span className="arrow-icon">&darr;</span>
+            <a href="#demo" className="borea-cta-glass">
+              <span>Explore Live Studio</span>
+              <span>&darr;</span>
             </a>
           </div>
 
-          <div className="hero-trust-bar">
-            <span>Trusted by 10,000+ founders, creators, and growth teams</span>
-            <div className="trust-stars">★★★★★ 4.9/5</div>
+          <div className="borea-social-trust">
+            <span>Powering 10,000+ founders, tech leads & creators globally</span>
+            <span className="stars">★★★★★ 4.9/5</span>
           </div>
         </div>
 
         {/* Hero Interactive Social Post Card Mockup */}
-        <div className="hero-card-preview-wrap">
-          <div className="hero-glass-card">
-            <div className="card-author-row">
-              <img
-                src="/mayank.jpg"
-                alt="Mayank Pandey"
-                className="author-avatar"
-              />
-              <div className="author-info">
-                <div className="author-name">Mayank Pandey <span className="blue-check">✓</span></div>
-                <div className="author-meta">Founder @ SocialAI • Just now</div>
+        <div className="borea-hero-mockup">
+          <div className="borea-card">
+            <div className="borea-card-author">
+              <img src="/mayank.jpg" alt="Mayank Pandey" className="borea-avatar" />
+              <div className="author-details">
+                <div className="name">Mayank Pandey <span className="check">✓</span></div>
+                <div className="title">Founder @ SocialAI • Just now</div>
               </div>
-              <span className="platform-pill-small linkedin">LinkedIn</span>
+              <span className="platform-pill">LinkedIn</span>
             </div>
 
-            <div className="card-post-body">
+            <div className="borea-card-content">
               "AI won't replace content creators.
               <br /><br />
               Creators who master AI tools will replace creators who don't.
               <br /><br />
               The secret isn't writing more words — it's removing friction so you can share authentic insights consistently."
               <br /><br />
-              <span className="post-hashtags">#BuildInPublic #AI #SocialMedia #GrowthMindset</span>
+              <span className="hashtags">#BuildInPublic #AI #SocialMedia #GrowthMindset</span>
             </div>
 
             <img
               src="/mayank.jpg"
               alt="Mayank Pandey LinkedIn Attachment"
-              className="card-post-image"
+              className="borea-post-img"
             />
 
-            <div className="card-post-stats">
-              <div className="stat-group">👍 <strong>1,842</strong> Likes</div>
-              <div className="stat-group">💬 <strong>249</strong> Comments</div>
-              <div className="stat-group">🔁 <strong>114</strong> Reposts</div>
+            <div className="borea-card-footer">
+              <span>👍 <strong>1,842</strong> Likes</span>
+              <span>💬 <strong>249</strong> Comments</span>
+              <span>🔁 <strong>114</strong> Reposts</span>
             </div>
           </div>
         </div>
       </section>
 
+      {/* ── INFINITE MARQUEE BRAND BAR ── */}
+      <div className="borea-marquee-wrap">
+        <div className="borea-marquee-track">
+          <span>⚡ LINKEDIN OPTIMIZED</span>
+          <span>✦ TWITTER/X HOOK ENGINE</span>
+          <span>🚀 INSTAGRAM CAPTION GENERATOR</span>
+          <span>🌀 THREADS CONVERSATIONAL AI</span>
+          <span>🔥 PRE-PUBLISH VIRAL SCORE</span>
+          <span>⚡ LINKEDIN OPTIMIZED</span>
+          <span>✦ TWITTER/X HOOK ENGINE</span>
+          <span>🚀 INSTAGRAM CAPTION GENERATOR</span>
+          <span>🌀 THREADS CONVERSATIONAL AI</span>
+          <span>🔥 PRE-PUBLISH VIRAL SCORE</span>
+        </div>
+      </div>
+
       {/* ── STATS BAND ── */}
-      <section className="stats-section-modern" ref={statsRef}>
-        <div className="stats-grid-inner">
-          <StatCounter
-            value={50000}
-            suffix="+"
-            label="Posts Generated"
-            icon="🚀"
-            visible={statsVisible}
-          />
-          <StatCounter
-            value={5}
-            suffix=""
-            label="Platforms Supported"
-            icon="🌐"
-            visible={statsVisible}
-          />
-          <StatCounter
-            value={98}
-            suffix="%"
-            label="Average Time Saved"
-            icon="⚡"
-            visible={statsVisible}
-          />
-          <StatCounter
-            value={100}
-            suffix="%"
-            label="Free & Open Access"
-            icon="💎"
-            visible={statsVisible}
-          />
+      <section className="borea-stats-section" ref={statsRef}>
+        <div className="borea-stats-grid">
+          <StatCounter value={50000} suffix="+" label="Posts Generated" icon="🚀" visible={statsVisible} />
+          <StatCounter value={5} suffix="" label="Platforms Supported" icon="🌐" visible={statsVisible} />
+          <StatCounter value={98} suffix="%" label="Time Saved" icon="⚡" visible={statsVisible} />
+          <StatCounter value={100} suffix="%" label="Free Access" icon="💎" visible={statsVisible} />
         </div>
       </section>
 
-      {/* ── LIVE AI STUDIO DEMO SECTION ── */}
-      <section id="demo" className="demo-section-wrapper">
-        <div className="section-header-center">
-          <span className="section-eyebrow">Interactive Studio</span>
-          <h2 className="section-title">Test the AI Engine Live</h2>
-          <p className="section-subtitle">
-            Pick a platform, select your desired tone, or enter an idea to generate instant drafts.
-          </p>
+      {/* ── LIVE DEMO STUDIO ── */}
+      <section id="demo" className="borea-section">
+        <div className="borea-section-head">
+          <span className="borea-eyebrow">Interactive Studio</span>
+          <h2 className="borea-h2">Test the Borea Engine Live</h2>
+          <p className="borea-sub">Experience real-time AI post generation with multi-tone synthesis.</p>
         </div>
         <LiveStudioDemo />
       </section>
 
-      {/* ── BENTO BOX FEATURES ── */}
-      <section id="features" className="bento-section-wrapper">
-        <div className="section-header-center">
-          <span className="section-eyebrow">Built for Growth</span>
-          <h2 className="section-title">Everything You Need to Scale Your Presence</h2>
-          <p className="section-subtitle">
-            Engineered with deep platform understanding so every post resonates with your audience.
-          </p>
+      {/* ── BENTO FEATURES ── */}
+      <section id="features" className="borea-section">
+        <div className="borea-section-head">
+          <span className="borea-eyebrow">Built for Growth</span>
+          <h2 className="borea-h2">Enterprise Content Infrastructure</h2>
+          <p className="borea-sub">Everything you need to grow your personal brand and business reach.</p>
         </div>
 
-        <div className="bento-grid-container">
+        <div className="borea-bento-grid">
           {FEATURES.map((f, i) => (
-            <div key={f.title} className={`bento-card ${f.span} bg-gradient-${i + 1}`}>
-              <div className="bento-icon-box">{f.icon}</div>
-              <span className="bento-tag">{f.tag}</span>
-              <h3 className="bento-card-title">{f.title}</h3>
-              <p className="bento-card-desc">{f.desc}</p>
-              
+            <div key={f.title} className={`borea-bento-card ${f.span}`}>
+              <div className="borea-bento-icon">{f.icon}</div>
+              <span className="borea-bento-tag">{f.tag}</span>
+              <h3 className="borea-bento-title">{f.title}</h3>
+              <p className="borea-bento-desc">{f.desc}</p>
+
               {i === 0 && (
-                <div className="bento-interactive-mini">
-                  <div className="mini-tone-header">
-                    <span>Interactive Tone Adjuster:</span>
-                    <strong>{interactiveTone < 33 ? "💼 Professional" : interactiveTone < 66 ? "☕ Casual" : "🔥 Viral / High-Hook"}</strong>
+                <div className="bento-tone-demo">
+                  <div className="tone-label-row">
+                    <span>Active Tone Persona:</span>
+                    <strong>{interactiveTone < 33 ? "💼 Corporate" : interactiveTone < 66 ? "☕ Casual" : "🔥 Viral Hook"}</strong>
                   </div>
                   <input
                     type="range"
@@ -567,7 +547,7 @@ export default function HomePage() {
                     max="100"
                     value={interactiveTone}
                     onChange={(e) => setInteractiveTone(Number(e.target.value))}
-                    className="tone-slider"
+                    className="borea-slider"
                   />
                 </div>
               )}
@@ -576,772 +556,412 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── 3-STEP WORKFLOW ── */}
-      <section id="how-it-works" className="workflow-section-wrapper">
-        <div className="section-header-center">
-          <span className="section-eyebrow">Seamless Process</span>
-          <h2 className="section-title">From Idea to Published Post in 3 Steps</h2>
+      {/* ── COMPARISON MATRIX ── */}
+      <section id="comparison" className="borea-section">
+        <div className="borea-section-head">
+          <span className="borea-eyebrow">Why SocialAI?</span>
+          <h2 className="borea-h2">Legacy Copywriting vs SocialAI Engine</h2>
         </div>
 
-        <div className="workflow-steps-grid">
-          <div className="workflow-step-card">
-            <div className="step-num">01</div>
-            <h3 className="step-heading">1. Input Your Idea</h3>
-            <p className="step-desc">Type a quick bullet point, topic, or blog summary into the AI Studio prompt box.</p>
-          </div>
-
-          <div className="workflow-step-card">
-            <div className="step-num">02</div>
-            <h3 className="step-heading">2. Choose Platform & Tone</h3>
-            <p className="step-desc">Select LinkedIn, Twitter, Instagram, or Threads and choose your exact tone of voice.</p>
-          </div>
-
-          <div className="workflow-step-card">
-            <div className="step-num">03</div>
-            <h3 className="step-heading">3. Generate & Schedule</h3>
-            <p className="step-desc">Copy your post instantly or save it to your visual queue calendar to publish at optimal times.</p>
-          </div>
+        <div className="borea-table-card">
+          <table className="borea-table">
+            <thead>
+              <tr>
+                <th>Capability</th>
+                <th>Traditional Writing</th>
+                <th>SocialAI Engine</th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISONS.map((c) => (
+                <tr key={c.feature}>
+                  <td className="feat-name">{c.feature}</td>
+                  <td className="legacy-cell">{c.legacy}</td>
+                  <td className="borea-cell">{c.borea}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </section>
 
       {/* ── TESTIMONIALS / WALL OF LOVE ── */}
-      <section id="testimonials" className="testimonials-section-wrapper">
-        <div className="section-header-center">
-          <span className="section-eyebrow">Wall of Love</span>
-          <h2 className="section-title">Loved by Creators & Growth Leaders</h2>
+      <section id="testimonials" className="borea-section">
+        <div className="borea-section-head">
+          <span className="borea-eyebrow">Wall of Love</span>
+          <h2 className="borea-h2">Trusted by Top Tech Founders</h2>
         </div>
 
-        <div className="testimonials-grid">
+        <div className="borea-testimonials-grid">
           {TESTIMONIALS.map((t) => (
-            <div key={t.name} className="testimonial-card">
-              <div className="t-card-header">
-                <img src={t.avatar} alt={t.name} className="t-avatar" />
-                <div className="t-meta">
-                  <div className="t-name">{t.name}</div>
-                  <div className="t-role">{t.role}</div>
+            <div key={t.name} className="borea-t-card">
+              <div className="head-row">
+                <img src={t.avatar} alt={t.name} className="avatar" />
+                <div>
+                  <div className="name">{t.name}</div>
+                  <div className="role">{t.role}</div>
                 </div>
-                <span className="t-badge">{t.tag}</span>
+                <span className="badge">{t.tag}</span>
               </div>
-              <p className="t-text">"{t.text}"</p>
-              <div className="t-stars">{"★".repeat(t.stars)}</div>
+              <p className="text">"{t.text}"</p>
+              <div className="stars">{"★".repeat(t.stars)}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* ── FAQ SECTION ── */}
-      <section id="faq" className="faq-section-wrapper">
-        <div className="section-header-center">
-          <span className="section-eyebrow">Frequently Asked</span>
-          <h2 className="section-title">Got Questions? We Have Answers.</h2>
+      <section id="faq" className="borea-section faq-width">
+        <div className="borea-section-head">
+          <span className="borea-eyebrow">Frequently Asked</span>
+          <h2 className="borea-h2">Got Questions? We Have Answers.</h2>
         </div>
 
-        <div className="faq-container">
+        <div className="borea-faq-list">
           {FAQS.map((faq) => (
             <FAQItem key={faq.q} faq={faq} />
           ))}
         </div>
       </section>
 
-      {/* ── HIGH-IMPACT CTA BANNER ── */}
-      <section className="cta-banner-wrapper">
-        <div className="cta-banner-card">
-          <h2 className="cta-heading">Ready to Supercharge Your Social Media Presence?</h2>
-          <p className="cta-description">
-            Join thousands of creators drafting better content in less time. 100% free forever.
-          </p>
-          <div className="cta-button-group">
-            <Link to="/register" className="cta-btn-primary">
-              Create Free Account &rarr;
-            </Link>
-            <Link to="/login" className="cta-btn-secondary">
-              Sign In to Dashboard
-            </Link>
+      {/* ── HIGH-IMPACT CTA ── */}
+      <section className="borea-cta-section">
+        <div className="borea-cta-box">
+          <h2 className="title">Supercharge Your Social Presence Today</h2>
+          <p className="sub">Join thousands of creators using SocialAI to post 10x faster with AI precision.</p>
+          <div className="btn-row">
+            <Link to="/register" className="borea-cta-main">Create Free Account &rarr;</Link>
+            <Link to="/login" className="borea-cta-glass">Sign In to Dashboard</Link>
           </div>
         </div>
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="modern-footer">
-        <div className="footer-top-inner">
-          <div className="footer-brand-col">
-            <div className="brand-logo">
-              <div className="logo-icon-glow">
-                <span className="logo-sparkle">✦</span>
-              </div>
-              <span className="brand-name">SocialAI</span>
+      <footer className="borea-footer">
+        <div className="borea-footer-inner">
+          <div className="borea-footer-brand">
+            <div className="borea-brand">
+              <div className="borea-logo-symbol">✦</div>
+              <span className="borea-brand-name">SocialAI</span>
             </div>
-            <p className="footer-tagline">
-              Empowering creators and teams with AI-driven social media copy.
-            </p>
-            <div className="status-pill">
-              <span className="status-dot"></span> Systems Operational • v2.0
+            <p className="tagline">Next-generation AI social media content platform.</p>
+            <div className="borea-status">
+              <span className="green-dot"></span> Systems Operational • v2.0
             </div>
           </div>
 
-          <div className="footer-links-grid">
-            <div className="f-col">
+          <div className="borea-footer-links">
+            <div className="col">
               <h4>Product</h4>
               <a href="#features">Features</a>
-              <a href="#demo">Live AI Studio</a>
-              <a href="#how-it-works">Workflow</a>
+              <a href="#demo">Live Studio</a>
+              <a href="#comparison">Comparison</a>
             </div>
-
-            <div className="f-col">
+            <div className="col">
               <h4>Account</h4>
               <Link to="/login">Sign In</Link>
-              <Link to="/register">Create Account</Link>
+              <Link to="/register">Register</Link>
               <Link to="/dashboard">Dashboard</Link>
             </div>
-
-            <div className="f-col">
+            <div className="col">
               <h4>Company</h4>
               <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer">GitHub</a>
               <a href="#faq">FAQ</a>
-              <a href="#">Privacy Policy</a>
             </div>
           </div>
         </div>
 
-        <div className="footer-bottom-bar">
-          <span>© {new Date().getFullYear()} SocialAI. Built with passion by <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer">@Mayank-Pandey7</a></span>
+        <div className="borea-footer-bottom">
+          <span>© {new Date().getFullYear()} SocialAI. Built by <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer">@Mayank-Pandey7</a></span>
         </div>
       </footer>
 
-      {/* ── SCOPED CSS STYLES FOR MODERN LANDING PAGE ── */}
+      {/* ── BOREA STARTUP DESIGN CSS ── */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
-        .modern-landing-root {
+        .borea-landing-wrapper {
           position: relative;
-          background: var(--bg-primary);
-          color: var(--text-primary);
+          background: #06090e;
+          color: #e0f2f1;
           font-family: 'Plus Jakarta Sans', sans-serif;
           min-height: 100vh;
           overflow-x: hidden;
         }
 
-        /* Ambient Mesh Background */
-        .bg-mesh-container {
-          position: fixed;
-          top: 0; left: 0; right: 0; bottom: 0;
-          pointer-events: none;
-          z-index: 0;
-          overflow: hidden;
+        body.light .borea-landing-wrapper {
+          background: #f4faf9;
+          color: #0f2e2b;
         }
-        .mesh-blob {
-          position: absolute;
-          border-radius: 50%;
-          filter: blur(100px);
-          opacity: 0.18;
-          animation: floatBlob 18s ease-in-out infinite alternate;
+
+        /* Atmosphere Flares */
+        .borea-atmosphere {
+          position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
         }
-        .blob-1 {
-          width: 500px; height: 500px;
-          background: radial-gradient(circle, #0d9488 0%, #06b6d4 100%);
-          top: -100px; left: -100px;
+        .borea-flare {
+          position: absolute; border-radius: 50%; filter: blur(120px); opacity: 0.22;
+          animation: boreaFloat 20s ease-in-out infinite alternate;
         }
-        .blob-2 {
-          width: 600px; height: 600px;
-          background: radial-gradient(circle, #8b5cf6 0%, #ec4899 100%);
-          top: 40%; right: -200px;
-          animation-delay: -6s;
-        }
-        .blob-3 {
-          width: 450px; height: 450px;
-          background: radial-gradient(circle, #10b981 0%, #0ea5e9 100%);
-          bottom: -100px; left: 20%;
-          animation-delay: -12s;
-        }
-        @keyframes floatBlob {
-          0% { transform: translate(0, 0) scale(1); }
-          100% { transform: translate(60px, 80px) scale(1.15); }
-        }
-        .grid-overlay {
-          position: absolute;
-          inset: 0;
-          background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-          background-size: 32px 32px;
-          opacity: 0.4;
+        .flare-cyan { width: 600px; height: 600px; background: radial-gradient(circle, #06b6d4 0%, #0d9488 100%); top: -150px; left: -150px; }
+        .flare-violet { width: 700px; height: 700px; background: radial-gradient(circle, #8b5cf6 0%, #ec4899 100%); top: 35%; right: -250px; animation-delay: -7s; }
+        .flare-teal { width: 500px; height: 500px; background: radial-gradient(circle, #10b981 0%, #0ea5e9 100%); bottom: -150px; left: 25%; animation-delay: -14s; }
+        @keyframes boreaFloat { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(70px, 90px) scale(1.12); } }
+        .borea-grid-pattern {
+          position: absolute; inset: 0;
+          background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+          background-size: 36px 36px; opacity: 0.5;
         }
 
         /* Navbar */
-        .modern-navbar {
-          position: fixed;
-          top: 0; left: 0; right: 0;
-          z-index: 100;
-          background: rgba(10, 18, 18, 0.75);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border-bottom: 1px solid var(--border);
+        .borea-nav {
+          position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+          background: rgba(6, 9, 14, 0.82); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-        body.light .modern-navbar {
-          background: rgba(240, 250, 250, 0.85);
+        body.light .borea-nav { background: rgba(244, 250, 249, 0.88); border-bottom-color: rgba(0,0,0,0.08); }
+        .borea-nav-container {
+          max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 72px;
+          display: flex; align-items: center; justify-content: space-between;
         }
-        .navbar-inner {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 0 1.5rem;
-          height: 70px;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-        }
-        .brand-logo {
-          display: flex;
-          align-items: center;
-          gap: 0.6rem;
-          text-decoration: none;
-          color: var(--text-primary);
-        }
-        .logo-icon-glow {
-          width: 34px; height: 34px;
-          border-radius: 10px;
+        .borea-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
+        .borea-logo-symbol {
+          width: 36px; height: 36px; border-radius: 10px;
           background: linear-gradient(135deg, #0d9488 0%, #8b5cf6 100%);
-          display: flex; align-items: center; justify-content: center;
-          box-shadow: 0 0 16px rgba(13, 148, 136, 0.4);
+          display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem;
+          box-shadow: 0 0 20px rgba(13, 148, 136, 0.45);
         }
-        .logo-sparkle { color: #fff; font-size: 1.1rem; }
-        .brand-name {
-          font-family: 'Space Grotesk', sans-serif;
-          font-weight: 700;
-          font-size: 1.25rem;
-          letter-spacing: -0.02em;
+        .borea-brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; }
+        .borea-v2-badge {
+          font-size: 0.68rem; background: rgba(13, 148, 136, 0.2); color: #2dd4bf; padding: 0.2rem 0.5rem; border-radius: 12px; font-weight: 600; border: 1px solid rgba(13, 148, 136, 0.3);
         }
-        .brand-v2 {
-          font-size: 0.68rem;
-          background: rgba(13, 148, 136, 0.2);
-          color: var(--accent-light);
-          padding: 0.15rem 0.45rem;
-          border-radius: 12px;
-          font-weight: 600;
-          border: 1px solid rgba(13, 148, 136, 0.3);
+        .borea-nav-links { display: flex; gap: 2rem; }
+        .borea-nav-links a { color: #7fa9a6; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+        .borea-nav-links a:hover { color: #fff; }
+        .borea-nav-actions { display: flex; align-items: center; gap: 1rem; }
+        .borea-theme-btn {
+          background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: inherit;
+          width: 36px; height: 36px; border-radius: 10px; cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
-        .nav-menu-links {
-          display: flex;
-          gap: 2rem;
+        .borea-link-btn { color: #7fa9a6; text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+        .borea-btn-gradient {
+          background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff; text-decoration: none;
+          padding: 0.65rem 1.2rem; border-radius: 10px; font-size: 0.88rem; font-weight: 600;
+          box-shadow: 0 4px 20px rgba(13, 148, 136, 0.35); transition: all 0.2s;
         }
-        .nav-item {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-size: 0.9rem;
-          font-weight: 500;
-          transition: color 0.2s ease;
-        }
-        .nav-item:hover { color: var(--text-primary); }
-        .nav-right-actions {
-          display: flex;
-          align-items: center;
-          gap: 1rem;
-        }
-        .theme-switch-btn {
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          color: var(--text-primary);
-          width: 36px; height: 36px;
-          border-radius: 10px;
-          cursor: pointer;
-          display: flex; align-items: center; justify-content: center;
-          transition: all 0.2s ease;
-        }
-        .theme-switch-btn:hover { border-color: var(--accent); transform: scale(1.05); }
-        .nav-login-link {
-          color: var(--text-secondary);
-          text-decoration: none;
-          font-size: 0.9rem;
-          font-weight: 500;
-        }
-        .nav-primary-cta {
-          background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-          color: #fff;
-          text-decoration: none;
-          padding: 0.6rem 1.1rem;
-          border-radius: 10px;
-          font-size: 0.88rem;
-          font-weight: 600;
-          box-shadow: 0 4px 16px rgba(13, 148, 136, 0.3);
-          transition: all 0.2s ease;
-        }
-        .nav-primary-cta:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 6px 20px rgba(13, 148, 136, 0.45);
-        }
+        .borea-btn-gradient:hover { transform: translateY(-2px); box-shadow: 0 6px 24px rgba(13, 148, 136, 0.5); }
 
-        /* Hero Section */
-        .hero-section-modern {
-          position: relative;
-          z-index: 1;
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 9rem 1.5rem 4rem;
-          display: grid;
-          grid-template-columns: 1.2fr 1fr;
-          gap: 3.5rem;
-          align-items: center;
+        /* Hero */
+        .borea-hero {
+          position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 9.5rem 1.5rem 5rem;
+          display: grid; grid-template-columns: 1.1fr 1fr; gap: 4rem; align-items: center;
         }
-        .hero-pill-badge {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.6rem;
-          background: rgba(13, 148, 136, 0.12);
-          border: 1px solid rgba(13, 148, 136, 0.3);
-          color: var(--accent-light);
-          padding: 0.4rem 0.9rem;
-          border-radius: 20px;
-          font-size: 0.82rem;
-          font-weight: 600;
-          margin-bottom: 1.5rem;
+        .borea-hero-badge {
+          display: inline-flex; align-items: center; gap: 0.6rem;
+          background: rgba(13, 148, 136, 0.12); border: 1px solid rgba(13, 148, 136, 0.3); color: #2dd4bf;
+          padding: 0.45rem 1rem; border-radius: 20px; font-size: 0.82rem; font-weight: 600; margin-bottom: 1.5rem;
         }
-        .pulse-dot {
-          width: 8px; height: 8px;
-          background: #22c55e;
-          border-radius: 50%;
-          box-shadow: 0 0 8px #22c55e;
-          animation: pulseGreen 2s infinite;
+        .borea-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 10px #22c55e; }
+        .borea-hero-title {
+          font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.7rem, 4.8vw, 4rem); font-weight: 700; line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.25rem;
         }
-        @keyframes pulseGreen {
-          0% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.4; transform: scale(1.3); }
-          100% { opacity: 1; transform: scale(1); }
+        .borea-text-gradient {
+          background: linear-gradient(135deg, #2dd4bf 0%, #8b5cf6 50%, #ec4899 100%);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero-headline {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: clamp(2.6rem, 4.5vw, 3.8rem);
-          font-weight: 700;
-          line-height: 1.12;
-          letter-spacing: -0.03em;
-          margin-bottom: 1.25rem;
+        .borea-hero-subtitle { font-size: 1.12rem; color: #7fa9a6; line-height: 1.65; margin-bottom: 2.25rem; max-width: 520px; }
+        .borea-hero-actions { display: flex; gap: 1rem; align-items: center; margin-bottom: 2.5rem; }
+        .borea-cta-main {
+          position: relative; background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff;
+          text-decoration: none; padding: 0.9rem 1.85rem; border-radius: 12px; font-weight: 600; font-size: 0.98rem;
+          box-shadow: 0 8px 30px rgba(13, 148, 136, 0.4); transition: all 0.2s;
         }
-        .gradient-text {
-          background: linear-gradient(135deg, #2dd4bf 0%, #a855f7 50%, #ec4899 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
+        .borea-cta-main:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(13, 148, 136, 0.55); }
+        .borea-cta-glass {
+          display: flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.12); color: inherit; text-decoration: none;
+          padding: 0.9rem 1.5rem; border-radius: 12px; font-weight: 600; font-size: 0.95rem; transition: all 0.2s;
         }
-        .hero-subtext {
-          font-size: 1.1rem;
-          color: var(--text-secondary);
-          line-height: 1.65;
-          margin-bottom: 2rem;
-          max-width: 520px;
-        }
-        .hero-button-group {
-          display: flex;
-          gap: 1rem;
-          align-items: center;
-          margin-bottom: 2.5rem;
-        }
-        .hero-cta-primary {
-          position: relative;
-          background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-          color: #fff;
-          text-decoration: none;
-          padding: 0.85rem 1.75rem;
-          border-radius: 12px;
-          font-weight: 600;
-          font-size: 0.98rem;
-          box-shadow: 0 6px 24px rgba(13, 148, 136, 0.35);
-          transition: all 0.2s ease;
-        }
-        .hero-cta-primary:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 10px 30px rgba(13, 148, 136, 0.5);
-        }
-        .hero-cta-secondary {
-          display: flex; align-items: center; gap: 0.5rem;
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          color: var(--text-primary);
-          text-decoration: none;
-          padding: 0.85rem 1.5rem;
-          border-radius: 12px;
-          font-weight: 600;
-          font-size: 0.95rem;
-          transition: all 0.2s ease;
-        }
-        .hero-cta-secondary:hover {
-          border-color: var(--accent);
-          transform: translateY(-2px);
-        }
-        .hero-trust-bar {
-          font-size: 0.85rem;
-          color: var(--text-muted);
-          display: flex;
-          align-items: center;
-          gap: 0.75rem;
-        }
-        .trust-stars { color: #f59e0b; font-weight: 700; }
+        .borea-cta-glass:hover { border-color: #0d9488; transform: translateY(-2px); }
+        .borea-social-trust { font-size: 0.85rem; color: #4a7370; display: flex; align-items: center; gap: 0.75rem; }
+        .borea-social-trust .stars { color: #f59e0b; font-weight: 700; }
 
-        /* Hero Social Card Mockup */
-        .hero-card-preview-wrap {
-          perspective: 1000px;
+        /* Borea Card Mockup */
+        .borea-hero-mockup { perspective: 1000px; }
+        .borea-card {
+          background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 20px; padding: 1.75rem;
+          box-shadow: 0 20px 50px rgba(0,0,0,0.5); transition: all 0.3s ease; position: relative;
         }
-        .hero-glass-card {
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 1.5rem;
-          box-shadow: var(--shadow);
-          transition: all 0.3s ease;
-          position: relative;
+        body.light .borea-card { background: #ffffff; border-color: #b2dfdb; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+        .borea-card:hover { transform: translateY(-4px) rotateX(2deg); border-color: #0d9488; }
+        .borea-card-author { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
+        .borea-avatar { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid #0d9488; }
+        .author-details .name { font-weight: 700; font-size: 0.98rem; }
+        .author-details .check { color: #38bdf8; font-size: 0.85rem; }
+        .author-details .title { font-size: 0.78rem; color: #7fa9a6; }
+        .platform-pill { margin-left: auto; font-size: 0.72rem; padding: 0.25rem 0.65rem; border-radius: 12px; font-weight: 600; background: rgba(10, 102, 194, 0.2); color: #38bdf8; }
+        .borea-card-content { font-size: 0.95rem; line-height: 1.65; color: #7fa9a6; margin-bottom: 1.25rem; }
+        .borea-card-content .hashtags { color: #2dd4bf; font-weight: 500; }
+        .borea-post-img { width: 100%; max-height: 320px; object-fit: cover; object-position: top; border-radius: 14px; margin-bottom: 1.25rem; border: 1px solid #1f3d3d; }
+        .borea-card-footer { display: flex; gap: 1.5rem; border-top: 1px solid #1f3d3d; padding-top: 0.85rem; font-size: 0.85rem; color: #7fa9a6; }
+
+        /* Marquee */
+        .borea-marquee-wrap {
+          position: relative; z-index: 1; background: rgba(13, 148, 136, 0.08); border-y: 1px solid rgba(13, 148, 136, 0.2);
+          overflow: hidden; white-space: nowrap; padding: 0.85rem 0;
         }
-        .hero-glass-card:hover {
-          transform: translateY(-4px) rotateX(2deg);
-          border-color: var(--accent);
-        }
-        .card-author-row {
-          display: flex; align-items: center; gap: 0.75rem;
-          margin-bottom: 1rem;
-        }
-        .author-avatar {
-          width: 44px; height: 44px;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-        .author-name { font-weight: 700; font-size: 0.95rem; }
-        .blue-check { color: #38bdf8; font-size: 0.85rem; }
-        .author-meta { font-size: 0.75rem; color: var(--text-muted); }
-        .platform-pill-small {
-          margin-left: auto;
-          font-size: 0.7rem;
-          padding: 0.2rem 0.6rem;
-          border-radius: 12px;
-          font-weight: 600;
-          background: rgba(10, 102, 194, 0.15);
-          color: #38bdf8;
-        }
-        .card-post-body {
-          font-size: 0.92rem;
-          line-height: 1.6;
-          color: var(--text-secondary);
-          margin-bottom: 1.25rem;
-        }
-        .post-hashtags { color: var(--accent-light); font-weight: 500; }
-        .card-post-image {
-          width: 100%;
-          max-height: 320px;
-          object-fit: cover;
-          object-position: top;
-          border-radius: 12px;
-          margin-bottom: 1.25rem;
-          border: 1px solid var(--border);
-        }
-        .card-post-stats {
-          display: flex; gap: 1.5rem;
-          border-top: 1px solid var(--border);
-          padding-top: 0.75rem;
-          font-size: 0.82rem;
-          color: var(--text-muted);
-        }
+        .borea-marquee-track { display: inline-flex; gap: 3rem; animation: boreaMarquee 25s linear infinite; }
+        .borea-marquee-track span { font-family: 'Space Grotesk', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.08em; color: #2dd4bf; }
+        @keyframes boreaMarquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
         /* Stats Band */
-        .stats-section-modern {
-          position: relative; z-index: 1;
-          background: var(--bg-secondary);
-          border-top: 1px solid var(--border);
-          border-bottom: 1px solid var(--border);
-          padding: 3rem 1.5rem;
-        }
-        .stats-grid-inner {
-          max-width: 1100px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 2rem;
-        }
-        .stat-card-modern {
-          text-align: center;
-          padding: 1rem;
-        }
-        .stat-icon-wrap { font-size: 1.75rem; margin-bottom: 0.4rem; }
-        .stat-val-text {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 2.2rem;
-          font-weight: 700;
-          color: var(--text-primary);
-        }
-        .stat-lbl-text {
-          font-size: 0.85rem;
-          color: var(--text-muted);
-          margin-top: 0.2rem;
-        }
+        .borea-stats-section { position: relative; z-index: 1; padding: 4rem 1.5rem; }
+        .borea-stats-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; }
+        .borea-stat-card { text-align: center; background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 16px; padding: 1.5rem; }
+        body.light .borea-stat-card { background: #ffffff; border-color: #b2dfdb; }
+        .borea-stat-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+        .borea-stat-val { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; color: inherit; }
+        .borea-stat-lbl { font-size: 0.85rem; color: #7fa9a6; margin-top: 0.2rem; }
 
-        /* Demo Section */
-        .demo-section-wrapper {
-          position: relative; z-index: 1;
-          max-width: 1100px;
-          margin: 0 auto;
-          padding: 6rem 1.5rem;
-        }
-        .section-header-center {
-          text-align: center;
-          max-width: 600px;
-          margin: 0 auto 3.5rem;
-        }
-        .section-eyebrow {
-          font-size: 0.82rem;
-          font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          color: var(--accent);
-          margin-bottom: 0.5rem;
-          display: block;
-        }
-        .section-title {
-          font-family: 'Space Grotesk', sans-serif;
-          font-size: 2.2rem;
-          font-weight: 700;
-          margin-bottom: 0.75rem;
-        }
-        .section-subtitle {
-          color: var(--text-secondary);
-          font-size: 1rem;
-          line-height: 1.6;
-        }
+        /* Section Layouts */
+        .borea-section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
+        .borea-section-head { text-align: center; max-width: 600px; margin: 0 auto 3.5rem; }
+        .borea-eyebrow { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #0d9488; margin-bottom: 0.5rem; display: block; }
+        .borea-h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2.4rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .borea-sub { color: #7fa9a6; font-size: 1.05rem; line-height: 1.6; }
 
-        /* Studio Component */
-        .demo-studio-container {
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          border-radius: 20px;
-          padding: 2rem;
-          box-shadow: var(--shadow);
-        }
-        .studio-header { margin-bottom: 1.5rem; }
-        .studio-title-bar {
-          display: flex; align-items: center; justify-content: space-between;
-          border-bottom: 1px solid var(--border);
-          padding-bottom: 1rem;
-        }
-        .window-dots { display: flex; gap: 0.4rem; }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .dot.red { background: #ef4444; }
-        .dot.yellow { background: #f59e0b; }
-        .dot.green { background: #22c55e; }
-        .studio-badge { font-size: 0.82rem; font-weight: 600; color: var(--accent-light); }
-        .preset-chips-row {
-          display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
-          margin-bottom: 1.5rem;
-        }
-        .preset-label { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
-        .preset-chip {
-          background: var(--bg-secondary);
-          border: 1px solid var(--border);
-          color: var(--text-secondary);
-          padding: 0.35rem 0.75rem;
-          border-radius: 20px;
-          font-size: 0.78rem;
-          cursor: pointer;
-          transition: all 0.2s ease;
-        }
-        .preset-chip:hover { border-color: var(--accent); color: var(--text-primary); }
-        .studio-controls-grid {
-          display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
-          margin-bottom: 1.5rem;
-        }
-        .control-label {
-          display: block; font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem;
-        }
-        .pill-selector { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-        .pill-btn {
-          background: var(--bg-secondary);
-          border: 1px solid var(--border);
-          color: var(--text-secondary);
-          padding: 0.45rem 0.85rem;
-          border-radius: 8px;
-          font-size: 0.82rem;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.2s ease;
-          display: flex; align-items: center; gap: 0.3rem;
-        }
-        .pill-btn.active {
-          background: var(--accent);
-          color: #fff;
-          border-color: var(--accent);
-        }
-        .prompt-input-wrapper {
-          display: flex; gap: 0.75rem; margin-bottom: 1.5rem;
-        }
-        .prompt-input {
-          flex: 1;
-          background: var(--bg-secondary);
-          border: 1px solid var(--border);
-          border-radius: 10px;
-          padding: 0.75rem 1rem;
-          color: var(--text-primary);
-          font-size: 0.9rem;
-          outline: none;
-        }
-        .prompt-input:focus { border-color: var(--accent); }
-        .generate-action-btn {
-          background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-          color: #fff;
-          border: none;
-          padding: 0.75rem 1.5rem;
-          border-radius: 10px;
-          font-weight: 600;
-          font-size: 0.9rem;
-          cursor: pointer;
-          white-space: nowrap;
-        }
-        .output-display-card {
-          background: var(--bg-secondary);
-          border: 1px solid var(--border);
-          border-radius: 12px;
-          padding: 1.25rem;
-        }
-        .output-card-header {
-          display: flex; justify-content: space-between; align-items: center;
-          margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
-        }
-        .platform-tag { font-size: 0.78rem; font-weight: 700; color: var(--accent); margin-right: 0.5rem; }
-        .tone-tag { font-size: 0.78rem; color: var(--text-muted); }
-        .viral-badge { font-size: 0.78rem; color: #f59e0b; font-weight: 600; margin-right: 0.75rem; }
-        .length-badge { font-size: 0.75rem; color: var(--text-muted); }
-        .output-text {
-          font-family: 'Plus Jakarta Sans', sans-serif;
-          white-space: pre-wrap;
-          font-size: 0.92rem;
-          line-height: 1.65;
-          color: var(--text-primary);
-          margin: 0;
-          min-height: 120px;
-        }
-        .typing-cursor { animation: blink 1s infinite; color: var(--accent); }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        .output-card-footer {
-          display: flex; justify-content: space-between; align-items: center;
-          margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border);
-        }
-        .actions-left { display: flex; gap: 0.6rem; }
-        .footer-action-btn {
-          padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-decoration: none;
-        }
-        .footer-action-btn.primary { background: var(--border); color: var(--text-primary); border: none; }
-        .footer-action-btn.secondary { background: transparent; color: var(--text-secondary); border: 1px solid var(--border); }
-        .footer-action-btn.highlight { background: rgba(13, 148, 136, 0.15); color: var(--accent-light); border: 1px solid rgba(13, 148, 136, 0.3); }
+        /* Borea Studio Playground */
+        .borea-studio-card { background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 24px; padding: 2rem; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        body.light .borea-studio-card { background: #ffffff; border-color: #b2dfdb; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+        .borea-window-bar { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid #1f3d3d; padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        .borea-window-dots { display: flex; gap: 0.4rem; }
+        .borea-window-dots .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .dot.red { background: #ef4444; } .dot.yellow { background: #f59e0b; } .dot.green { background: #22c55e; }
+        .borea-window-title { font-size: 0.85rem; font-weight: 600; color: #2dd4bf; }
+        .borea-window-badge { font-size: 0.72rem; background: rgba(13, 148, 136, 0.2); color: #2dd4bf; padding: 0.2rem 0.5rem; border-radius: 10px; }
+        .borea-presets-bar { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .preset-label { font-size: 0.8rem; color: #4a7370; font-weight: 600; }
+        .borea-preset-chip { background: rgba(255,255,255,0.05); border: 1px solid #1f3d3d; color: #7fa9a6; padding: 0.35rem 0.8rem; border-radius: 20px; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
+        .borea-preset-chip:hover { border-color: #0d9488; color: inherit; }
+        .borea-controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .borea-label { display: block; font-size: 0.8rem; font-weight: 600; color: #4a7370; margin-bottom: 0.5rem; }
+        .borea-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+        .borea-pill { background: rgba(255,255,255,0.05); border: 1px solid #1f3d3d; color: #7fa9a6; padding: 0.45rem 0.85rem; border-radius: 8px; font-size: 0.82rem; font-weight: 500; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; gap: 0.3rem; }
+        .borea-pill.active { background: #0d9488; color: #fff; border-color: #0d9488; }
+        .borea-input-bar { display: flex; gap: 0.75rem; margin-bottom: 1.5rem; }
+        .borea-prompt-field { flex: 1; background: rgba(255,255,255,0.03); border: 1px solid #1f3d3d; border-radius: 10px; padding: 0.75rem 1rem; color: inherit; font-size: 0.9rem; outline: none; }
+        .borea-prompt-field:focus { border-color: #0d9488; }
+        .borea-generate-btn { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff; border: none; padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; white-space: nowrap; }
+        .borea-output-screen { background: rgba(0,0,0,0.25); border: 1px solid #1f3d3d; border-radius: 16px; padding: 1.5rem; }
+        body.light .borea-output-screen { background: #f0fafa; }
+        .borea-output-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 0.75rem; border-bottom: 1px solid #1f3d3d; margin-bottom: 1rem; }
+        .borea-tag { font-size: 0.78rem; font-weight: 700; color: #0d9488; margin-right: 0.5rem; }
+        .borea-tag.tone { color: #7fa9a6; }
+        .borea-viral { font-size: 0.78rem; color: #f59e0b; font-weight: 600; margin-right: 0.75rem; }
+        .borea-count { font-size: 0.75rem; color: #4a7370; }
+        .borea-code-text { font-family: 'Plus Jakarta Sans', sans-serif; white-space: pre-wrap; font-size: 0.94rem; line-height: 1.65; margin: 0; min-height: 120px; color: inherit; }
+        .borea-cursor { animation: boreaBlink 1s infinite; color: #0d9488; }
+        @keyframes boreaBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        .borea-output-actions { display: flex; justify-content: space-between; align-items: center; padding-top: 0.75rem; border-top: 1px solid #1f3d3d; margin-top: 1rem; }
+        .left-btns { display: flex; gap: 0.6rem; }
+        .borea-action-btn { padding: 0.45rem 0.95rem; border-radius: 8px; font-size: 0.82rem; font-weight: 600; cursor: pointer; text-decoration: none; }
+        .borea-action-btn.primary { background: #1f3d3d; color: inherit; border: none; }
+        .borea-action-btn.secondary { background: transparent; color: #7fa9a6; border: 1px solid #1f3d3d; }
+        .borea-action-btn.glow { background: rgba(13, 148, 136, 0.2); color: #2dd4bf; border: 1px solid rgba(13, 148, 136, 0.4); }
 
         /* Bento Grid */
-        .bento-section-wrapper {
-          position: relative; z-index: 1;
-          max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem;
-        }
-        .bento-grid-container {
-          display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
-        }
-        .bento-card {
-          background: var(--bg-card);
-          border: 1px solid var(--border);
-          border-radius: 16px;
-          padding: 1.75rem;
-          transition: all 0.3s ease;
-        }
-        .bento-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+        .borea-bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .borea-bento-card { background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 20px; padding: 1.85rem; transition: all 0.3s; }
+        body.light .borea-bento-card { background: #ffffff; border-color: #b2dfdb; }
+        .borea-bento-card:hover { border-color: #0d9488; transform: translateY(-3px); }
         .col-span-2 { grid-column: span 2; }
         .col-span-1 { grid-column: span 1; }
-        .bento-icon-box {
-          width: 42px; height: 42px; border-radius: 10px;
-          background: rgba(13, 148, 136, 0.15); color: var(--accent-light);
-          display: flex; align-items: center; justify-content: center;
-          margin-bottom: 1rem;
-        }
-        .bento-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--accent); letter-spacing: 0.05em; }
-        .bento-card-title { font-size: 1.25rem; font-weight: 700; margin: 0.4rem 0 0.6rem; }
-        .bento-card-desc { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
-        .bento-interactive-mini { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-        .mini-tone-header { font-size: 0.8rem; display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-        .tone-slider { width: 100%; accent-color: var(--accent); }
+        .borea-bento-icon { width: 44px; height: 44px; border-radius: 12px; background: rgba(13, 148, 136, 0.15); color: #2dd4bf; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+        .borea-bento-tag { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: #0d9488; letter-spacing: 0.05em; }
+        .borea-bento-title { font-size: 1.25rem; font-weight: 700; margin: 0.4rem 0 0.6rem; }
+        .borea-bento-desc { color: #7fa9a6; font-size: 0.9rem; line-height: 1.6; }
+        .bento-tone-demo { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #1f3d3d; }
+        .tone-label-row { font-size: 0.8rem; display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
+        .borea-slider { width: 100%; accent-color: #0d9488; }
 
-        /* Workflow */
-        .workflow-section-wrapper { max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
-        .workflow-steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .workflow-step-card {
-          background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; position: relative;
-        }
-        .step-num { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--accent); opacity: 0.4; margin-bottom: 0.5rem; }
-        .step-heading { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-        .step-desc { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; }
+        /* Comparison Table */
+        .borea-table-card { background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 20px; overflow: hidden; }
+        body.light .borea-table-card { background: #ffffff; border-color: #b2dfdb; }
+        .borea-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .borea-table th { background: rgba(0,0,0,0.25); padding: 1.25rem 1.5rem; font-size: 0.85rem; text-transform: uppercase; color: #7fa9a6; border-bottom: 1px solid #1f3d3d; }
+        .borea-table td { padding: 1.25rem 1.5rem; border-bottom: 1px solid #1f3d3d; font-size: 0.9rem; }
+        .feat-name { font-weight: 600; }
+        .legacy-cell { color: #ef4444; }
+        .borea-cell { color: #22c55e; font-weight: 600; }
 
         /* Testimonials */
-        .testimonials-section-wrapper { max-width: 1100px; margin: 0 auto; padding: 6rem 1.5rem; }
-        .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-        .testimonial-card {
-          background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem;
-        }
-        .t-card-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
-        .t-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; }
-        .t-name { font-weight: 700; font-size: 0.9rem; }
-        .t-role { font-size: 0.75rem; color: var(--text-muted); }
-        .t-badge { margin-left: auto; font-size: 0.68rem; background: var(--bg-secondary); padding: 0.2rem 0.5rem; border-radius: 10px; color: var(--accent-light); }
-        .t-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
-        .t-stars { color: #f59e0b; font-size: 0.85rem; }
+        .borea-testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+        .borea-t-card { background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 20px; padding: 1.75rem; }
+        body.light .borea-t-card { background: #ffffff; border-color: #b2dfdb; }
+        .borea-t-card .head-row { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+        .borea-t-card .avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+        .borea-t-card .name { font-weight: 700; font-size: 0.92rem; }
+        .borea-t-card .role { font-size: 0.75rem; color: #7fa9a6; }
+        .borea-t-card .badge { margin-left: auto; font-size: 0.68rem; background: rgba(13, 148, 136, 0.15); color: #2dd4bf; padding: 0.2rem 0.5rem; border-radius: 10px; }
+        .borea-t-card .text { font-size: 0.88rem; color: #7fa9a6; line-height: 1.6; margin-bottom: 1rem; }
+        .borea-t-card .stars { color: #f59e0b; font-size: 0.85rem; }
 
         /* FAQ */
-        .faq-section-wrapper { max-width: 800px; margin: 0 auto; padding: 6rem 1.5rem; }
-        .faq-container { display: flex; flex-direction: column; gap: 1rem; }
-        .faq-card {
-          background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; cursor: pointer; transition: all 0.2s ease;
-        }
-        .faq-card:hover { border-color: var(--accent); }
-        .faq-question { display: flex; justify-content: space-between; align-items: center; }
-        .faq-question h3 { font-size: 1rem; font-weight: 600; margin: 0; }
-        .faq-toggle-icon { font-size: 1.2rem; font-weight: 700; color: var(--accent); }
-        .faq-answer { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+        .faq-width { max-width: 800px; }
+        .borea-faq-list { display: flex; flex-direction: column; gap: 1rem; }
+        .borea-faq-item { background: #0f1f1f; border: 1px solid #1f3d3d; border-radius: 14px; padding: 1.25rem 1.5rem; cursor: pointer; transition: all 0.2s; }
+        body.light .borea-faq-item { background: #ffffff; border-color: #b2dfdb; }
+        .borea-faq-item:hover { border-color: #0d9488; }
+        .borea-faq-head { display: flex; justify-content: space-between; align-items: center; }
+        .borea-faq-head h3 { font-size: 1rem; font-weight: 600; margin: 0; }
+        .borea-faq-icon { font-size: 1.2rem; font-weight: 700; color: #0d9488; }
+        .borea-faq-body { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #1f3d3d; color: #7fa9a6; font-size: 0.9rem; line-height: 1.6; }
 
-        /* CTA Banner */
-        .cta-banner-wrapper { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
-        .cta-banner-card {
-          background: linear-gradient(135deg, rgba(13, 148, 136, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
-          border: 1px solid rgba(13, 148, 136, 0.4);
-          border-radius: 24px; padding: 4rem 2rem; text-align: center;
-          box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        /* CTA Box */
+        .borea-cta-section { max-width: 1100px; margin: 0 auto; padding: 4rem 1.5rem 6rem; }
+        .borea-cta-box {
+          background: linear-gradient(135deg, rgba(13, 148, 136, 0.25) 0%, rgba(139, 92, 246, 0.25) 100%);
+          border: 1px solid rgba(13, 148, 136, 0.4); border-radius: 24px; padding: 4.5rem 2rem; text-align: center;
+          box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         }
-        .cta-heading { font-family: 'Space Grotesk', sans-serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 1rem; }
-        .cta-description { color: var(--text-secondary); max-width: 540px; margin: 0 auto 2rem; font-size: 1rem; }
-        .cta-button-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-        .cta-btn-primary {
-          background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); color: #fff; text-decoration: none;
-          padding: 0.85rem 1.75rem; border-radius: 12px; font-weight: 600; box-shadow: 0 4px 20px rgba(13, 148, 136, 0.4);
-        }
-        .cta-btn-secondary {
-          background: var(--bg-card); color: var(--text-primary); text-decoration: none;
-          padding: 0.85rem 1.5rem; border-radius: 12px; font-weight: 600; border: 1px solid var(--border);
-        }
+        .borea-cta-box .title { font-family: 'Space Grotesk', sans-serif; font-size: 2.3rem; font-weight: 700; margin-bottom: 1rem; }
+        .borea-cta-box .sub { color: #7fa9a6; max-width: 540px; margin: 0 auto 2rem; font-size: 1.05rem; }
+        .borea-cta-box .btn-row { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
         /* Footer */
-        .modern-footer { background: var(--bg-secondary); border-top: 1px solid var(--border); padding: 4rem 1.5rem 2rem; }
-        .footer-top-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 2fr; gap: 4rem; margin-bottom: 3rem; }
-        .footer-tagline { color: var(--text-secondary); font-size: 0.88rem; margin: 1rem 0; max-width: 300px; }
-        .status-pill { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: var(--green); background: rgba(34, 197, 94, 0.1); padding: 0.3rem 0.7rem; border-radius: 20px; }
-        .status-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; }
-        .footer-links-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-        .f-col h4 { font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 1rem; }
-        .f-col a { display: block; color: var(--text-secondary); text-decoration: none; font-size: 0.88rem; margin-bottom: 0.6rem; }
-        .f-col a:hover { color: var(--text-primary); }
-        .footer-bottom-bar { max-width: 1100px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; color: var(--text-muted); }
-        .footer-bottom-bar a { color: var(--text-secondary); text-decoration: none; }
+        .borea-footer { background: #0f1f1f; border-top: 1px solid #1f3d3d; padding: 4rem 1.5rem 2rem; }
+        body.light .borea-footer { background: #e0f2f1; border-color: #b2dfdb; }
+        .borea-footer-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 2fr; gap: 4rem; margin-bottom: 3rem; }
+        .borea-footer-brand .tagline { color: #7fa9a6; font-size: 0.88rem; margin: 1rem 0; max-width: 300px; }
+        .borea-status { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.75rem; color: #22c55e; background: rgba(34, 197, 94, 0.1); padding: 0.3rem 0.7rem; border-radius: 20px; }
+        .green-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
+        .borea-footer-links { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        .borea-footer-links h4 { font-size: 0.85rem; text-transform: uppercase; color: #4a7370; margin-bottom: 1rem; }
+        .borea-footer-links a { display: block; color: #7fa9a6; text-decoration: none; font-size: 0.88rem; margin-bottom: 0.6rem; }
+        .borea-footer-links a:hover { color: inherit; }
+        .borea-footer-bottom { max-width: 1100px; margin: 0 auto; padding-top: 2rem; border-top: 1px solid #1f3d3d; text-align: center; font-size: 0.8rem; color: #4a7370; }
+        .borea-footer-bottom a { color: inherit; text-decoration: none; }
 
-        /* Responsive Breakpoints */
+        /* Mobile */
         @media (max-width: 992px) {
-          .hero-section-modern { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; }
-          .stats-grid-inner { grid-template-columns: repeat(2, 1fr); }
-          .bento-grid-container { grid-template-columns: 1fr; }
+          .borea-hero { grid-template-columns: 1fr; gap: 3.5rem; padding-top: 7.5rem; }
+          .borea-stats-grid { grid-template-columns: repeat(2, 1fr); }
+          .borea-bento-grid { grid-template-columns: 1fr; }
           .col-span-2 { grid-column: span 1; }
-          .workflow-steps-grid { grid-template-columns: 1fr; }
-          .testimonials-grid { grid-template-columns: 1fr; }
-          .footer-top-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+          .borea-testimonials-grid { grid-template-columns: 1fr; }
+          .borea-footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
         }
         @media (max-width: 768px) {
-          .nav-menu-links { display: none; }
-          .studio-controls-grid { grid-template-columns: 1fr; }
-          .prompt-input-wrapper { flex-direction: column; }
-          .hero-button-group { flex-direction: column; align-items: stretch; }
-          .hero-cta-primary, .hero-cta-secondary { text-align: center; justify-content: center; }
+          .borea-nav-links { display: none; }
+          .borea-controls-grid { grid-template-columns: 1fr; }
+          .borea-input-bar { flex-direction: column; }
+          .borea-hero-actions { flex-direction: column; align-items: stretch; }
+          .borea-cta-main, .borea-cta-glass { justify-content: center; text-align: center; }
         }
       `}</style>
     </div>
   );
 }
+
 
 
 /* ─── Styles ─── */
