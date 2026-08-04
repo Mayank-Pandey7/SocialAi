@@ -21,9 +21,17 @@ const TONES = [
 
 const PRESETS = [
   { label: "🚀 Product Launch", prompt: "We just launched our new AI analytics dashboard today after 6 months of work!", platform: "LinkedIn", tone: "Professional" },
-  { label: "💡 Developer Hot Take", prompt: "AI isn't taking developer jobs, it's raising the bar for what one developer can build.", platform: "Twitter", tone: "Viral" },
-  { label: "🔥 Weekly Growth Tip", prompt: "3 simple content habits that doubled our organic reach in 30 days.", platform: "Instagram", tone: "Motivational" },
-  { label: "☕ Remote Work Culture", prompt: "Why async communication and documentation matter more than video calls.", platform: "Threads", tone: "Casual" },
+  { label: "💡 Dev Hot Take", prompt: "AI isn't taking developer jobs, it's raising the bar for what one developer can build.", platform: "Twitter", tone: "Viral" },
+  { label: "🔥 Growth Hack", prompt: "3 simple content habits that doubled our organic reach in 30 days without ads.", platform: "Instagram", tone: "Motivational" },
+  { label: "☕ Remote Work", prompt: "Why async communication and documentation matter more than 8 daily video calls.", platform: "Threads", tone: "Casual" },
+  { label: "🎯 Founder Lesson", prompt: "The biggest mistake I made in year one of building my startup and what it taught me.", platform: "LinkedIn", tone: "Professional" },
+  { label: "💼 Interview Advice", prompt: "What I look for when interviewing senior engineers beyond leetcode algorithms.", platform: "LinkedIn", tone: "Professional" },
+  { label: "🛠️ Top AI Tools", prompt: "5 AI tools that will save you 15+ hours every week as a solo builder.", platform: "Instagram", tone: "Motivational" },
+  { label: "🎉 Milestone 10k", prompt: "From 0 to 10,000 active users in 90 days. Here are the 4 levers that drove growth.", platform: "Twitter", tone: "Viral" },
+  { label: "📈 Career Growth", prompt: "Working 80 hours a week isn't a flex. Focused execution in 35 hours beats burnout every time.", platform: "Twitter", tone: "Viral" },
+  { label: "🧵 Tech Architecture", prompt: "How we scaled our React & Node API from 1k to 100k daily active requests seamlessly.", platform: "LinkedIn", tone: "Professional" },
+  { label: "😂 Tech Humor", prompt: "My code compiled on the first try. Now I'm suspicious of what's silently failing in prod.", platform: "Twitter", tone: "Casual" },
+  { label: "🌿 Mindset & Focus", prompt: "Protect your calendar like your business depends on it — because it actually does.", platform: "Threads", tone: "Casual" },
 ];
 
 const SAMPLE_OUTPUTS = {
@@ -39,6 +47,8 @@ const SAMPLE_OUTPUTS = {
     "Every post is a seed planted for your future audience. 🌿\n\nStop waiting for perfect inspiration. Use smart tools, share authentic value, and build the feed you want the world to discover.\n\nSave this post for your next content strategy session! ✨\n\n#ContentCreator #Mindset #GrowthMindset #DigitalStrategy",
   "Threads-Casual":
     "Async communication tip of the week: if a meeting could be a well-structured document, write the document.\n\nYour team's deep work time will thank you. 🧠✨",
+  "Twitter-Casual":
+    "My code compiled on the first try with zero warnings.\n\nNow I'm staring at the terminal for 5 minutes trying to figure out what silently broke in production. 😂💻 #DevLife #CodingHumor",
 };
 
 const FEATURES = [
