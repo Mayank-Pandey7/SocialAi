@@ -280,38 +280,56 @@ function LiveStudioDemo() {
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
   const [viralScore, setViralScore] = useState(96);
+  const timerRef = useRef(null);
+
+  const startTypewriter = useCallback((text) => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setDisplayedText("");
+    let idx = 0;
+    timerRef.current = setInterval(() => {
+      if (idx <= text.length) {
+        setDisplayedText(text.slice(0, idx));
+        idx += 3;
+      } else {
+        setDisplayedText(text);
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }, 12);
+  }, []);
 
   const triggerGeneration = useCallback((plat = selectedPlatform, tne = selectedTone, prmpt = customPrompt, label = activePresetLabel) => {
     setIsGenerating(true);
-    setDisplayedText("");
+    if (timerRef.current) clearInterval(timerRef.current);
     
     setTimeout(() => {
-      let targetResult = GENERATE_TEMPLATE_OUTPUT(plat, tne, prmpt, label);
-      
+      const targetResult = GENERATE_TEMPLATE_OUTPUT(plat, tne, prmpt, label);
       setOutputText(targetResult);
       setViralScore(Math.floor(Math.random() * 6) + 94);
       setIsGenerating(false);
-
-      // Typewriter Effect
-      let idx = 0;
-      const timer = setInterval(() => {
-        if (idx <= targetResult.length) {
-          setDisplayedText(targetResult.slice(0, idx));
-          idx += 3;
-        } else {
-          setDisplayedText(targetResult);
-          clearInterval(timer);
-        }
-      }, 12);
-    }, 350);
-  }, [selectedPlatform, selectedTone, customPrompt, activePresetLabel]);
+      startTypewriter(targetResult);
+    }, 250);
+  }, [selectedPlatform, selectedTone, customPrompt, activePresetLabel, startTypewriter]);
 
   useEffect(() => {
     triggerGeneration("LinkedIn", "Professional", "", "🚀 Product Launch");
-  }, [triggerGeneration]);
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
 
   const handleCopy = () => {
-    navigator.clipboard?.writeText(outputText || displayedText);
+    const textToCopy = outputText || displayedText;
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(textToCopy);
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = textToCopy;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(textArea);
+    }
     setCopied(true);
     setTimeout(() => setCopied(false), 1800);
   };
@@ -340,7 +358,11 @@ function LiveStudioDemo() {
       <div className="social-presets-bar">
         <span className="preset-label">Preset Ideas:</span>
         {PRESETS.map((p) => (
-          <button key={p.label} onClick={() => applyPreset(p)} className="social-preset-chip">
+          <button
+            key={p.label}
+            onClick={() => applyPreset(p)}
+            className={`social-preset-chip ${activePresetLabel === p.label ? "active" : ""}`}
+          >
             {p.label}
           </button>
         ))}
@@ -884,6 +906,7 @@ export default function HomePage() {
         .preset-label { font-size: 0.8rem; color: #4a7370; font-weight: 600; }
         .social-preset-chip { background: #0f1f1f; border: 1px solid #1f3d3d; color: #7fa9a6; padding: 0.35rem 0.8rem; border-radius: 20px; font-size: 0.78rem; cursor: pointer; transition: all 0.2s; }
         .social-preset-chip:hover { border-color: #0d9488; color: inherit; }
+        .social-preset-chip.active { background: #0d9488; color: #ffffff; border-color: #0d9488; font-weight: 600; }
         .social-controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
         .social-label { display: block; font-size: 0.8rem; font-weight: 600; color: #4a7370; margin-bottom: 0.5rem; }
         .social-pills { display: flex; gap: 0.4rem; flex-wrap: wrap; }
