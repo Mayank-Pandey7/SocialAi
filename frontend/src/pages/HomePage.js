@@ -40,7 +40,7 @@ const GENERATE_TEMPLATE_OUTPUT = (platform, tone, prompt, presetLabel) => {
     Twitter: "#BuildInPublic #DevCommunity #SaaS #Tech",
     Instagram: "#CreatorEconomy #GrowthMindset #Productivity #DigitalStrategy",
     Threads: "#TechThoughts #Solopreneur #WorkLife #AI",
-  }[platform] || "#SocialAI #ContentStrategy";
+  }[platform] || "#NEYRIX AI #ContentStrategy";
 
   if (presetLabel === "🚀 Product Launch" || prompt.includes("analytics dashboard")) {
     if (platform === "LinkedIn") {
@@ -87,7 +87,7 @@ const GENERATE_TEMPLATE_OUTPUT = (platform, tone, prompt, presetLabel) => {
   }
 
   if (presetLabel === "🛠️ Top AI Tools" || prompt.includes("15+ hours")) {
-    return `5 AI tools saving me 15+ hours every single week as a solo builder 🛠️✨\n\n1. SocialAI — Platform-native content drafting & scheduling\n2. Claude — Code architecture & deep reasoning\n3. Whisper — Instant voice notes to structured copy\n4. Midjourney — High-res visual assets\n5. Perplexity — Real-time research & synthesis\n\nWhich AI tool is non-negotiable for your daily stack? 👇`;
+    return `5 AI tools saving me 15+ hours every single week as a solo builder 🛠️✨\n\n1. NEYRIX AI — Platform-native content drafting & scheduling\n2. Claude — Code architecture & deep reasoning\n3. Whisper — Instant voice notes to structured copy\n4. Midjourney — High-res visual assets\n5. Perplexity — Real-time research & synthesis\n\nWhich AI tool is non-negotiable for your daily stack? 👇`;
   }
 
   if (presetLabel === "🎉 Milestone 10k" || prompt.includes("10,000 active users")) {
@@ -186,7 +186,7 @@ const TESTIMONIALS = [
     name: "Alex Rivera",
     role: "Founder @ TechFlow",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
-    text: "SocialAI cut down our social media drafting time from 3 hours a day to less than 15 minutes. The AI engine precision is incredible!",
+    text: "NEYRIX AI cut down our social media drafting time from 3 hours a day to less than 15 minutes. The AI engine precision is incredible!",
     stars: 5,
     tag: "Verified Founder",
   },
@@ -202,7 +202,7 @@ const TESTIMONIALS = [
     name: "Marcus Vance",
     role: "Indie Creator & Developer",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
-    text: "I used to struggle with writer's block every single morning. Now I just type my rough idea and SocialAI transforms it into 4 polished posts.",
+    text: "I used to struggle with writer's block every single morning. Now I just type my rough idea and NEYRIX AI transforms it into 4 polished posts.",
     stars: 5,
     tag: "Content Creator",
   },
@@ -210,19 +210,19 @@ const TESTIMONIALS = [
 
 const FAQS = [
   {
-    q: "Is SocialAI completely free to use?",
+    q: "Is NEYRIX AI completely free to use?",
     a: "Yes! You get unrestricted access to post generation, tone switching, and platform formatting with zero subscriptions or credit card requirements.",
   },
   {
     q: "Which social media platforms are supported?",
-    a: "SocialAI natively generates and formats posts for LinkedIn, Twitter / X, Instagram, Threads, and Facebook with platform-tailored lengths and hashtag styles.",
+    a: "NEYRIX AI natively generates and formats posts for LinkedIn, Twitter / X, Instagram, Threads, and Facebook with platform-tailored lengths and hashtag styles.",
   },
   {
     q: "Can I customize the generated AI tone?",
     a: "Absolutely. Choose between Professional, Casual, Viral, Motivational, Funny, or direct technical tones to match your exact personal brand.",
   },
   {
-    q: "How does SocialAI adapt content for different platforms?",
+    q: "How does NEYRIX AI adapt content for different platforms?",
     a: "Our AI engine automatically adjusts line spacing, hashtag density, length limits, and call-to-action hooks specifically for each platform's algorithm.",
   },
 ];
@@ -269,7 +269,7 @@ function StatCounter({ value, suffix, label, icon, visible }) {
   );
 }
 
-/* ─── SocialAI Interactive Studio Playground ─── */
+/* ─── NEYRIX AI Interactive Studio Playground ─── */
 function LiveStudioDemo() {
   const [selectedPlatform, setSelectedPlatform] = useState("LinkedIn");
   const [selectedTone, setSelectedTone] = useState("Professional");
@@ -332,7 +332,7 @@ function LiveStudioDemo() {
           <span className="dot yellow"></span>
           <span className="dot green"></span>
         </div>
-        <span className="social-window-title">✨ SocialAI Studio • Live AI Content Engine</span>
+        <span className="social-window-title">✨ NEYRIX AI Studio • Live AI Content Engine</span>
         <div className="social-window-badge">v2.0 Active</div>
       </div>
 
@@ -465,7 +465,7 @@ export default function HomePage() {
         <div className="social-nav-container">
           <Link to="/" className="social-brand">
             <div className="social-logo-symbol">✦</div>
-            <span className="social-brand-name">SocialAI</span>
+            <span className="social-brand-name">NEYRIX AI</span>
             <span className="social-v2-badge">v2.0</span>
           </Link>
 
@@ -492,7 +492,7 @@ export default function HomePage() {
         <div className="social-hero-header">
           <div className="social-hero-badge">
             <span className="social-dot"></span>
-            <span>SocialAI Copilot 2.0 • 100% Free & Open Access</span>
+            <span>NEYRIX AI Copilot 2.0 • 100% Free & Open Access</span>
           </div>
 
           <h1 className="social-hero-title">
@@ -526,7 +526,7 @@ export default function HomePage() {
               <img src="/mayank.jpg" alt="Mayank Pandey" className="social-avatar" />
               <div className="author-details">
                 <div className="name">Mayank Pandey <span className="check">✓</span></div>
-                <div className="title">Founder @ SocialAI • Just now</div>
+                <div className="title">Founder @ NEYRIX AI • Just now</div>
               </div>
               <span className="platform-pill">LinkedIn</span>
             </div>
@@ -580,7 +580,7 @@ export default function HomePage() {
       <section id="demo" className="social-section">
         <div className="social-section-head">
           <span className="social-eyebrow">Interactive Studio</span>
-          <h2 className="social-h2">Test SocialAI Engine Live</h2>
+          <h2 className="social-h2">Test NEYRIX AI Engine Live</h2>
           <p className="social-sub">Experience real-time AI post generation with multi-tone synthesis.</p>
         </div>
         <LiveStudioDemo />
@@ -590,7 +590,7 @@ export default function HomePage() {
       <section id="features" className="social-section">
         <div className="social-section-head">
           <span className="social-eyebrow">Built for Growth</span>
-          <h2 className="social-h2">SocialAI Content Infrastructure</h2>
+          <h2 className="social-h2">NEYRIX AI Content Infrastructure</h2>
           <p className="social-sub">Everything you need to grow your personal brand and business reach.</p>
         </div>
 
@@ -626,8 +626,8 @@ export default function HomePage() {
       {/* ── COMPARISON MATRIX ── */}
       <section id="comparison" className="social-section">
         <div className="social-section-head">
-          <span className="social-eyebrow">Why SocialAI?</span>
-          <h2 className="social-h2">Traditional Writing vs SocialAI Engine</h2>
+          <span className="social-eyebrow">Why NEYRIX AI?</span>
+          <h2 className="social-h2">Traditional Writing vs NEYRIX AI Engine</h2>
         </div>
 
         <div className="social-table-card">
@@ -636,7 +636,7 @@ export default function HomePage() {
               <tr>
                 <th>Capability</th>
                 <th>Traditional Writing</th>
-                <th>SocialAI Engine</th>
+                <th>NEYRIX AI Engine</th>
               </tr>
             </thead>
             <tbody>
@@ -695,7 +695,7 @@ export default function HomePage() {
       <section className="social-cta-section">
         <div className="social-cta-box">
           <h2 className="title">Supercharge Your Social Presence Today</h2>
-          <p className="sub">Join thousands of creators using SocialAI to post 10x faster with AI precision.</p>
+          <p className="sub">Join thousands of creators using NEYRIX AI to post 10x faster with AI precision.</p>
           <div className="btn-row">
             <Link to="/register" className="social-cta-main">Create Free Account &rarr;</Link>
             <Link to="/login" className="social-cta-glass">Sign In to Dashboard</Link>
@@ -709,7 +709,7 @@ export default function HomePage() {
           <div className="social-footer-brand">
             <div className="social-brand">
               <div className="social-logo-symbol">✦</div>
-              <span className="social-brand-name">SocialAI</span>
+              <span className="social-brand-name">NEYRIX AI</span>
             </div>
             <p className="tagline">Next-generation AI social media content platform.</p>
             <div className="social-status">
@@ -739,7 +739,7 @@ export default function HomePage() {
         </div>
 
         <div className="social-footer-bottom">
-          <span>© {new Date().getFullYear()} SocialAI. Built by <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer">@Mayank-Pandey7</a></span>
+          <span>© {new Date().getFullYear()} NEYRIX AI. Built by <a href="https://github.com/Mayank-Pandey7" target="_blank" rel="noreferrer">@Mayank-Pandey7</a></span>
         </div>
       </footer>
 

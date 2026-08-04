@@ -54,7 +54,7 @@ export default function Layout() {
       <div className="mobile-topbar" style={styles.mobileTopBar}>
         <div style={styles.logo}>
           <span style={styles.logoIcon}>⚡</span>
-          <span style={styles.logoText}>SocialAI</span>
+          <span style={styles.logoText}>NEYRIX AI</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
           <button onClick={toggleTheme} style={styles.iconBtn} title="Toggle theme">
@@ -77,7 +77,7 @@ export default function Layout() {
         {/* Logo */}
         <div style={styles.logoRow}>
           <span style={styles.logoIcon}>⚡</span>
-          {!collapsed && <span style={styles.logoText}>SocialAI</span>}
+          {!collapsed && <span style={styles.logoText}>NEYRIX AI</span>}
           <button onClick={() => setCollapsed(c => !c)} style={styles.collapseBtn} className="collapse-btn">
             <FontAwesomeIcon icon={collapsed ? faChevronRight : faChevronLeft} />
           </button>

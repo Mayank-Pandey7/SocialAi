@@ -1,4 +1,4 @@
-# ⚡ SocialAI – AI-Powered Social Media Content Generator & Analyzer
+# ⚡ NEYRIX AI – AI-Powered Social Media Content Generator & Analyzer
 
 > **B.Tech CSE Final Year Project** | React.js + Node.js + MongoDB + AI
 
@@ -6,7 +6,7 @@
 
 ## 📌 Project Overview
 
-SocialAI is a full-stack web application that helps users generate AI-powered social media content, discover trending topics, and analyze post engagement — all from a single sleek dashboard.
+NEYRIX AI is a full-stack web application that helps users generate AI-powered social media content, discover trending topics, and analyze post engagement — all from a single sleek dashboard.
 
 ---
 

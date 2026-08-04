@@ -54,7 +54,7 @@ export default function RegisterPage() {
         <div style={{ ...styles.logo, justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
             <span style={styles.logoIcon}>⚡</span>
-            <span style={styles.logoText}>SocialAI</span>
+            <span style={styles.logoText}>NEYRIX AI</span>
           </div>
           <button
             onClick={toggleTheme}

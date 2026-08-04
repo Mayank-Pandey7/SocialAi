@@ -47,12 +47,12 @@ router.post(
       await User.findByIdAndUpdate(user._id, { otp, otpExpiry });
 
       await transporter.sendMail({
-        from: `"SocialAI" <${process.env.EMAIL_USER}>`,
+        from: `"NEYRIX AI" <${process.env.EMAIL_USER}>`,
         to: email,
-        subject: 'Your SocialAI Login OTP',
+        subject: 'Your NEYRIX AI Login OTP',
         html: `
           <div style="font-family:sans-serif;max-width:400px;margin:auto;padding:24px;background:#0f172a;color:#e2e8f0;border-radius:12px;">
-            <h2 style="color:#2dd4bf;margin-bottom:8px;">⚡ SocialAI</h2>
+            <h2 style="color:#2dd4bf;margin-bottom:8px;">⚡ NEYRIX AI</h2>
             <p style="color:#94a3b8;">Your one-time login code is:</p>
             <div style="font-size:36px;font-weight:700;letter-spacing:8px;color:#fff;margin:16px 0;">${otp}</div>
             <p style="color:#64748b;font-size:13px;">This code expires in <strong>10 minutes</strong>. Do not share it with anyone.</p>

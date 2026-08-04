@@ -25,7 +25,7 @@ app.use('/api/scheduler', require('./routes/scheduler'));
 
 
 app.get('/', (req, res) => {
-  res.json({ message: '🚀 SocialAI Backend is running!', status: 'OK' });
+  res.json({ message: '🚀 NEYRIX AI Backend is running!', status: 'OK' });
 });
 
 
