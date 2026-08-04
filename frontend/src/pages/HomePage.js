@@ -34,21 +34,96 @@ const PRESETS = [
   { label: "🌿 Mindset & Focus", prompt: "Protect your calendar like your business depends on it — because it actually does.", platform: "Threads", tone: "Casual" },
 ];
 
-const SAMPLE_OUTPUTS = {
-  "LinkedIn-Professional":
-    "AI isn't replacing human creativity — it's amplifying it.\n\nThe most effective teams this year aren't the ones avoiding AI tools; they're the ones integrating them thoughtfully into their core workflows.\n\nKey takeaways from our journey:\n1. Focus on strategy over execution speed\n2. Maintain your unique brand voice\n3. Use AI to remove friction, not replace human judgment\n\nHow is your organization adapting to AI workflows?\n\n#Leadership #Innovation #FutureOfWork #AI",
-  "LinkedIn-Casual":
-    "Spent 6 months building our new AI analytics tool... and 6 minutes figuring out how to describe it simply. 😂\n\nHonest truth: product launches are exhausting, but seeing real users get value makes every late night worth it.\n\nCheck it out and let me know your thoughts!\n\n#BuildInPublic #StartupLife #SaaS",
-  "Twitter-Viral":
-    "The best content creators don't write more.\n\nThey refine faster.\n\nAI doesn't replace your voice — it strips away the friction so you can show up consistently every single day.\n\nAgree or disagree? 👇",
-  "Twitter-Professional":
-    "Building in public update:\n\n1. AI drafting cuts content creation time by 75%\n2. Consistency improves organic reach exponentially\n3. Quality + platform tailoring = high engagement\n\nStop writing from scratch.",
-  "Instagram-Motivational":
-    "Every post is a seed planted for your future audience. 🌿\n\nStop waiting for perfect inspiration. Use smart tools, share authentic value, and build the feed you want the world to discover.\n\nSave this post for your next content strategy session! ✨\n\n#ContentCreator #Mindset #GrowthMindset #DigitalStrategy",
-  "Threads-Casual":
-    "Async communication tip of the week: if a meeting could be a well-structured document, write the document.\n\nYour team's deep work time will thank you. 🧠✨",
-  "Twitter-Casual":
-    "My code compiled on the first try with zero warnings.\n\nNow I'm staring at the terminal for 5 minutes trying to figure out what silently broke in production. 😂💻 #DevLife #CodingHumor",
+const GENERATE_TEMPLATE_OUTPUT = (platform, tone, prompt, presetLabel) => {
+  const hashtags = {
+    LinkedIn: "#BuildInPublic #AI #Leadership #StartupGrowth #Innovation",
+    Twitter: "#BuildInPublic #DevCommunity #SaaS #Tech",
+    Instagram: "#CreatorEconomy #GrowthMindset #Productivity #DigitalStrategy",
+    Threads: "#TechThoughts #Solopreneur #WorkLife #AI",
+  }[platform] || "#SocialAI #ContentStrategy";
+
+  if (presetLabel === "🚀 Product Launch" || prompt.includes("analytics dashboard")) {
+    if (platform === "LinkedIn") {
+      return `🚀 After 6 months of intense building, debugging, and user testing — we just launched our new AI Analytics Dashboard!\n\nWhat it solves:\n• Eliminates manual data exports across 5+ channels\n• Predicts content performance before you publish\n• Gives actionable insights in plain English\n\nA massive thank you to our beta testers who helped shape every feature.\n\nTry it free today and let me know your thoughts!\n\n${hashtags}`;
+    } else if (platform === "Twitter") {
+      return `Big news: We just launched our AI Analytics Dashboard live today! 🚀\n\n6 months of building condensed into a 1-click dashboard that predicts post virality in real time.\n\nTry it 100% free (link in bio) 👇\n\n${hashtags}`;
+    } else if (platform === "Instagram") {
+      return `WE ARE LIVE! 🚀✨\n\n6 months ago, we set out to build the simplest AI analytics dashboard for creators. Today, it's officially open to everyone!\n\nSwipe to see how it predicts reach & engagement before you post 📲\n\nLink in bio to test it free! 💡\n\n${hashtags}`;
+    } else {
+      return `6 months in stealth, 1 click to launch. Our AI Analytics Dashboard is live today! 🚀 What feature should we build next?\n\n${hashtags}`;
+    }
+  }
+
+  if (presetLabel === "💡 Dev Hot Take" || prompt.includes("developer jobs")) {
+    if (tone === "Viral" || platform === "Twitter") {
+      return `AI isn't taking developer jobs.\n\nIt's raising the bar for what ONE developer can build.\n\nA single engineer with AI tools can now launch products that used to require a 10-person agency.\n\nThe real skill of 2026 isn't syntax — it's system architecture & problem framing.\n\nAgree or disagree? 👇`;
+    } else if (platform === "LinkedIn") {
+      return `Unpopular perspective in tech right now:\n\nAI won't replace software engineers. Engineers who leverage AI will replace those who don't.\n\nKey shifts we're seeing:\n1. Boilerplate code generation is instant\n2. Focus moves from typing speed to architecture design\n3. Time-to-market for MVPs dropped by 80%\n\nHow is your dev team integrating AI into your sprint workflow?\n\n${hashtags}`;
+    } else {
+      return `Hot take of the day: AI tools don't make coding obsolete — they make solo builders unstoppable. ⚡ What took 3 months now takes 3 days.\n\n${hashtags}`;
+    }
+  }
+
+  if (presetLabel === "🔥 Growth Hack" || prompt.includes("organic reach")) {
+    if (platform === "Instagram") {
+      return `3 content habits that doubled our organic reach in 30 days (without spending $1 on ads) 📈✨\n\n1. Strong Hook in the first 3 seconds\n2. Mobile-optimized line breaks (no wall of text!)\n3. Clear CTA asking for a save or share\n\nSave this reel for your next batch creation session! 📌\n\n${hashtags}`;
+    } else if (platform === "LinkedIn") {
+      return `How we doubled our organic LinkedIn reach in 30 days without ad spend:\n\n1. Stop posting links in the main post (put them in comments)\n2. Write for readability — short 1-2 sentence paragraphs\n3. Engage with 10 industry peers before posting\n\nConsistency > perfection every time.\n\n${hashtags}`;
+    } else {
+      return `Double your organic reach in 30 days with these 3 rules:\n- Hook them instantly\n- Format for mobile\n- End with a single clear call-to-action\n\nSimple, repeatable, effective. 🚀`;
+    }
+  }
+
+  if (presetLabel === "☕ Remote Work" || prompt.includes("async communication")) {
+    return `Why async communication & documentation beat 8 daily video calls:\n\n• Gives team members uninterrupted deep focus blocks\n• Creates a permanent searchable knowledge base\n• Respects global timezones without late-night meetings\n\nIf a meeting can be a clear 2-minute document, write the document. ☕✨\n\n${hashtags}`;
+  }
+
+  if (presetLabel === "🎯 Founder Lesson" || prompt.includes("biggest mistake")) {
+    return `The biggest mistake I made in Year 1 of building my startup:\n\nBuilding features in isolation before validating real user demand.\n\nWhat I do now instead:\n1. Pre-sell or launch a simple waitlist first\n2. Talk to 20 users before writing code\n3. Ship micro-MVPs in days, not months\n\nFail fast, iterate faster. 🎯\n\n${hashtags}`;
+  }
+
+  if (presetLabel === "💼 Interview Advice" || prompt.includes("senior engineers")) {
+    return `What I look for when interviewing senior software engineers (beyond LeetCode):\n\n1. How they handle trade-offs & system design\n2. Pragmatic problem solving under ambiguity\n3. Clear technical communication with non-engineers\n\nSyntax can be googled. Engineering judgment cannot. 💼\n\n${hashtags}`;
+  }
+
+  if (presetLabel === "🛠️ Top AI Tools" || prompt.includes("15+ hours")) {
+    return `5 AI tools saving me 15+ hours every single week as a solo builder 🛠️✨\n\n1. SocialAI — Platform-native content drafting & scheduling\n2. Claude — Code architecture & deep reasoning\n3. Whisper — Instant voice notes to structured copy\n4. Midjourney — High-res visual assets\n5. Perplexity — Real-time research & synthesis\n\nWhich AI tool is non-negotiable for your daily stack? 👇`;
+  }
+
+  if (presetLabel === "🎉 Milestone 10k" || prompt.includes("10,000 active users")) {
+    return `From 0 to 10,000 active users in 90 days. 🎉\n\nThe 4 levers that actually drove growth:\n1. Relentless building in public on X & LinkedIn\n2. Frictionless onboarding (under 30 seconds)\n3. User referral loops\n4. 1-on-1 feedback calls with early power users\n\nThank you to everyone supporting the journey! 🚀\n\n${hashtags}`;
+  }
+
+  if (presetLabel === "📈 Career Growth" || prompt.includes("80 hours")) {
+    return `Working 80 hours a week isn't a badge of honor.\n\nFocused execution in 35 hours beats burnout every single time.\n\nHigh performers prioritize:\n- Prioritizing high-leverage tasks\n- Automating repetitive workflows\n- Saying NO to low-value meetings\n\nWork smarter, build longer. 📈`;
+  }
+
+  if (presetLabel === "🧵 Tech Architecture" || prompt.includes("React & Node API")) {
+    return `How we scaled our React + Node API from 1k to 100k daily requests seamlessly 🧵\n\n1. Implemented Redis caching for heavy queries\n2. Offloaded background tasks to async worker queues\n3. Optimized database index structures\n4. CDN edge caching for static assets\n\nArchitecture simplicity wins at scale. 💻\n\n${hashtags}`;
+  }
+
+  if (presetLabel === "😂 Tech Humor" || prompt.includes("code compiled")) {
+    return `My code compiled on the first try with zero warnings.\n\nNow I'm staring at the terminal for 5 minutes trying to figure out what silently broke in production. 😂💻 #DevLife #CodingHumor`;
+  }
+
+  if (presetLabel === "🌿 Mindset & Focus" || prompt.includes("calendar")) {
+    return `Protect your calendar like your business depends on it — because it actually does. 🌿\n\nBlock 3 hours every morning for deep, uninterrupted execution. Everything else can wait.\n\n${hashtags}`;
+  }
+
+  if (prompt && prompt.trim()) {
+    const cleanPrompt = prompt.trim();
+    if (tone === "Viral" || tone === "Viral / Bold") {
+      return `🔥 ${cleanPrompt}\n\nHere is why this matters right now:\n\n• Traditional methods are too slow\n• Speed & iteration win in 2026\n• Those who adapt early get 10x the reach\n\nDo you agree? Drop your thoughts below 👇\n\n${hashtags}`;
+    } else if (tone === "Casual") {
+      return `Quick thoughts on ${cleanPrompt} ☕\n\nSpent some time thinking about this today. The key is removing friction and keeping things simple.\n\nLet me know how you're approaching this! ✨\n\n${hashtags}`;
+    } else if (tone === "Motivational" || tone === "Inspiring") {
+      return `✨ "${cleanPrompt}"\n\nConsistency is the secret weapon. Show up every single day, refine your process, and let compounding do the heavy lifting. 🌿\n\nSave this for your daily reminder! 📌\n\n${hashtags}`;
+    } else {
+      return `💡 Key Insight: ${cleanPrompt}\n\nThree core takeaways for high-performing teams:\n1. Focus on clear strategic priorities\n2. Leverage automated tools to save execution time\n3. Maintain high output quality across channels\n\nHow are you tackling this in your workflow?\n\n${hashtags}`;
+    }
+  }
+
+  return `AI isn't replacing human creativity — it's amplifying it.\n\nThe most effective teams this year aren't the ones avoiding AI tools; they're the ones integrating them thoughtfully into their core workflows.\n\nKey takeaways:\n1. Strategy > execution speed\n2. Maintain your unique brand voice\n3. Use AI to remove friction\n\n${hashtags}`;
 };
 
 const FEATURES = [
@@ -199,22 +274,19 @@ function LiveStudioDemo() {
   const [selectedPlatform, setSelectedPlatform] = useState("LinkedIn");
   const [selectedTone, setSelectedTone] = useState("Professional");
   const [customPrompt, setCustomPrompt] = useState("");
+  const [activePresetLabel, setActivePresetLabel] = useState("🚀 Product Launch");
   const [outputText, setOutputText] = useState("");
   const [displayedText, setDisplayedText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [copied, setCopied] = useState(false);
   const [viralScore, setViralScore] = useState(96);
 
-  const triggerGeneration = useCallback((plat = selectedPlatform, tne = selectedTone, prmpt = customPrompt) => {
+  const triggerGeneration = useCallback((plat = selectedPlatform, tne = selectedTone, prmpt = customPrompt, label = activePresetLabel) => {
     setIsGenerating(true);
     setDisplayedText("");
     
     setTimeout(() => {
-      const key = `${plat}-${tne}`;
-      let targetResult = SAMPLE_OUTPUTS[key] || SAMPLE_OUTPUTS["LinkedIn-Professional"];
-      if (prmpt.trim()) {
-        targetResult = `💡 [${tne} Draft for ${plat}]:\n\n${prmpt.trim()}\n\nHere is how to share this with maximum impact:\n- High hook opening statement\n- Clean line breaks for mobile readability\n- Strategic call to action at the bottom.\n\n#BuildInPublic #${plat} #AI`;
-      }
+      let targetResult = GENERATE_TEMPLATE_OUTPUT(plat, tne, prmpt, label);
       
       setOutputText(targetResult);
       setViralScore(Math.floor(Math.random() * 6) + 94);
@@ -230,12 +302,12 @@ function LiveStudioDemo() {
           setDisplayedText(targetResult);
           clearInterval(timer);
         }
-      }, 15);
-    }, 600);
-  }, [selectedPlatform, selectedTone, customPrompt]);
+      }, 12);
+    }, 350);
+  }, [selectedPlatform, selectedTone, customPrompt, activePresetLabel]);
 
   useEffect(() => {
-    triggerGeneration("LinkedIn", "Professional", "");
+    triggerGeneration("LinkedIn", "Professional", "", "🚀 Product Launch");
   }, [triggerGeneration]);
 
   const handleCopy = () => {
@@ -248,7 +320,8 @@ function LiveStudioDemo() {
     setSelectedPlatform(preset.platform);
     setSelectedTone(preset.tone);
     setCustomPrompt(preset.prompt);
-    triggerGeneration(preset.platform, preset.tone, preset.prompt);
+    setActivePresetLabel(preset.label);
+    triggerGeneration(preset.platform, preset.tone, preset.prompt, preset.label);
   };
 
   return (
