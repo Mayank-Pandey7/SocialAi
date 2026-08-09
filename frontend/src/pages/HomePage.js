@@ -475,7 +475,7 @@ export default function HomePage() {
         }
 
         .sai-hero-headline {
-          font-family: var(--sai-font-display);
+          font-family: var(--sai-font-sans);
           font-size: clamp(2.8rem, 5.8vw, 5rem);
           font-weight: 700;
           line-height: 1.08;
