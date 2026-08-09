@@ -242,12 +242,11 @@ export default function HomePage() {
         }
 
         body.dark .sai-navbar, body.dark-mode .sai-navbar {
-          background: rgba(15, 23, 42, 0.55);
+          background: rgba(255, 255, 255, 0.88);
           backdrop-filter: blur(12px) saturate(180%);
           -webkit-backdrop-filter: blur(12px) saturate(180%);
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+          border: 1px solid rgba(255, 255, 255, 0.9);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
         }
 
         .sai-navbar.scrolled {
@@ -309,19 +308,21 @@ export default function HomePage() {
         }
 
         .sai-nav-links a {
-          color: #ffffff !important;
+          color: var(--sai-text-primary);
           text-decoration: none;
           font-size: 0.9rem;
           font-weight: 700;
           transition: all 0.2s ease;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
-        .sai-nav-links a:hover {
-          color: #ffffff !important;
-          opacity: 1;
+        body.dark .sai-nav-links a, body.dark-mode .sai-nav-links a {
+          color: #000000 !important;
+          text-shadow: none;
+        }
+
+        .sai-nav-links a:hover, body.dark .sai-nav-links a:hover, body.dark-mode .sai-nav-links a:hover {
+          color: var(--sai-accent) !important;
           transform: translateY(-1px);
-          text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8);
         }
 
         .sai-nav-actions {
@@ -404,17 +405,21 @@ export default function HomePage() {
         }
 
         body.dark .sai-mobile-menu, body.dark-mode .sai-mobile-menu {
-          background: rgba(15, 23, 42, 0.85);
-          border-color: rgba(255, 255, 255, 0.16);
-          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+          background: rgba(255, 255, 255, 0.95);
+          border-color: rgba(255, 255, 255, 0.9);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
         }
 
         .sai-mobile-menu a {
-          color: #ffffff !important;
+          color: var(--sai-text-primary);
           text-decoration: none;
           font-size: 1rem;
           font-weight: 700;
-          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+        }
+
+        body.dark .sai-mobile-menu a, body.dark-mode .sai-mobile-menu a {
+          color: #000000 !important;
+          text-shadow: none;
         }
 
         .mobile-btn-group {
