@@ -31,9 +31,10 @@ export default function Navbar() {
         <div className="sai-nav-links desktop-only">
           <a href="#product-demo">Product</a>
           <a href="#how-it-works">How It Works</a>
-          <a href="#content-generator">AI Generator</a>
+          <a href="#content-generator">Content</a>
           <a href="#platforms">Platforms</a>
           <a href="#analytics">Analytics</a>
+          <a href="#ai-features">AI Features</a>
           <a href="#faq">FAQ</a>
         </div>
 
@@ -68,9 +69,10 @@ export default function Navbar() {
         <div className="sai-mobile-menu">
           <a href="#product-demo" onClick={() => setMobileMenuOpen(false)}>Product</a>
           <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)}>How It Works</a>
-          <a href="#content-generator" onClick={() => setMobileMenuOpen(false)}>AI Generator</a>
+          <a href="#content-generator" onClick={() => setMobileMenuOpen(false)}>Content</a>
           <a href="#platforms" onClick={() => setMobileMenuOpen(false)}>Platforms</a>
           <a href="#analytics" onClick={() => setMobileMenuOpen(false)}>Analytics</a>
+          <a href="#ai-features" onClick={() => setMobileMenuOpen(false)}>AI Features</a>
           <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
           <div className="mobile-btn-group">
             <Link to="/login" className="sai-mobile-login" onClick={() => setMobileMenuOpen(false)}>Log in</Link>

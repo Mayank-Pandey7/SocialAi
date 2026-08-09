@@ -64,22 +64,11 @@ export default function HomePage() {
           --sai-bg: #000000;
           --sai-bg-alt: #000000;
           --sai-dark-bg: #000000;
-          --sai-dark-card: #0a0a0d;
+          --sai-dark-card: #09090b;
           --sai-text-primary: #ffffff;
           --sai-text-secondary: #a1a1aa;
           --sai-text-muted: #71717a;
           --sai-border: #18181b;
-        }
-
-        body.dark section, body.dark-mode section,
-        body.dark footer, body.dark-mode footer,
-        body.dark .sai-stories-section, body.dark-mode .sai-stories-section,
-        body.dark .sai-generator-showcase-section, body.dark-mode .sai-generator-showcase-section,
-        body.dark .sai-analytics-showcase-section, body.dark-mode .sai-analytics-showcase-section,
-        body.dark .sai-scheduler-showcase-section, body.dark-mode .sai-scheduler-showcase-section,
-        body.dark .sai-platform-showcase-section, body.dark-mode .sai-platform-showcase-section,
-        body.dark .sai-footer-section, body.dark-mode .sai-footer-section {
-          background-color: #000000 !important;
         }
 
         body.light, body.light-mode {
@@ -440,11 +429,7 @@ export default function HomePage() {
         .sai-hero-section {
           padding: 11rem 1.5rem 4rem;
           text-align: center;
-          background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.18) 0%, rgba(59, 130, 246, 0.10) 40%, rgba(238, 242, 255, 0.4) 65%, transparent 80%), var(--sai-bg);
-        }
-
-        body.dark .sai-hero-section, body.dark-mode .sai-hero-section {
-          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.07) 40%, transparent 75%), #000000 !important;
+          background: radial-gradient(circle at 50% 0%, var(--sai-accent-soft) 0%, transparent 65%);
         }
 
         .sai-hero-container {
@@ -1584,12 +1569,13 @@ export default function HomePage() {
         .sai-final-cta-card {
           max-width: 1100px;
           margin: 0 auto;
-          background: linear-gradient(135deg, #0b0b0f 0%, #171b26 100%);
+          background: #000000;
+          border: 1px solid var(--sai-border);
           border-radius: 24px;
           padding: 5rem 2rem;
           text-align: center;
           color: #ffffff;
-          box-shadow: 0 25px 60px rgba(0,0,0,0.25);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.35);
           position: relative;
           overflow: hidden;
         }
