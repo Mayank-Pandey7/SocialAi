@@ -786,10 +786,16 @@ export default function HomePage() {
         /* Navbar */
         .social-nav {
           position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-          background: rgba(10, 16, 18, 0.88); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-          border-bottom: 1px solid #1f3d3d;
+          background: rgba(10, 16, 18, 0.68);
+          backdrop-filter: blur(24px) saturate(180%);
+          -webkit-backdrop-filter: blur(24px) saturate(180%);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          transition: background 0.3s ease;
         }
-        body.light .social-nav { background: rgba(244, 250, 249, 0.92); border-bottom-color: #b2dfdb; }
+        body.light .social-nav {
+          background: rgba(244, 250, 249, 0.78);
+          border-bottom-color: rgba(13, 148, 136, 0.18);
+        }
         .social-nav-container {
           max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; height: 72px;
           display: flex; align-items: center; justify-content: space-between;
