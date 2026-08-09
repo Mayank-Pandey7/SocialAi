@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-const API = axios.create({ baseURL: 'https://socialai-backend-1ptw.onrender.com/api' });
+const API = axios.create({ baseURL: 'https://neyrix-backend-1ptw.onrender.com/api' });
 
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');

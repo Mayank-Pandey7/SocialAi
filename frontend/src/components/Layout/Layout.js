@@ -146,7 +146,7 @@ export default function Layout() {
 
 const styles = {
   wrapper:      { display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' },
-  mobileTopBar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', height: 56, background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderBottom: 'none', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 150 },
+  mobileTopBar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', height: 56, background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', WebkitMaskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%)', maskImage: 'linear-gradient(to bottom, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%)', borderBottom: 'none', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 150 },
   hamburger:    { background: 'transparent', border: 'none', color: 'var(--text-primary)', fontSize: '1.1rem', cursor: 'pointer', padding: '0.5rem' },
   iconBtn:      { background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '0.4rem', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   overlay:      { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 150 },

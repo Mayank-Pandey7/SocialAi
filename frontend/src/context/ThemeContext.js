@@ -9,15 +9,25 @@ export const ThemeProvider = ({ children }) => {
     return saved ? saved === 'dark' : true;
   });
 
-  // Apply theme class to body on mount and change
+  // Apply theme classes to body and documentElement on mount and change
   useEffect(() => {
-    document.body.classList.toggle('light', !isDark);
+    if (isDark) {
+      document.body.classList.add('dark', 'dark-mode');
+      document.body.classList.remove('light', 'light-mode');
+      document.documentElement.classList.add('dark', 'dark-mode');
+      document.documentElement.classList.remove('light', 'light-mode');
+    } else {
+      document.body.classList.add('light', 'light-mode');
+      document.body.classList.remove('dark', 'dark-mode');
+      document.documentElement.classList.add('light', 'light-mode');
+      document.documentElement.classList.remove('dark', 'dark-mode');
+    }
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
   }, [isDark]);
 
   const toggleTheme = () => setIsDark(prev => !prev);
 
-  // Allow external code (e.g. Layout.js after login) to sync theme
+  // Allow external code to sync theme
   const setTheme = (dark) => setIsDark(dark);
 
   return (
