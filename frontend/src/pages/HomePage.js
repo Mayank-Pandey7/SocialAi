@@ -40,7 +40,7 @@ export default function HomePage() {
 
       {/* ─── NEYRIX AI HOSTINGER ECOMMERCE-STYLE DESIGN SYSTEM STYLES ─── */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playpen+Sans:wght@100..800&display=swap');
 
         :root {
           --sai-bg: #ffffff;
@@ -57,18 +57,19 @@ export default function HomePage() {
           --sai-border: #e5e7eb;
           --sai-dark-border: #1e293b;
           --sai-font-sans: 'Playpen Sans', cursive, sans-serif;
-          --sai-font-display: 'Playpen Sans', cursive, sans-serif;
+          --sai-font-display: 'Libre Caslon Text', 'Crimson Pro', Georgia, serif;
         }
 
         body.dark, body.dark-mode {
           --sai-bg: #000000;
           --sai-bg-alt: #000000;
           --sai-dark-bg: #000000;
-          --sai-dark-card: #09090b;
+          --sai-dark-card: #08080a;
           --sai-text-primary: #ffffff;
           --sai-text-secondary: #a1a1aa;
           --sai-text-muted: #71717a;
           --sai-border: #18181b;
+          --sai-hero-tint: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 75%);
         }
 
         body.light, body.light-mode {
@@ -78,6 +79,7 @@ export default function HomePage() {
           --sai-text-secondary: #4b5563;
           --sai-text-muted: #6b7280;
           --sai-border: #e5e7eb;
+          --sai-hero-tint: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.6) 40%, transparent 75%);
         }
 
         .neyrix-landing-page {
@@ -226,33 +228,37 @@ export default function HomePage() {
           max-width: 1240px;
           height: 64px;
           z-index: 100;
-          background: rgba(255, 255, 255, 0.72);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          border: 1px solid rgba(229, 231, 235, 0.8);
+          background: rgba(255, 255, 255, 0.55);
+          backdrop-filter: blur(12px) saturate(180%);
+          -webkit-backdrop-filter: blur(12px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.6);
+          border-bottom: 1px solid rgba(229, 231, 235, 0.6);
           border-radius: 50px;
           padding: 0 1.25rem;
-          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
         }
 
         body.dark .sai-navbar, body.dark-mode .sai-navbar {
-          background: rgba(15, 23, 42, 0.75);
-          border-color: rgba(255, 255, 255, 0.12);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+          background: rgba(15, 23, 42, 0.55);
+          backdrop-filter: blur(12px) saturate(180%);
+          -webkit-backdrop-filter: blur(12px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.15);
         }
 
         .sai-navbar.scrolled {
           top: 10px;
-          background: rgba(255, 255, 255, 0.88);
-          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+          background: rgba(255, 255, 255, 0.72);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), inset 0 1px 1px rgba(255, 255, 255, 1);
         }
 
         body.dark .sai-navbar.scrolled, body.dark-mode .sai-navbar.scrolled {
-          background: rgba(10, 15, 28, 0.88);
-          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+          background: rgba(10, 15, 28, 0.72);
+          box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
 
         .sai-nav-container {
@@ -281,7 +287,7 @@ export default function HomePage() {
         }
 
         .sai-brand-name {
-          font-family: var(--sai-font-display);
+          font-family: var(--sai-font-sans);
           font-weight: 700;
           font-size: 1.25rem;
           letter-spacing: -0.02em;
@@ -303,15 +309,19 @@ export default function HomePage() {
         }
 
         .sai-nav-links a {
-          color: var(--sai-text-secondary);
+          color: #ffffff !important;
           text-decoration: none;
           font-size: 0.9rem;
-          font-weight: 600;
-          transition: color 0.2s ease;
+          font-weight: 700;
+          transition: all 0.2s ease;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         .sai-nav-links a:hover {
-          color: var(--sai-accent);
+          color: #ffffff !important;
+          opacity: 1;
+          transform: translateY(-1px);
+          text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 1px 3px rgba(0, 0, 0, 0.8);
         }
 
         .sai-nav-actions {
@@ -381,22 +391,30 @@ export default function HomePage() {
         .sai-mobile-menu {
           position: absolute;
           top: 72px; left: 0; right: 0;
-          background: var(--sai-bg);
-          border: 1px solid var(--sai-border);
+          background: rgba(255, 255, 255, 0.85);
+          backdrop-filter: blur(14px) saturate(180%);
+          -webkit-backdrop-filter: blur(14px) saturate(180%);
+          border: 1px solid rgba(255, 255, 255, 0.6);
           border-radius: 24px;
           padding: 1.5rem;
           display: flex;
           flex-direction: column;
           gap: 1rem;
-          box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-          backdrop-filter: blur(16px);
+          box-shadow: 0 20px 45px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        body.dark .sai-mobile-menu, body.dark-mode .sai-mobile-menu {
+          background: rgba(15, 23, 42, 0.85);
+          border-color: rgba(255, 255, 255, 0.16);
+          box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.15);
         }
 
         .sai-mobile-menu a {
-          color: var(--sai-text-primary);
+          color: #ffffff !important;
           text-decoration: none;
           font-size: 1rem;
-          font-weight: 600;
+          font-weight: 700;
+          text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         .mobile-btn-group {
@@ -429,7 +447,7 @@ export default function HomePage() {
         .sai-hero-section {
           padding: 11rem 1.5rem 4rem;
           text-align: center;
-          background: radial-gradient(circle at 50% 0%, var(--sai-accent-soft) 0%, transparent 65%);
+          background: var(--sai-hero-tint);
         }
 
         .sai-hero-container {
@@ -1569,13 +1587,12 @@ export default function HomePage() {
         .sai-final-cta-card {
           max-width: 1100px;
           margin: 0 auto;
-          background: #000000;
-          border: 1px solid var(--sai-border);
+          background: linear-gradient(135deg, #0b0b0f 0%, #171b26 100%);
           border-radius: 24px;
           padding: 5rem 2rem;
           text-align: center;
           color: #ffffff;
-          box-shadow: 0 25px 60px rgba(0,0,0,0.35);
+          box-shadow: 0 25px 60px rgba(0,0,0,0.25);
           position: relative;
           overflow: hidden;
         }
@@ -1650,7 +1667,7 @@ export default function HomePage() {
         }
 
         .footer-logo-img { width: 32px; height: 32px; object-fit: contain; }
-        .brand-name { font-family: var(--sai-font-display); font-weight: 700; font-size: 1.25rem; }
+        .brand-name { font-family: var(--sai-font-sans); font-weight: 700; font-size: 1.25rem; }
 
         .brand-tagline { font-size: 0.88rem; color: var(--sai-text-muted); line-height: 1.65; max-width: 320px; margin-bottom: 1.25rem; }
 
