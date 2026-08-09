@@ -53,7 +53,7 @@ export default function Layout() {
       {/* ── Mobile Top Bar ── */}
       <div className="mobile-topbar" style={styles.mobileTopBar}>
         <div style={styles.logo}>
-          <span style={styles.logoIcon}>⚡</span>
+          <img src="/logo.png" alt="NEYRIX AI Logo" style={{ width: 28, height: 28, objectFit: 'contain' }} />
           <span style={styles.logoText}>NEYRIX AI</span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -76,7 +76,7 @@ export default function Layout() {
       >
         {/* Logo */}
         <div style={styles.logoRow}>
-          <span style={styles.logoIcon}>⚡</span>
+          <img src="/logo.png" alt="NEYRIX AI Logo" style={{ width: 28, height: 28, objectFit: 'contain' }} />
           {!collapsed && <span style={styles.logoText}>NEYRIX AI</span>}
           <button onClick={() => setCollapsed(c => !c)} style={styles.collapseBtn} className="collapse-btn">
             <FontAwesomeIcon icon={collapsed ? faChevronRight : faChevronLeft} />

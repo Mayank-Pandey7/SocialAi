@@ -486,7 +486,7 @@ export default function HomePage() {
       <nav className="social-nav">
         <div className="social-nav-container">
           <Link to="/" className="social-brand">
-            <div className="social-logo-symbol">✦</div>
+            <img src="/logo.png" alt="NEYRIX AI Logo" className="social-logo-img" />
             <span className="social-brand-name">NEYRIX AI</span>
             <span className="social-v2-badge">v2.0</span>
           </Link>
@@ -730,7 +730,7 @@ export default function HomePage() {
         <div className="social-footer-inner">
           <div className="social-footer-brand">
             <div className="social-brand">
-              <div className="social-logo-symbol">✦</div>
+              <img src="/logo.png" alt="NEYRIX AI Logo" className="social-logo-img" />
               <span className="social-brand-name">NEYRIX AI</span>
             </div>
             <p className="tagline">Next-generation AI social media content platform.</p>
@@ -795,10 +795,8 @@ export default function HomePage() {
           display: flex; align-items: center; justify-content: space-between;
         }
         .social-brand { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: inherit; }
-        .social-logo-symbol {
-          width: 36px; height: 36px; border-radius: 10px;
-          background: #0d9488;
-          display: flex; align-items: center; justify-content: center; color: #fff; font-size: 1.1rem;
+        .social-logo-img {
+          width: 36px; height: 36px; object-fit: contain; border-radius: 8px;
         }
         .social-brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.3rem; }
         .social-v2-badge {

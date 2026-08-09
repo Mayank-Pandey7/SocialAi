@@ -53,7 +53,7 @@ export default function RegisterPage() {
       <div style={styles.card} className="fade-in">
         <div style={{ ...styles.logo, justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <span style={styles.logoIcon}>⚡</span>
+            <img src="/logo.png" alt="NEYRIX AI Logo" style={{ width: 32, height: 32, objectFit: 'contain' }} />
             <span style={styles.logoText}>NEYRIX AI</span>
           </div>
           <button
