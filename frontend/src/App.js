@@ -13,27 +13,33 @@ import Analyzer     from './pages/Analyzer';
 import Scheduler    from './pages/Scheduler';
 import Layout       from './components/Layout/Layout';
 
-const ProtectedRoute = ({ children }) => {
+const ProtectedLayout = () => {
   const { user, loading } = useAuth();
-  if (loading) return <div style={{ display:'flex', alignItems:'center', justifyContent:'center', height:'100vh', background:'#060912', color:'#fff' }}>Loading...</div>;
-  return user ? children : <Navigate to="/" replace />;
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh', background: '#000000', color: '#fff' }}>
+        Loading...
+      </div>
+    );
+  }
+  return user ? <Layout /> : <Navigate to="/" replace />;
 };
 
 function AppRoutes() {
   const { user } = useAuth();
   return (
     <Routes>
-      <Route path="/"         element={user ? <Navigate to="/dashboard" /> : <HomePage />} />
-      <Route path="/login"    element={user ? <Navigate to="/dashboard" /> : <LoginPage />} />
-      <Route path="/register" element={user ? <Navigate to="/dashboard" /> : <RegisterPage />} />
-      <Route element={<ProtectedRoute><Layout /></ProtectedRoute>}>
+      <Route path="/"         element={user ? <Navigate to="/dashboard" replace /> : <HomePage />} />
+      <Route path="/login"    element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
+      <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <RegisterPage />} />
+      <Route element={<ProtectedLayout />}>
         <Route path="dashboard"  element={<Dashboard />} />
         <Route path="generator"  element={<Generator />} />
         <Route path="trending"   element={<Trending />} />
         <Route path="analyzer"   element={<Analyzer />} />
         <Route path="scheduler"  element={<Scheduler />} />
       </Route>
-      <Route path="*" element={<Navigate to="/" />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }
@@ -43,7 +49,7 @@ export default function App() {
     <ThemeProvider>
       <AuthProvider>
         <Router>
-          <Toaster position="top-right" toastOptions={{ style: { background:'#1a1f2e', color:'#e5e7eb', border:'1px solid rgba(255,255,255,0.1)' } }} />
+          <Toaster position="top-right" toastOptions={{ style: { background: '#1a1f2e', color: '#e5e7eb', border: '1px solid rgba(255,255,255,0.1)' } }} />
           <AppRoutes />
         </Router>
       </AuthProvider>
