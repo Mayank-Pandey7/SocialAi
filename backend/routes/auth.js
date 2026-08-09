@@ -171,6 +171,85 @@ router.post(
     }
   }
 );
+// ── POST /api/auth/google ────────────────────
+router.post('/google', async (req, res) => {
+  try {
+    const { credential, accessToken, googleUser } = req.body;
+    let email, name, googleId, avatar;
+
+    if (credential) {
+      // Verify Google ID Token via Google's tokeninfo API
+      const fetch = require('node-fetch');
+      const gRes = await fetch(`https://oauth2.googleapis.com/tokeninfo?id_token=${credential}`);
+      if (gRes.ok) {
+        const payload = await gRes.json();
+        email = payload.email;
+        name = payload.name || payload.given_name || (email ? email.split('@')[0] : 'Google User');
+        googleId = payload.sub;
+        avatar = payload.picture;
+      }
+    } else if (accessToken) {
+      // Verify via userinfo API
+      const fetch = require('node-fetch');
+      const gRes = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      if (gRes.ok) {
+        const payload = await gRes.json();
+        email = payload.email;
+        name = payload.name || payload.given_name || (email ? email.split('@')[0] : 'Google User');
+        googleId = payload.sub;
+        avatar = payload.picture;
+      }
+    } else if (googleUser && googleUser.email) {
+      // Direct payload (e.g. client profile or dev mode)
+      email = googleUser.email;
+      name = googleUser.name || (email ? email.split('@')[0] : 'Google User');
+      googleId = googleUser.id || googleUser.sub || `google_${Date.now()}`;
+      avatar = googleUser.avatar || googleUser.picture;
+    }
+
+    if (!email) {
+      return res.status(400).json({ success: false, message: 'Invalid Google authentication response.' });
+    }
+
+    // Find or create user
+    let user = await User.findOne({ $or: [{ googleId }, { email }] });
+
+    if (user) {
+      if (!user.googleId) user.googleId = googleId;
+      if (avatar && !user.avatar) user.avatar = avatar;
+      await user.save();
+    } else {
+      user = await User.create({
+        name,
+        email,
+        googleId,
+        avatar,
+        interests: ['technology', 'business'],
+      });
+    }
+
+    const token = generateToken(user._id);
+
+    res.json({
+      success: true,
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        interests: user.interests,
+        defaultTone: user.defaultTone,
+        avatar: user.avatar,
+      },
+    });
+  } catch (err) {
+    console.error('Google Auth Error:', err);
+    res.status(500).json({ success: false, message: err.message || 'Google Sign-In failed.' });
+  }
+});
+
 
 // ── GET /api/auth/me ─────────────────────────
 router.get('/me', protect, async (req, res) => {

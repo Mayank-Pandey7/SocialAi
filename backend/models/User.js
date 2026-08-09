@@ -18,10 +18,14 @@ const UserSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, 'Password is required'],
+      required: function () {
+        return !this.googleId;
+      },
       minlength: [6, 'Password must be at least 6 characters'],
       select: false, // Don't return password in queries by default
     },
+    googleId: { type: String },
+    avatar: { type: String },
     // User's selected interests for content generation
     interests: {
       type: [String],

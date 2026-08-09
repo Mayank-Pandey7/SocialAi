@@ -2,7 +2,8 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 
 const AuthContext = createContext();
-const API = axios.create({ baseURL: 'https://neyrix-backend-1ptw.onrender.com/api' });
+const API_BASE = process.env.REACT_APP_API_URL || (typeof window !== 'undefined' && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') ? 'http://localhost:5000/api' : 'https://neyrix-backend-1ptw.onrender.com/api');
+const API = axios.create({ baseURL: API_BASE });
 
 API.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
@@ -29,6 +30,13 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     const res = await API.post('/auth/login', { email, password });
+    localStorage.setItem('token', res.data.token);
+    setUser(res.data.user);
+    return res.data;
+  };
+
+  const googleLogin = async (payload) => {
+    const res = await API.post('/auth/google', payload);
     localStorage.setItem('token', res.data.token);
     setUser(res.data.user);
     return res.data;
@@ -65,7 +73,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, sendOtp, verifyOtp, register, logout, updateProfile, API }}>
+    <AuthContext.Provider value={{ user, loading, login, googleLogin, sendOtp, verifyOtp, register, logout, updateProfile, API }}>
       {children}
     </AuthContext.Provider>
   );

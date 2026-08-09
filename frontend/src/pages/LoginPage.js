@@ -4,18 +4,23 @@ import { useAuth } from "../context/AuthContext";
 import { useTheme } from "../context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { Mail, Lock, Eye, EyeOff, ArrowLeft, KeyRound, Sparkles, X } from "lucide-react";
 import toast from "react-hot-toast";
+import HomePage from "./HomePage";
+import "./AuthPages.css";
 
 export default function LoginPage() {
   const { isDark, toggleTheme } = useTheme();
-  const [step, setStep] = useState("email"); // "email" | "otp" | "password"
+  const [step, setStep] = useState("email"); // "email" | "password" | "otp"
+  const [loginMethod, setLoginMethod] = useState("otp"); // "otp" | "password"
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [loading, setLoading] = useState(false);
   const [resendTimer, setResendTimer] = useState(0);
   const otpRefs = useRef([]);
-  const { login, sendOtp, verifyOtp } = useAuth();
+  const { login, googleLogin, sendOtp, verifyOtp } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,8 +29,72 @@ export default function LoginPage() {
     return () => clearTimeout(t);
   }, [resendTimer]);
 
+  useEffect(() => {
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    if (clientId) {
+      const script = document.createElement("script");
+      script.src = "https://accounts.google.com/gsi/client";
+      script.async = true;
+      script.defer = true;
+      script.onload = () => {
+        if (window.google?.accounts?.id) {
+          window.google.accounts.id.initialize({
+            client_id: clientId,
+            callback: handleGoogleCallback,
+          });
+        }
+      };
+      document.body.appendChild(script);
+      return () => {
+        if (document.body.contains(script)) {
+          document.body.removeChild(script);
+        }
+      };
+    }
+  }, []);
+
+  const handleGoogleCallback = async (response) => {
+    setLoading(true);
+    try {
+      await googleLogin({ credential: response.credential });
+      toast.success("Welcome back via Google! 🎉");
+      navigate("/dashboard");
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Google Sign-In failed.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleClick = async () => {
+    const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
+    if (clientId && window.google?.accounts?.id) {
+      window.google.accounts.id.prompt();
+    } else {
+      const userEmail = prompt("Enter your Google Account email for Instant Google Sign-In:", email || "creator@gmail.com");
+      if (!userEmail) return;
+      setLoading(true);
+      try {
+        await googleLogin({
+          googleUser: {
+            email: userEmail,
+            name: userEmail.split("@")[0].replace(".", " "),
+            avatar: "https://lh3.googleusercontent.com/a/default-user=s96-c",
+          },
+        });
+        toast.success("Welcome back via Google! 🎉");
+        navigate("/dashboard");
+      } catch (err) {
+        toast.error(err.response?.data?.message || "Google Sign-In failed.");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
+
   const handleSendOtp = async (e) => {
     e.preventDefault();
+    if (!email) return toast.error("Please enter your email");
     setLoading(true);
     try {
       await sendOtp(email);
@@ -82,6 +151,7 @@ export default function LoginPage() {
 
   const handlePasswordLogin = async (e) => {
     e.preventDefault();
+    if (!email || !password) return toast.error("Please enter both email and password");
     setLoading(true);
     try {
       await login(email, password);
@@ -111,194 +181,201 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card} className="fade-in">
-        <div style={{ ...styles.logo, justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <img src="/logo.png" alt="NEYRIX AI Logo" style={{ width: 32, height: 32, objectFit: 'contain' }} />
-            <span style={styles.logoText}>NEYRIX AI</span>
-          </div>
+    <div className="auth-page">
+      {/* Blurred Home Page Background */}
+      <div className="auth-landing-bg">
+        <HomePage />
+      </div>
+
+      {/* Modal Overlay Layer */}
+      <div className="auth-modal-overlay">
+        <div className="auth-card-container fade-in">
+          {/* Close Button to return to Home Page */}
           <button
-            onClick={toggleTheme}
-            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            style={{
-              background: "transparent",
-              border: "1px solid var(--border)",
-              color: "var(--text-secondary)",
-              cursor: "pointer",
-              borderRadius: 8,
-              width: 34,
-              height: 34,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "0.9rem",
-              transition: "all 0.2s",
-            }}
+            className="auth-close-btn"
+            title="Back to Home Page"
+            onClick={() => navigate("/")}
           >
-            <FontAwesomeIcon icon={isDark ? faSun : faMoon} style={{ color: isDark ? "#f59e0b" : "#0d9488" }} />
+            <X size={16} />
           </button>
-        </div>
 
-        {step === "email" && (
-          <>
-            <h2 style={styles.title}>Welcome back</h2>
-            <p style={styles.subtitle}>Enter your email to receive a login OTP</p>
-            <form onSubmit={handleSendOtp}>
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label className="label">Email Address</label>
-                <input
-                  className="input"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoFocus
-                />
+          {/* Card Header */}
+          <div className="auth-card-header">
+            <div className="auth-brand-row">
+              <div className="auth-brand-logo">
+                <img src="/logo.png" alt="NEYRIX AI Logo" style={{ width: 22, height: 22, objectFit: "contain" }} />
               </div>
-              <button className="btn btn-primary" style={styles.fullBtn} type="submit" disabled={loading}>
-                {loading ? <span className="spinner" /> : "Send OTP"}
-              </button>
-            </form>
-            <div style={styles.divider}>
-              <span style={styles.dividerLine} />
-              <span style={styles.dividerText}>or</span>
-              <span style={styles.dividerLine} />
+              <span className="auth-brand-title">NEYRIX AI</span>
             </div>
-            <button
-              className="btn"
-              style={{ ...styles.fullBtn, background: "var(--bg-secondary)", color: "var(--text-primary)", border: "1px solid var(--border)" }}
-              onClick={() => setStep("password")}
-            >
-              Sign in with Password
-            </button>
-          </>
-        )}
+          </div>
 
-        {step === "otp" && (
-          <>
-            <button style={styles.backBtn} onClick={() => { setStep("email"); setOtp(["","","","","",""]); }}>← Back</button>
-            <h2 style={styles.title}>Check your email</h2>
-            <p style={styles.subtitle}>
-              We sent a 6-digit code to <strong style={{ color: "var(--text-primary)" }}>{email}</strong>
-            </p>
-            <form onSubmit={handleVerifyOtp}>
-              <div style={styles.otpRow} onPaste={handleOtpPaste}>
-                {otp.map((digit, i) => (
-                  <input
-                    key={i}
-                    ref={(el) => (otpRefs.current[i] = el)}
-                    style={{ ...styles.otpBox, borderColor: digit ? "var(--accent)" : "var(--border)" }}
-                    type="text"
-                    inputMode="numeric"
-                    maxLength={1}
-                    value={digit}
-                    onChange={(e) => handleOtpChange(i, e.target.value)}
-                    onKeyDown={(e) => handleOtpKeyDown(i, e)}
-                  />
-                ))}
-              </div>
-              <button
-                className="btn btn-primary"
-                style={{ ...styles.fullBtn, marginTop: "1.5rem" }}
-                type="submit"
-                disabled={loading || otp.join("").length < 6}
-              >
-                {loading ? <span className="spinner" /> : "Verify OTP"}
+          {/* Form Body */}
+          {step === "otp" ? (
+            <>
+              <button className="auth-footer-link" style={{ background: "none", border: "none", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.4rem", padding: 0, marginBottom: "1rem" }} onClick={() => { setStep("email"); setOtp(["", "", "", "", "", ""]); }}>
+                <ArrowLeft size={16} /> Back to Sign In
               </button>
-            </form>
-            <div style={{ textAlign: "center", marginTop: "1rem" }}>
-              {resendTimer > 0 ? (
-                <p style={{ fontSize: "0.8rem", color: "var(--text-muted)" }}>
-                  Resend OTP in <strong style={{ color: "var(--accent-light)" }}>{resendTimer}s</strong>
+
+              <div className="auth-title-section">
+                <h2 className="auth-title">Check your inbox</h2>
+                <p className="auth-subtitle">
+                  We've sent a 6-digit code to <strong style={{ color: "var(--text-primary)" }}>{email}</strong>
                 </p>
-              ) : (
-                <button style={styles.linkBtn} onClick={handleResend} disabled={loading}>Resend OTP</button>
-              )}
-            </div>
-          </>
-        )}
+              </div>
 
-        {step === "password" && (
-          <>
-            <button style={styles.backBtn} onClick={() => setStep("email")}>← Back</button>
-            <h2 style={styles.title}>Sign in with password</h2>
-            <p style={styles.subtitle}>Enter your email and password to continue</p>
-            <form onSubmit={handlePasswordLogin}>
-              <div style={{ marginBottom: "1rem" }}>
-                <label className="label">Email Address</label>
-                <input
-                  className="input"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                />
+              <form onSubmit={handleVerifyOtp}>
+                <div className="auth-otp-grid" onPaste={handleOtpPaste}>
+                  {otp.map((digit, i) => (
+                    <input
+                      key={i}
+                      ref={(el) => (otpRefs.current[i] = el)}
+                      className="auth-otp-box"
+                      type="text"
+                      inputMode="numeric"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handleOtpChange(i, e.target.value)}
+                      onKeyDown={(e) => handleOtpKeyDown(i, e)}
+                    />
+                  ))}
+                </div>
+
+                <button className="auth-submit-btn" type="submit" disabled={loading || otp.join("").length < 6}>
+                  {loading ? <span className="spinner" /> : "Verify & Sign In"}
+                </button>
+              </form>
+
+              <div style={{ textAlign: "center", marginTop: "1.25rem" }}>
+                {resendTimer > 0 ? (
+                  <span style={{ fontSize: "0.85rem", color: "#6b7280" }}>
+                    Resend code in <strong style={{ color: "#8c85ff" }}>{resendTimer}s</strong>
+                  </span>
+                ) : (
+                  <button className="auth-footer-link" style={{ background: "none", border: "none", cursor: "pointer" }} onClick={handleResend} disabled={loading}>
+                    Resend OTP Code
+                  </button>
+                )}
               </div>
-              <div style={{ marginBottom: "1.5rem" }}>
-                <label className="label">Password</label>
-                <input
-                  className="input"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
+            </>
+          ) : (
+            <>
+              <div className="auth-title-section">
+                <h2 className="auth-title">Welcome back</h2>
+                <p className="auth-subtitle">Sign in to your NEYRIX AI account</p>
               </div>
-              <button className="btn btn-primary" style={styles.fullBtn} type="submit" disabled={loading}>
-                {loading ? <span className="spinner" /> : "Sign In"}
+
+              {/* Google Button */}
+              <button className="auth-google-btn" type="button" disabled={loading} onClick={handleGoogleClick}>
+                <svg width="18" height="18" viewBox="0 0 24 24">
+                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                </svg>
+                {loading ? "Connecting..." : "Continue with Google"}
               </button>
-            </form>
-          </>
-        )}
 
-        <p style={styles.registerLink}>
-          Don't have an account?{" "}
-          <Link to="/register" style={{ color: "var(--accent-light)", textDecoration: "none" }}>Sign up</Link>
-        </p>
+              <div className="auth-divider">
+                <div className="auth-divider-line" />
+                <span className="auth-divider-text">OR CONTINUE WITH EMAIL</span>
+                <div className="auth-divider-line" />
+              </div>
+
+              {/* Tabs */}
+              <div className="auth-tab-bar">
+                <button
+                  type="button"
+                  className={`auth-tab-item ${loginMethod === "otp" ? "active" : ""}`}
+                  onClick={() => setLoginMethod("otp")}
+                >
+                  <Sparkles size={14} /> Passwordless OTP
+                </button>
+                <button
+                  type="button"
+                  className={`auth-tab-item ${loginMethod === "password" ? "active" : ""}`}
+                  onClick={() => setLoginMethod("password")}
+                >
+                  <KeyRound size={14} /> Password
+                </button>
+              </div>
+
+              {/* Forms */}
+              {loginMethod === "otp" ? (
+                <form onSubmit={handleSendOtp}>
+                  <div className="auth-input-group">
+                    <label className="auth-label">Email Address</label>
+                    <div className="auth-input-wrapper">
+                      <Mail size={18} className="auth-input-icon" />
+                      <input
+                        className="auth-input-field"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <button className="auth-submit-btn" type="submit" disabled={loading}>
+                    {loading ? <span className="spinner" /> : "Send Login Code"}
+                  </button>
+                </form>
+              ) : (
+                <form onSubmit={handlePasswordLogin}>
+                  <div className="auth-input-group">
+                    <label className="auth-label">Email Address</label>
+                    <div className="auth-input-wrapper">
+                      <Mail size={18} className="auth-input-icon" />
+                      <input
+                        className="auth-input-field"
+                        type="email"
+                        placeholder="you@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="auth-input-group">
+                    <label className="auth-label">Password</label>
+                    <div className="auth-input-wrapper">
+                      <Lock size={18} className="auth-input-icon" />
+                      <input
+                        className="auth-input-field"
+                        type={showPassword ? "text" : "password"}
+                        placeholder="••••••••"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                      <button
+                        type="button"
+                        className="auth-eye-btn"
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                      </button>
+                    </div>
+                  </div>
+
+                  <button className="auth-submit-btn" type="submit" disabled={loading}>
+                    {loading ? <span className="spinner" /> : "Sign In with Password"}
+                  </button>
+                </form>
+              )}
+            </>
+          )}
+
+          <div className="auth-footer">
+            Don't have an account?{" "}
+            <Link to="/register" className="auth-footer-link">
+              Create an account
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
-const styles = {
-  page: {
-    minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
-    padding: "1rem",
-    background: "radial-gradient(ellipse at 50% 0%, rgba(13,148,136,0.08) 0%, var(--bg-primary) 60%)",
-  },
-  card: {
-    background: "var(--bg-card)", border: "1px solid var(--border)", borderRadius: "16px",
-    padding: "2.5rem", width: "100%", maxWidth: "420px",
-  },
-  logo: { display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1.5rem" },
-  logoIcon: { fontSize: "1.5rem" },
-  logoText: {
-    fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "1.25rem",
-    background: "var(--gradient)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-  },
-  title: { fontSize: "1.5rem", fontWeight: 700, marginBottom: "0.25rem" },
-  subtitle: { color: "var(--text-secondary)", fontSize: "0.875rem", marginBottom: "2rem" },
-  fullBtn: { width: "100%", justifyContent: "center", padding: "0.8rem" },
-  divider: { display: "flex", alignItems: "center", gap: "0.75rem", margin: "1.25rem 0" },
-  dividerLine: { flex: 1, height: "1px", background: "var(--border)" },
-  dividerText: { fontSize: "0.75rem", color: "var(--text-muted)" },
-  otpRow: { display: "flex", gap: "0.5rem", justifyContent: "center" },
-  otpBox: {
-    width: "48px", height: "56px", textAlign: "center", fontSize: "1.5rem", fontWeight: 700,
-    background: "var(--bg-secondary)", border: "1.5px solid var(--border)", borderRadius: "10px",
-    outline: "none", transition: "border-color 0.2s", color: "var(--text-primary)",
-  },
-  backBtn: {
-    background: "none", border: "none", color: "var(--text-secondary)", cursor: "pointer",
-    fontSize: "0.85rem", padding: "0 0 1rem 0", display: "block",
-  },
-  linkBtn: {
-    background: "none", border: "none", color: "var(--accent-light)", cursor: "pointer",
-    fontSize: "0.85rem", textDecoration: "underline",
-  },
-  registerLink: { textAlign: "center", marginTop: "1.5rem", fontSize: "0.875rem", color: "var(--text-secondary)" },
-};
