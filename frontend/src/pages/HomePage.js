@@ -3,7 +3,6 @@ import Navbar from "../components/landing/Navbar";
 import Hero from "../components/landing/Hero";
 import ProductPreview from "../components/landing/ProductPreview";
 import Stories from "../components/landing/Stories";
-import SectionNav from "../components/landing/SectionNav";
 import HowItWorks from "../components/landing/HowItWorks";
 import GeneratorShowcase from "../components/landing/GeneratorShowcase";
 import MultiPlatformShowcase from "../components/landing/MultiPlatformShowcase";
@@ -25,7 +24,6 @@ export default function HomePage() {
         <Hero />
         <ProductPreview />
         <Stories />
-        <SectionNav />
         <HowItWorks />
         <GeneratorShowcase />
         <MultiPlatformShowcase />
@@ -64,13 +62,24 @@ export default function HomePage() {
 
         body.dark, body.dark-mode {
           --sai-bg: #000000;
-          --sai-bg-alt: #050508;
+          --sai-bg-alt: #000000;
           --sai-dark-bg: #000000;
-          --sai-dark-card: #09090b;
+          --sai-dark-card: #0a0a0d;
           --sai-text-primary: #ffffff;
           --sai-text-secondary: #a1a1aa;
           --sai-text-muted: #71717a;
           --sai-border: #18181b;
+        }
+
+        body.dark section, body.dark-mode section,
+        body.dark footer, body.dark-mode footer,
+        body.dark .sai-stories-section, body.dark-mode .sai-stories-section,
+        body.dark .sai-generator-showcase-section, body.dark-mode .sai-generator-showcase-section,
+        body.dark .sai-analytics-showcase-section, body.dark-mode .sai-analytics-showcase-section,
+        body.dark .sai-scheduler-showcase-section, body.dark-mode .sai-scheduler-showcase-section,
+        body.dark .sai-platform-showcase-section, body.dark-mode .sai-platform-showcase-section,
+        body.dark .sai-footer-section, body.dark-mode .sai-footer-section {
+          background-color: #000000 !important;
         }
 
         body.light, body.light-mode {
