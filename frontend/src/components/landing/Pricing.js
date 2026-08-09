@@ -59,7 +59,7 @@ export default function Pricing() {
     <section id="pricing" className="sai-pricing-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Transparent Plans</span>
+
           <h2 className="sai-section-title">Choose the way you want to grow.</h2>
           <p className="sai-section-sub">
             Start for free and upgrade as your audience and content workflow expand.

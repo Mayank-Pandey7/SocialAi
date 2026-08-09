@@ -58,7 +58,7 @@ export default function Stories() {
     <section className="sai-stories-section">
       <div className="sai-stories-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Product Use Cases</span>
+
           <h2 className="sai-section-title">Built for creators, teams, and businesses like yours.</h2>
           <p className="sai-section-sub">
             Discover how NEYRIX AI simplifies content creation and audience growth across every industry.

@@ -39,7 +39,7 @@ export default function MultiPlatformShowcase() {
     <section className="sai-multi-platform-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Smart Adaptation</span>
+
           <h2 className="sai-section-title">One idea. Every platform.</h2>
           <p className="sai-section-sub">
             NEYRIX AI automatically re-formats line spacing, hashtag density, tone, and character count specifically for each platform's algorithm.

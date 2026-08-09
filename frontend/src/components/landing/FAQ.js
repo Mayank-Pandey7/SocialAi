@@ -44,7 +44,7 @@ export default function FAQ() {
     <section id="faq" className="sai-faq-section">
       <div className="sai-faq-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Frequently Asked</span>
+
           <h2 className="sai-section-title">Got questions? We've got answers.</h2>
           <p className="sai-section-sub">
             Everything you need to know about NEYRIX AI content generation, analytics, and plans.

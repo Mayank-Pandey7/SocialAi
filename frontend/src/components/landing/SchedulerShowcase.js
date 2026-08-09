@@ -71,7 +71,7 @@ export default function SchedulerShowcase() {
     <section className="sai-scheduler-showcase-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Smart Calendar</span>
+
           <h2 className="sai-section-title">Plan your content. Stay consistent.</h2>
           <p className="sai-section-sub">
             Organize queues, automate posting schedules, and keep your multi-channel brand active without manual stress.

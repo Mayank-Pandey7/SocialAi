@@ -79,7 +79,7 @@ export default function AIFeatures() {
     <section id="ai-features" className="sai-ai-features-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Core Capabilities</span>
+
           <h2 className="sai-section-title">AI that works with you.</h2>
           <p className="sai-section-sub">
             Powerful AI tools engineered to eliminate friction at every stage of your content workflow.

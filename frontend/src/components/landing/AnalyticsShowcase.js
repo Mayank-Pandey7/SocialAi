@@ -77,7 +77,7 @@ export default function AnalyticsShowcase() {
     <section id="analytics" className="sai-analytics-showcase-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Data-Driven Insights</span>
+
           <h2 className="sai-section-title">Know what's working.</h2>
           <p className="sai-section-sub">
             Turn your social data into clear insights so you can create more of what your audience actually responds to.

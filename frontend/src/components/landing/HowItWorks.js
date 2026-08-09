@@ -54,7 +54,7 @@ export default function HowItWorks() {
     <section id="how-it-works" className="sai-how-it-works-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Seamless Workflow</span>
+
           <h2 className="sai-section-title">Start creating in minutes.</h2>
           <p className="sai-section-sub">
             Four simple steps to transform raw ideas into multi-channel social media success.

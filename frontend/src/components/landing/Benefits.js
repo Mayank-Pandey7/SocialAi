@@ -38,7 +38,7 @@ export default function Benefits() {
     <section className="sai-benefits-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">The NEYRIX AI Advantage</span>
+
           <h2 className="sai-section-title">Why NEYRIX AI?</h2>
           <p className="sai-section-sub">
             Designed from the ground up to give creators, marketers, and founders unfair leverage.

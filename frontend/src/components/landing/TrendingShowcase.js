@@ -43,7 +43,7 @@ export default function TrendingShowcase() {
     <section className="sai-trending-showcase-section">
       <div className="sai-section-container">
         <div className="sai-section-header">
-          <span className="sai-eyebrow">Real-Time Topic Feed</span>
+
           <h2 className="sai-section-title">Never run out of things to post.</h2>
           <p className="sai-section-sub">
             NEYRIX AI continuously monitors global tech & industry conversations to suggest viral content angles before they peak.

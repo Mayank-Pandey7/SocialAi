@@ -10,7 +10,7 @@ import AnalyticsShowcase from "../components/landing/AnalyticsShowcase";
 import TrendingShowcase from "../components/landing/TrendingShowcase";
 import SchedulerShowcase from "../components/landing/SchedulerShowcase";
 import AIFeatures from "../components/landing/AIFeatures";
-import PlatformShowcase from "../components/landing/PlatformShowcase";
+
 import Benefits from "../components/landing/Benefits";
 import FAQ from "../components/landing/FAQ";
 import FinalCTA from "../components/landing/FinalCTA";
@@ -31,7 +31,7 @@ export default function HomePage() {
         <TrendingShowcase />
         <SchedulerShowcase />
         <AIFeatures />
-        <PlatformShowcase />
+
         <Benefits />
         <FAQ />
         <FinalCTA />

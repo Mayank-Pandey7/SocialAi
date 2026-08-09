@@ -119,7 +119,7 @@ export default function GeneratorShowcase() {
         <div className="sai-generator-grid">
           {/* LEFT: Text & Editorial Features */}
           <div className="generator-text-col">
-            <span className="sai-eyebrow">AI Copywriter Engine</span>
+
             <h2 className="sai-section-title text-left">Turn ideas into content with AI.</h2>
             <p className="sai-section-sub text-left">
               Describe what you want to say and NEYRIX AI creates platform-ready content in seconds.
