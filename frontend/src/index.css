@@ -2,22 +2,22 @@
 
 /* ── Dark Theme (default) ── */
 :root {
-    --bg-primary: #0a1212;
-    --bg-secondary: #0f1f1f;
-    --bg-card: #132424;
-    --bg-hover: #172d2d;
-    --border: #1f3d3d;
-    --accent: #0d9488;
-    --accent-light: #2dd4bf;
-    --accent-glow: rgba(13, 148, 136, 0.15);
+    --bg-primary: #000000;
+    --bg-secondary: #050508;
+    --bg-card: #09090b;
+    --bg-hover: #121216;
+    --border: #18181b;
+    --accent: #6d5dfb;
+    --accent-light: #8c85ff;
+    --accent-glow: rgba(109, 93, 251, 0.15);
     --green: #22c55e;
     --red: #ef4444;
     --yellow: #f59e0b;
-    --text-primary: #e0f2f1;
-    --text-secondary: #7fa9a6;
-    --text-muted: #4a7370;
-    --gradient: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-    --shadow: 0 4px 24px rgba(0,0,0,0.4);
+    --text-primary: #ffffff;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+    --gradient: linear-gradient(135deg, #6d5dfb 0%, #5b4af7 100%);
+    --shadow: 0 4px 24px rgba(0,0,0,0.8);
 }
 
 /* ── Light Theme ── */

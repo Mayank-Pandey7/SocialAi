@@ -34,7 +34,6 @@ export default function Navbar() {
           <a href="#content-generator">AI Generator</a>
           <a href="#platforms">Platforms</a>
           <a href="#analytics">Analytics</a>
-          <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
         </div>
 
@@ -72,7 +71,6 @@ export default function Navbar() {
           <a href="#content-generator" onClick={() => setMobileMenuOpen(false)}>AI Generator</a>
           <a href="#platforms" onClick={() => setMobileMenuOpen(false)}>Platforms</a>
           <a href="#analytics" onClick={() => setMobileMenuOpen(false)}>Analytics</a>
-          <a href="#pricing" onClick={() => setMobileMenuOpen(false)}>Pricing</a>
           <a href="#faq" onClick={() => setMobileMenuOpen(false)}>FAQ</a>
           <div className="mobile-btn-group">
             <Link to="/login" className="sai-mobile-login" onClick={() => setMobileMenuOpen(false)}>Log in</Link>

@@ -6,7 +6,6 @@ const NAV_ITEMS = [
   { id: "platforms", label: "Platforms" },
   { id: "analytics", label: "Analytics" },
   { id: "ai-features", label: "AI Features" },
-  { id: "pricing", label: "Pricing" },
   { id: "faq", label: "FAQ" },
 ];
 

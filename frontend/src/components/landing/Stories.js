@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight, faUsers, faRocket, faBuilding, faCode } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faRocket, faBuilding, faCode } from "@fortawesome/free-solid-svg-icons";
 
 const STORIES = [
   {
@@ -10,7 +10,10 @@ const STORIES = [
     icon: faUsers,
     stats: "3.5x More Weekly Posts",
     tag: "Solo Creators",
-    bgGradient: "linear-gradient(135deg, rgba(109,93,251,0.12) 0%, rgba(59,130,246,0.08) 100%)",
+    solidColor: "#1E1B4B",
+    borderColor: "#4338CA",
+    accentTextColor: "#A5B4FC",
+    badgeBg: "#312E81",
   },
   {
     category: "Growing Startup",
@@ -19,7 +22,10 @@ const STORIES = [
     icon: faRocket,
     stats: "+142% Organic Traffic",
     tag: "SaaS & Tech",
-    bgGradient: "linear-gradient(135deg, rgba(34,197,94,0.12) 0%, rgba(16,185,129,0.08) 100%)",
+    solidColor: "#064E3B",
+    borderColor: "#059669",
+    accentTextColor: "#6EE7B7",
+    badgeBg: "#065F46",
   },
   {
     category: "Marketing Agency",
@@ -28,7 +34,10 @@ const STORIES = [
     icon: faBuilding,
     stats: "15+ Hours Saved / Week",
     tag: "Agencies",
-    bgGradient: "linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(234,179,8,0.08) 100%)",
+    solidColor: "#78350F",
+    borderColor: "#D97706",
+    accentTextColor: "#FCD34D",
+    badgeBg: "#92400E",
   },
   {
     category: "Developer / Founder",
@@ -37,7 +46,10 @@ const STORIES = [
     icon: faCode,
     stats: "98/100 Viral Index",
     tag: "Dev Founders",
-    bgGradient: "linear-gradient(135deg, rgba(168,85,247,0.12) 0%, rgba(147,51,234,0.08) 100%)",
+    solidColor: "#581C87",
+    borderColor: "#9333EA",
+    accentTextColor: "#E9D5FF",
+    badgeBg: "#6B21A8",
   },
 ];
 
@@ -53,27 +65,31 @@ export default function Stories() {
           </p>
         </div>
 
-        {/* Story Cards Grid */}
+        {/* Story Cards Grid with Solid Eye-Catching Colors */}
         <div className="sai-stories-grid">
           {STORIES.map((story) => (
             <div
               key={story.category}
               className="sai-story-card"
-              style={{ background: story.bgGradient }}
+              style={{
+                backgroundColor: story.solidColor,
+                border: `2px solid ${story.borderColor}`,
+                color: "#FFFFFF",
+              }}
             >
               <div className="story-card-top">
-                <div className="story-icon">
+                <div className="story-icon" style={{ backgroundColor: story.badgeBg, color: story.accentTextColor, border: `1px solid ${story.borderColor}` }}>
                   <FontAwesomeIcon icon={story.icon} />
                 </div>
-                <span className="story-tag">{story.tag}</span>
+                <span className="story-tag" style={{ backgroundColor: story.badgeBg, color: story.accentTextColor, padding: "0.25rem 0.65rem", borderRadius: "12px", border: `1px solid ${story.borderColor}` }}>{story.tag}</span>
               </div>
 
-              <span className="story-category">{story.category}</span>
-              <h3 className="story-title">{story.title}</h3>
-              <p className="story-desc">{story.desc}</p>
+              <span className="story-category" style={{ color: story.accentTextColor }}>{story.category}</span>
+              <h3 className="story-title" style={{ color: "#FFFFFF" }}>{story.title}</h3>
+              <p className="story-desc" style={{ color: "#E4E4E7" }}>{story.desc}</p>
 
-              <div className="story-card-bottom">
-                <span className="story-stats">⚡ {story.stats}</span>
+              <div className="story-card-bottom" style={{ borderColor: story.borderColor }}>
+                <span className="story-stats" style={{ color: story.accentTextColor }}>⚡ {story.stats}</span>
               </div>
             </div>
           ))}

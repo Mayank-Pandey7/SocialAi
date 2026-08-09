@@ -27,7 +27,6 @@ export default function Footer() {
             <a href="#analytics">Analytics Workspace</a>
             <a href="#how-it-works">Smart Calendar</a>
             <a href="#ai-features">Trend Discovery</a>
-            <a href="#pricing">Pricing Plans</a>
           </div>
 
           {/* Links Column 2: Platform */}

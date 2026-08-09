@@ -13,7 +13,6 @@ import SchedulerShowcase from "../components/landing/SchedulerShowcase";
 import AIFeatures from "../components/landing/AIFeatures";
 import PlatformShowcase from "../components/landing/PlatformShowcase";
 import Benefits from "../components/landing/Benefits";
-import Pricing from "../components/landing/Pricing";
 import FAQ from "../components/landing/FAQ";
 import FinalCTA from "../components/landing/FinalCTA";
 import Footer from "../components/landing/Footer";
@@ -36,7 +35,6 @@ export default function HomePage() {
         <AIFeatures />
         <PlatformShowcase />
         <Benefits />
-        <Pricing />
         <FAQ />
         <FinalCTA />
       </main>
@@ -65,12 +63,14 @@ export default function HomePage() {
         }
 
         body.dark, body.dark-mode {
-          --sai-bg: #060912;
-          --sai-bg-alt: #0b0f19;
-          --sai-text-primary: #f9fafb;
-          --sai-text-secondary: #9ca3af;
-          --sai-text-muted: #6b7280;
-          --sai-border: #1f2937;
+          --sai-bg: #000000;
+          --sai-bg-alt: #050508;
+          --sai-dark-bg: #000000;
+          --sai-dark-card: #09090b;
+          --sai-text-primary: #ffffff;
+          --sai-text-secondary: #a1a1aa;
+          --sai-text-muted: #71717a;
+          --sai-border: #18181b;
         }
 
         body.light, body.light-mode {
