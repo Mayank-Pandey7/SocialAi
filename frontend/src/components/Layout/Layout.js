@@ -146,7 +146,7 @@ export default function Layout() {
 
 const styles = {
   wrapper:      { display: 'flex', minHeight: '100vh', background: 'var(--bg-primary)' },
-  mobileTopBar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', height: 56, background: 'rgba(15, 23, 42, 0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderBottom: '1px solid var(--border)', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 150 },
+  mobileTopBar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', height: 56, background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderBottom: 'none', position: 'fixed', top: 0, left: 0, right: 0, zIndex: 150 },
   hamburger:    { background: 'transparent', border: 'none', color: 'var(--text-primary)', fontSize: '1.1rem', cursor: 'pointer', padding: '0.5rem' },
   iconBtn:      { background: 'transparent', border: 'none', cursor: 'pointer', fontSize: '1rem', padding: '0.4rem', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 },
   overlay:      { position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 150 },
@@ -158,7 +158,7 @@ const styles = {
   navLink:      { display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.7rem 1rem', textDecoration: 'none', transition: 'all 0.15s', borderRadius: '0 8px 8px 0', margin: '0.1rem 0' },
   userFooter:   { display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '1rem', borderTop: '1px solid var(--border)' },
   main:         { flex: 1, overflowY: 'auto', minWidth: 0 },
-  bottomNav:    { display: 'none', position: 'fixed', bottom: 0, left: 0, right: 0, height: 60, background: 'rgba(15, 23, 42, 0.8)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderTop: '1px solid var(--border)', zIndex: 100 },
+  bottomNav:    { display: 'none', position: 'fixed', bottom: 0, left: 0, right: 0, height: 60, background: 'rgba(15, 23, 42, 0.85)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', borderTop: '1px solid var(--border)', zIndex: 100 },
   bottomNavItem:{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', flex: 1, textDecoration: 'none', transition: 'color 0.15s', padding: '0.25rem 0' },
   container:    { width: '100%', maxWidth: '1200px', margin: '0 auto', padding: '1.5rem' },
   logo:         { display: 'flex', alignItems: 'center', gap: '0.4rem' },
