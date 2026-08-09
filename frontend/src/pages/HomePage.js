@@ -1699,11 +1699,76 @@ export default function HomePage() {
 
         .sai-footer-bottom a { color: var(--sai-text-primary); text-decoration: none; font-weight: 600; }
 
+        /* ── Master Mobile Responsiveness Overrides ── */
         @media (max-width: 992px) {
           .sai-footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+          .sai-generator-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+          .ai-feature-block, .ai-feature-block.reverse { grid-template-columns: 1fr; gap: 2rem; direction: ltr !important; }
+          .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+          .analytics-metrics-grid { grid-template-columns: repeat(2, 1fr); }
+          .sai-stories-grid { grid-template-columns: repeat(2, 1fr); }
+          .platforms-cards-grid { grid-template-columns: repeat(2, 1fr); }
+          .benefits-editorial-grid { grid-template-columns: repeat(2, 1fr); }
+          .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+          .sai-mock-body { grid-template-columns: 1fr; }
+          .sai-floating-pill { display: none; }
+          .sai-hero-section { padding-top: 8.5rem; }
         }
+
+        @media (max-width: 768px) {
+          .sai-navbar {
+            top: 10px;
+            width: calc(100% - 1.25rem);
+            padding: 0 0.85rem;
+            height: 58px;
+          }
+          .sai-brand-name { font-size: 1.1rem; }
+          .sai-badge-v2 { display: none; }
+          .sai-hero-section { padding: 7.5rem 1rem 3rem; }
+          .sai-hero-headline { font-size: clamp(2rem, 8vw, 3rem); line-height: 1.15; }
+          .sai-hero-subtitle { font-size: 0.98rem; margin-bottom: 1.75rem; }
+          .sai-hero-ctas { flex-direction: column; width: 100%; gap: 0.75rem; }
+          .sai-hero-cta-primary, .sai-hero-cta-secondary { width: 100%; justify-content: center; text-align: center; box-sizing: border-box; }
+          .trending-grid { grid-template-columns: 1fr; }
+          .sai-sticky-section-nav { top: 74px; width: calc(100% - 1rem); padding: 0.5rem 0.75rem; border-radius: 20px; }
+          .section-nav-item { font-size: 0.8rem; padding: 0.35rem 0.85rem; }
+          .sai-section-title { font-size: clamp(1.75rem, 6vw, 2.5rem); }
+          .sai-section-header { margin-bottom: 2.5rem; }
+          .sai-mock-window { border-radius: 14px; }
+          .sai-mock-body { padding: 1rem; }
+          .sai-mock-panel { padding: 1rem; }
+          .metrics-grid { grid-template-columns: 1fr 1fr; }
+          .analytics-chart-wrap { height: 230px; }
+          .sai-analytics-big-card { padding: 1.25rem; }
+          .multi-platform-card { padding: 1.25rem; }
+          .scheduler-calendar-card { padding: 1.25rem; }
+          .app-controls { grid-template-columns: 1fr; }
+          .chip-row { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.25rem; }
+          .multi-platform-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.4rem; }
+          .platform-tab-btn { flex-shrink: 0; padding: 0.55rem 1.1rem; font-size: 0.85rem; }
+          .final-cta-card { padding: 3rem 1.25rem; border-radius: 18px; }
+          .final-cta-title { font-size: clamp(1.8rem, 6vw, 2.6rem); }
+          .final-cta-btn-group { flex-direction: column; width: 100%; }
+          .sai-btn-primary-large, .sai-btn-outline-large { width: 100%; justify-content: center; }
+        }
+
         @media (max-width: 640px) {
-          .sai-footer-grid { grid-template-columns: 1fr; }
+          .sai-stories-grid { grid-template-columns: 1fr; }
+          .platforms-cards-grid { grid-template-columns: 1fr; }
+          .benefits-editorial-grid { grid-template-columns: 1fr; }
+          .calendar-grid { grid-template-columns: 1fr; }
+          .sai-footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+          .metrics-grid { grid-template-columns: 1fr; }
+          .analytics-metrics-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 480px) {
+          .analytics-metrics-grid { grid-template-columns: 1fr; }
+          .panel-row { grid-template-columns: 1fr; }
+          .app-input-bar { flex-direction: column; }
+          .generate-btn { width: 100%; }
+          .output-footer { flex-direction: column; gap: 0.5rem; }
+          .action-btn { width: 100%; text-align: center; justify-content: center; }
         }
       `}</style>
     </div>
