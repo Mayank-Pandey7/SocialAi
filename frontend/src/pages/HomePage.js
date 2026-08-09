@@ -440,11 +440,11 @@ export default function HomePage() {
         .sai-hero-section {
           padding: 11rem 1.5rem 4rem;
           text-align: center;
-          background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.16) 0%, rgba(59, 130, 246, 0.09) 40%, rgba(238, 242, 255, 0.4) 65%, transparent 80%), var(--sai-bg);
+          background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.18) 0%, rgba(59, 130, 246, 0.10) 40%, rgba(238, 242, 255, 0.4) 65%, transparent 80%), var(--sai-bg);
         }
 
         body.dark .sai-hero-section, body.dark-mode .sai-hero-section {
-          background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.25) 0%, rgba(109, 93, 251, 0.16) 40%, transparent 75%), #000000 !important;
+          background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.07) 40%, transparent 75%), #000000 !important;
         }
 
         .sai-hero-container {
