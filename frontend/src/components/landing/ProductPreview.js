@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -57,9 +56,7 @@ export default function ProductPreview() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
+      legend: { display: false },
       tooltip: {
         backgroundColor: "#0F172A",
         titleColor: "#94A3B8",
@@ -93,7 +90,7 @@ export default function ProductPreview() {
               <span className="dot green"></span>
             </div>
             <div className="sai-window-title">
-              <span className="sparkle">✨</span> NEYRIX AI Dashboard — Content & Performance Workspace
+              <span className="sparkle">✨</span> NEYRIX AI Demo — Workspace & Content Engine
             </div>
             <div className="sai-window-status">
               <span className="live-dot"></span> Live Demo
