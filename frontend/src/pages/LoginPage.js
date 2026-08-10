@@ -1,16 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { useTheme } from "../context/ThemeContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
 import { Mail, Lock, Eye, EyeOff, ArrowLeft, KeyRound, Sparkles, X } from "lucide-react";
 import toast from "react-hot-toast";
-import HomePage from "./HomePage";
 import "./AuthPages.css";
 
 export default function LoginPage() {
-  const { isDark, toggleTheme } = useTheme();
   const [step, setStep] = useState("email"); // "email" | "password" | "otp"
   const [loginMethod, setLoginMethod] = useState("otp"); // "otp" | "password"
   const [email, setEmail] = useState("");
@@ -182,10 +177,8 @@ export default function LoginPage() {
 
   return (
     <div className="auth-page">
-      {/* Blurred Home Page Background */}
-      <div className="auth-landing-bg">
-        <HomePage />
-      </div>
+      {/* Pure CSS backdrop — real HomePage stays mounted in the router behind us */}
+      <div className="auth-landing-bg" />
 
       {/* Modal Overlay Layer */}
       <div className="auth-modal-overlay">

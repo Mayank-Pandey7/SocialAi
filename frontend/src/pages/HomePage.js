@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+// Clean landing page layout with 60fps logo travel animation
 import Navbar from "../components/landing/Navbar";
 import Hero from "../components/landing/Hero";
 import ProductPreview from "../components/landing/ProductPreview";
@@ -17,11 +18,133 @@ import FinalCTA from "../components/landing/FinalCTA";
 import Footer from "../components/landing/Footer";
 
 export default function HomePage() {
+  const [isTraveling, setIsTraveling] = useState(false);
+  const [isDocked, setIsDocked] = useState(false);
+  const [travelProgress, setTravelProgress] = useState(0);
+
+  const heroLogoRef = useRef(null);
+  const navLogoRef = useRef(null);
+  const travelLogoRef = useRef(null);
+
+  const isTravelingRef = useRef(false);
+  const isDockedRef = useRef(false);
+  const isUpdatingRef = useRef(false);
+
+  const updateLogoAnimation = useCallback(() => {
+    if (!heroLogoRef.current || !navLogoRef.current) return;
+
+    const heroRect = heroLogoRef.current.getBoundingClientRect();
+    const navRect = navLogoRef.current.getBoundingClientRect();
+
+    const scrollY = window.scrollY;
+    const initialHeroY = heroRect.top + scrollY;
+    const navY = navRect.top;
+    const threshold = Math.max(500, (initialHeroY - navY) * 1.65);
+
+    // Smooth quadratic ease for organic curved movement
+    const rawProgress = Math.min(1, Math.max(0, scrollY / threshold));
+    const p =
+      rawProgress < 0.5
+        ? 2 * rawProgress * rawProgress
+        : 1 - Math.pow(-2 * rawProgress + 2, 2) / 2;
+
+    const currentlyTraveling = rawProgress > 0.005 && rawProgress < 0.98;
+    const currentlyDocked = rawProgress >= 0.98;
+
+    // Throttle React state updates to prevent re-render layout jitter during scroll
+    if (isTravelingRef.current !== (rawProgress > 0.005)) {
+      isTravelingRef.current = rawProgress > 0.005;
+      setIsTraveling(rawProgress > 0.005);
+    }
+
+    if (isDockedRef.current !== currentlyDocked) {
+      isDockedRef.current = currentlyDocked;
+      setIsDocked(currentlyDocked);
+      setTravelProgress(currentlyDocked ? 1 : p);
+    } else if (!currentlyDocked) {
+      setTravelProgress(p);
+    }
+
+    if (travelLogoRef.current) {
+      // Subtle 3D parabolic trajectory arc curve (-24px lift)
+      const arcLift = Math.sin(p * Math.PI) * -24;
+
+      // Start coordinates (Hero title viewport center)
+      const startX = heroRect.left + heroRect.width / 2;
+      const startY = heroRect.top + heroRect.height / 2;
+
+      // Target coordinates (Navbar logo destination viewport center)
+      const targetX = navRect.left + navRect.width / 2;
+      const targetY = navRect.top + navRect.height / 2;
+
+      // Smooth curved arc coordinates (X, Y)
+      const currentX = startX + (targetX - startX) * p;
+      const currentY = startY + (targetY - startY) * p + arcLift;
+
+      // Font size scaling: from Hero size down to Navbar logo font size (~32px)
+      const heroFontSize = parseFloat(window.getComputedStyle(heroLogoRef.current).fontSize) || 120;
+      const targetFontSize = Math.max(28, Math.min(36, window.innerWidth * 0.025));
+      const currentFontSize = heroFontSize + (targetFontSize - heroFontSize) * p;
+
+      // Direct zero-jitter GPU compositor style updates
+      const style = travelLogoRef.current.style;
+      style.position = "fixed";
+      style.left = `${currentX}px`;
+      style.top = `${currentY}px`;
+      style.transform = "translate(-50%, -50%)";
+      style.fontSize = `${currentFontSize}px`;
+      style.fontWeight = "900";
+      style.fontFamily = "'Space Grotesk', -apple-system, sans-serif";
+      style.letterSpacing = "0.08em";
+      style.lineHeight = "1";
+      style.color = "#ffffff";
+      style.textTransform = "uppercase";
+      style.whiteSpace = "nowrap";
+      style.zIndex = "120";
+      style.pointerEvents = "none";
+      style.opacity = currentlyTraveling ? "1" : "0";
+      style.background = "none";
+      style.webkitTextFillColor = "#ffffff";
+      style.filter = `drop-shadow(0 ${15 - 10 * p}px ${35 - 20 * p}px rgba(0, 0, 0, ${0.95 - 0.4 * p}))`;
+    }
+  }, []);
+
+  useEffect(() => {
+    let animationFrameId;
+
+    const onScrollOrResize = () => {
+      if (!isUpdatingRef.current) {
+        isUpdatingRef.current = true;
+        animationFrameId = requestAnimationFrame(() => {
+          updateLogoAnimation();
+          isUpdatingRef.current = false;
+        });
+      }
+    };
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
+    updateLogoAnimation();
+
+    return () => {
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    };
+  }, [updateLogoAnimation]);
+
   return (
     <div className="neyrix-landing-page">
-      <Navbar />
+      <Navbar navLogoRef={navLogoRef} isDocked={isDocked} travelProgress={travelProgress} />
+
+      {/* Dynamic Zero-Jitter Scroll-Linked Traveling Logo Element */}
+      <h1 className="universal-hero-title neyrix-traveling-logo" ref={travelLogoRef}>
+        NEYRIX AI
+      </h1>
+
       <main className="neyrix-landing-content">
-        <Hero />
+        <Hero heroLogoRef={heroLogoRef} isTraveling={isTraveling} />
         <ProductPreview />
         <Stories />
         <HowItWorks />
@@ -42,32 +165,31 @@ export default function HomePage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Playpen+Sans:wght@100..800&display=swap');
 
-        :root {
-          --sai-bg: #ffffff;
-          --sai-bg-alt: #f8fafc;
-          --sai-dark-bg: #0b0b0f;
-          --sai-dark-card: #141721;
-          --sai-text-primary: #111827;
-          --sai-text-secondary: #4b5563;
-          --sai-text-muted: #6b7280;
+        :root, body, body.light, body.light-mode, body.dark, body.dark-mode {
+          --sai-bg: #000000 !important;
+          --sai-bg-alt: #050508 !important;
+          --sai-dark-bg: #000000 !important;
+          --sai-dark-card: #0c0d14 !important;
+          --sai-text-primary: #ffffff !important;
+          --sai-text-secondary: #a1a1aa !important;
+          --sai-text-muted: #71717a !important;
           --sai-accent: #6d5dfb;
           --sai-accent-hover: #5b4af7;
           --sai-accent-secondary: #3b82f6;
-          --sai-accent-soft: #eef2ff;
-          --sai-border: #e5e7eb;
+          --sai-accent-soft: rgba(109, 93, 251, 0.15);
+          --sai-border: #1e293b;
           --sai-dark-border: #1e293b;
           --sai-font-sans: 'Playpen Sans', cursive, sans-serif;
           --sai-font-display: 'Libre Caslon Text', 'Crimson Pro', Georgia, serif;
+          background-color: #000000 !important;
+          color: #ffffff !important;
         }
 
-        body.dark, body.dark-mode {
-          --sai-bg: #000000;
-          --sai-bg-alt: #000000;
-          --sai-dark-bg: #000000;
-          --sai-dark-card: #08080a;
-          --sai-text-primary: #ffffff;
-          --sai-text-secondary: #a1a1aa;
-          --sai-text-muted: #71717a;
+        .neyrix-landing-page {
+          background-color: #000000 !important;
+          color: #ffffff !important;
+          min-height: 100vh;
+        }
           --sai-border: #18181b;
           --sai-hero-tint: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 40%, transparent 75%);
         }
@@ -465,6 +587,89 @@ export default function HomePage() {
           .mobile-only { display: flex !important; align-items: center; gap: 0.75rem; }
         }
 
+        /* ── NAVBAR MOBILE RESPONSIVENESS ── */
+        @media (max-width: 768px) {
+          .sai-navbar {
+            width: calc(100% - 1.25rem) !important;
+            height: 56px !important;
+            top: 10px !important;
+            padding: 0 0.85rem !important;
+          }
+
+          .nav-docked-title {
+            font-size: clamp(1.2rem, 5.2vw, 1.6rem) !important;
+          }
+
+          .sai-mobile-menu {
+            position: fixed !important;
+            top: 72px !important;
+            width: calc(100% - 1.25rem) !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            background: rgba(10, 10, 15, 0.92) !important;
+            backdrop-filter: blur(20px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 20px !important;
+            padding: 1.25rem !important;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7) !important;
+            z-index: 110 !important;
+          }
+
+          .sai-mobile-menu a {
+            color: #ffffff !important;
+            font-size: 1.05rem !important;
+            font-weight: 600 !important;
+            padding: 0.4rem 0 !important;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+          }
+
+          .sai-mobile-menu-actions {
+            display: flex !important;
+            gap: 0.75rem !important;
+            margin-top: 0.5rem !important;
+          }
+
+          .sai-mobile-menu-actions .sai-login-btn {
+            flex: 1 !important;
+            text-align: center !important;
+            border: 1px solid rgba(255, 255, 255, 0.25) !important;
+            border-radius: 25px !important;
+            color: #ffffff !important;
+            padding: 0.6rem !important;
+          }
+
+          .sai-mobile-menu-actions .sai-get-started-btn {
+            flex: 1 !important;
+            text-align: center !important;
+            justify-content: center !important;
+            padding: 0.6rem !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .sai-navbar {
+            width: calc(100% - 0.85rem) !important;
+            height: 52px !important;
+            padding: 0 0.65rem !important;
+          }
+
+          .nav-docked-title {
+            font-size: clamp(1.1rem, 5vw, 1.4rem) !important;
+          }
+
+          .sai-mobile-hamburger {
+            width: 34px !important;
+            height: 34px !important;
+            font-size: 0.95rem !important;
+          }
+
+          .sai-theme-toggle-btn {
+            width: 34px !important;
+            height: 34px !important;
+          }
+        }
+
         /* ── 2. EXACT SAPFORCE DRIBBLE-STYLE 3D HERO SECTION (SOLID BLACK) ── */
         .sap-hero-section {
           padding: 7.5rem 1.5rem 2.5rem;
@@ -553,17 +758,13 @@ export default function HomePage() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          gap: 0.04em;
           margin: 0;
-          padding: 0 1rem;
+          padding: 0;
           user-select: none;
-          
-          /* Clean Crisp Metallic White Typography */
-          background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, #e2e8f0 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          
-          /* Backdrop Contrast Shadow Only (No 3D Bevels) */
+          color: #ffffff !important;
+          background: none !important;
+          background-color: transparent !important;
+          -webkit-text-fill-color: #ffffff !important;
           filter: drop-shadow(0 15px 35px rgba(0, 0, 0, 0.95));
         }
 

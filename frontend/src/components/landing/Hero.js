@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Play } from "lucide-react";
 
-export default function Hero() {
+export default function Hero({ heroLogoRef, isTraveling }) {
   return (
     <section className="sap-hero-section">
       {/* Full Background Video Layer */}
@@ -18,18 +18,17 @@ export default function Hero() {
         <div className="sap-bg-video-overlay" />
       </div>
 
-      {/* Title Stage */}
+      {/* Hero Title Stage (Measurement Origin Anchor) */}
       <div className="universal-title-stage">
-        <h1 className="universal-hero-title">
-          <span className="char">N</span>
-          <span className="char">E</span>
-          <span className="char">Y</span>
-          <span className="char">R</span>
-          <span className="char">I</span>
-          <span className="char">X</span>
-          <span className="char space">&nbsp;</span>
-          <span className="char">A</span>
-          <span className="char">I</span>
+        <h1
+          className="universal-hero-title"
+          ref={heroLogoRef}
+          style={{
+            visibility: isTraveling ? "hidden" : "visible",
+            color: "#ffffff"
+          }}
+        >
+          NEYRIX AI
         </h1>
       </div>
 

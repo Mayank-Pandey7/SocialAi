@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// Main App router configuration with clean HMR module resolution
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { ThemeProvider } from './context/ThemeContext';
@@ -27,20 +28,39 @@ const ProtectedLayout = () => {
 
 function AppRoutes() {
   const { user } = useAuth();
+  const location = useLocation();
+
+  // Modal routes — these overlay on top of HomePage without unmounting it
+  const isAuthModal = location.pathname === "/login" || location.pathname === "/register";
+
+  if (user) {
+    return (
+      <Routes>
+        <Route element={<ProtectedLayout />}>
+          <Route path="dashboard"  element={<Dashboard />} />
+          <Route path="generator"  element={<Generator />} />
+          <Route path="trending"   element={<Trending />} />
+          <Route path="analyzer"   element={<Analyzer />} />
+          <Route path="scheduler"  element={<Scheduler />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Routes>
+    );
+  }
+
   return (
-    <Routes>
-      <Route path="/"         element={user ? <Navigate to="/dashboard" replace /> : <HomePage />} />
-      <Route path="/login"    element={user ? <Navigate to="/dashboard" replace /> : <LoginPage />} />
-      <Route path="/register" element={user ? <Navigate to="/dashboard" replace /> : <RegisterPage />} />
-      <Route element={<ProtectedLayout />}>
-        <Route path="dashboard"  element={<Dashboard />} />
-        <Route path="generator"  element={<Generator />} />
-        <Route path="trending"   element={<Trending />} />
-        <Route path="analyzer"   element={<Analyzer />} />
-        <Route path="scheduler"  element={<Scheduler />} />
-      </Route>
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+    <>
+      {/* HomePage always stays mounted — never unmounts during auth modal navigation */}
+      <HomePage />
+
+      {/* Auth modal overlaid on top of the live scrolled homepage */}
+      {isAuthModal && (
+        <Routes>
+          <Route path="/login"    element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      )}
+    </>
   );
 }
 
