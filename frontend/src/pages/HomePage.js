@@ -95,7 +95,7 @@ export default function HomePage() {
       style.fontSize = `${currentFontSize}px`;
       style.fontWeight = "900";
       style.fontFamily = "'Space Grotesk', -apple-system, sans-serif";
-      style.letterSpacing = "0.08em";
+      style.letterSpacing = "0.03em";
       style.lineHeight = "1";
       style.color = "#ffffff";
       style.textTransform = "uppercase";
@@ -712,10 +712,11 @@ export default function HomePage() {
         .sap-bg-video {
           width: 100%;
           height: 100%;
-          object-fit: cover;
-          object-position: center center;
+          object-fit: contain;
+          object-position: center 60%;
           filter: brightness(0.68) saturate(1.15);
-          transform: scale(1.0);
+          transform: scale(0.90) translateY(6%);
+          transform-origin: center center;
         }
 
         .sap-bg-video-overlay {
@@ -740,7 +741,7 @@ export default function HomePage() {
         /* ── CLEAN METALLIC WHITE TITLE (NO 3D BEVELS OR TILTS) ── */
         .universal-title-stage {
           position: absolute;
-          top: 50%;
+          top: 56%;
           left: 50%;
           transform: translate(-50%, -50%);
           z-index: 10;
@@ -752,8 +753,8 @@ export default function HomePage() {
         .universal-hero-title {
           font-family: 'Space Grotesk', -apple-system, sans-serif;
           font-weight: 900;
-          font-size: clamp(3.8rem, 13.5vw, 12.5rem);
-          letter-spacing: 0.08em;
+          font-size: clamp(3.4rem, 11.5vw, 10.5rem);
+          letter-spacing: 0.03em;
           text-transform: uppercase;
           display: inline-flex;
           align-items: center;
